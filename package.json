@@ -1,0 +1,24 @@
+{
+  "name": "html5",
+  "version": "1.0.0",
+  "description": "an app which automatically generates HTML5 files.",
+  "main": "www/bin",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/answershuto/H5.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Vue.js",
+    "h5"
+  ],
+  "author": "Cao Yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/answershuto/H5/issues"
+  },
+  "homepage": "https://github.com/answershuto/H5#readme"
+}
