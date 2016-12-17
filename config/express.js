@@ -10,6 +10,7 @@ module.exports = function(){
 
 	app.use(bodyParser.json());
 
+	require('../app/routes/h5.server.routes')(app);
 
 	app.use(function(req, res, next){
 		res.status(404);
