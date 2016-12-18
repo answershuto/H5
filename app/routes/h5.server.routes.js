@@ -1,4 +1,4 @@
-var NewsController = require('../controllers/h5.server.controller');
+let NewsController = require('../controllers/h5.server.controller');
 
 module.exports = function(app){
 	app.route('/')
