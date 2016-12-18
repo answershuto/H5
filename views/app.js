@@ -2,6 +2,10 @@
 
 import Vue from 'vue'
 import routes from './routes'
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+
+Vue.use(MuseUI)
 
 const app = new Vue({
 	el: '#app',
@@ -16,8 +20,8 @@ const app = new Vue({
 			: require('./pages/404.vue')
 	}
 	},
-	render (createElement) {
-		return createElement(this.ViewComponent)
+	render (h) {
+		return h(this.ViewComponent)
 	}
 })
 
