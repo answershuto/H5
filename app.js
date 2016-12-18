@@ -1,5 +1,5 @@
-var express = require('./config/express');
+let express = require('./config/express');
 
-var app = express();
+let app = express();
 
 module.exports = app;

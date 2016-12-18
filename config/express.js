@@ -1,9 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+let express = require('express');
+let bodyParser = require('body-parser');
+let config = require('../webpack.config')
+let webpack = require('webpack')
+let webpackDevMiddleware = require('webpack-dev-middleware')
+let webpackHotMiddleware = require('webpack-hot-middleware')
 
 module.exports = function(){
 	console.log('init express..');
-	var app = express();
+	let app = express();
+
+	/*webpack*/
+	let compiler = webpack(config)
+	app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+	app.use(webpackHotMiddleware(compiler));
 
 	app.set('view engine','ejs');
 	app.use(express.static(__dirname+'/../views'));
