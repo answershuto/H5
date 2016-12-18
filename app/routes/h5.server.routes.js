@@ -1,3 +1,5 @@
+'use strict';
+
 let NewsController = require('../controllers/h5.server.controller');
 
 module.exports = function(app){

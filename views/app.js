@@ -1,3 +1,5 @@
+'use strict';
+
 import Vue from 'vue'
 import routes from './routes'
 import Vuex from 'vuex'

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 let app = require('../app')
 let config = require('../config/config');

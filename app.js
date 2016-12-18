@@ -1,3 +1,5 @@
+'use strict';
+
 let express = require('./config/express');
 
 let app = express();
