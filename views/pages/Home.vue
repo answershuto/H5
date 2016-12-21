@@ -1,19 +1,14 @@
 <template>
  	<div class="container">
- 		<div>
- 			<mu-appbar title="Title">
-  <mu-icon-button icon='menu' slot="left"/>
-  <mu-icon-button icon='expand_more' slot="right"/>
-</mu-appbar>
- 		</div>
+ 		<Login></Login>
  	</div>
 </template>
 
 <script>
-
+	import Login from '../layouts/Login.vue'
 	export default {
 		components: {
-		 	
+		 	Login
 		}
 	}
 </script>
