@@ -15,7 +15,6 @@
 
 <style scoped>
 	.container{
-		margin: 0px auto;
-		width: 500px;
+		
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
- 	<div>
+ 	<div class="container">
  		<login-image></login-image>
  		<login-input></login-input>
  	</div>
@@ -17,5 +17,7 @@ import LoginInput from '../components/LoginInput.vue'
 </script>
 
 <style scoped>
-
+	.container{
+		
+	}
 </style>
