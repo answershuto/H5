@@ -7,6 +7,10 @@
 				</div>
 				<mu-text-field class="login-input" label="用户名" v-model="userName" labelFloat/><br/>
 				<mu-text-field class="login-input" label="密码" hintText="密码" type="password" labelFloat/><br/>
+				<div class="div-login-register">
+					<mu-flat-button label="登陆" class="demo-flat-button div-login-register-button" primary/>
+					<mu-flat-button label="注册" class="demo-flat-button div-login-register-button" secondary/>
+				</div>
 			<mu-paper>
 		</div>
  	</div>
@@ -55,6 +59,14 @@
 	.div-h5-icon{
 		float: left;
 		margin-top: 50px;
+		margin-left: 20px;
+	}
+
+	.div-login-register{
+		padding-left: 70px;
+	}
+
+	.div-login-register-button{
 		margin-left: 20px;
 	}
 </style>
