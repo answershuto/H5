@@ -6,9 +6,9 @@
 					<img src="/images/H5.png" width="128" height="128" />
 				</div>
 				<mu-text-field class="login-input" label="用户名" v-model="userName" labelFloat/><br/>
-				<mu-text-field class="login-input" label="密码" hintText="密码" type="password" labelFloat/><br/>
+				<mu-text-field class="login-input" label="密码" v-model="passWord" hintText="密码" type="password" labelFloat/><br/>
 				<div class="div-login-register">
-					<mu-flat-button label="登陆" class="demo-flat-button div-login-register-button" primary/>
+					<mu-flat-button @click="login" label="登陆" class="demo-flat-button div-login-register-button" primary/>
 					<mu-flat-button label="注册" class="demo-flat-button div-login-register-button" secondary/>
 				</div>
 			<mu-paper>
@@ -24,11 +24,34 @@
 				paper_div_style:{
 					"margin-top": '300px'
 				},
-				userName: ""
+				userName: "",
+				passWord: "",
 			}
 		},
 		methods: {
-		 	
+		 	login: function(){
+			 		fetch('/H5/Login',
+						{
+							method:'POST',
+							headers:{ 
+					 			'Accept': 'application/json', 
+					 			'Content-Type': 'application/json'
+							},
+							redentials: 'include',
+							body: JSON.stringify({
+								method: 'futureWeather',
+								params: {
+									userName: this.userName,
+									password: this.password,
+								},
+							})
+						}
+					)
+					.then(response => response.json())
+					.then(d => {
+						console.log(d)
+					})
+			 	}
 		},
 		computed: {
 			
