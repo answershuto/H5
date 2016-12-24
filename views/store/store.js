@@ -1,12 +1,12 @@
 'use strict';
 
 import Vue from 'vue'
-import Vuex from 'vue'
+import Vuex from 'Vuex'
 
 Vue.use(Vuex);
 
 let state = {
-	
+	Route:'/'
 }
 
 let actions = require('./actions/index.js');
