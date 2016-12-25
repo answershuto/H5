@@ -9,7 +9,7 @@
 				<mu-text-field class="login-input" label="密码" v-model="passWord" hintText="密码" type="password" labelFloat/><br/>
 				<div class="div-login-register">
 					<mu-flat-button @click="login" label="登陆" class="demo-flat-button div-login-register-button" primary/>
-					<mu-flat-button label="注册" class="demo-flat-button div-login-register-button" secondary/>
+					<mu-flat-button @click="register" label="注册" class="demo-flat-button div-login-register-button" secondary/>
 				</div>
 			<mu-paper>
 		</div>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 	export default {
 		data () {
 			return {
@@ -29,29 +28,32 @@
 			}
 		},
 		methods: {
-		 	login: function(){
-			 		fetch('/H5/Login',
-						{
-							method:'POST',
-							headers:{ 
-					 			'Accept': 'application/json', 
-					 			'Content-Type': 'application/json'
+		 	login(){
+		 		fetch('/H5/Login',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						redentials: 'include',
+						body: JSON.stringify({
+							method: 'futureWeather',
+							params: {
+								userName: this.userName,
+								password: this.password,
 							},
-							redentials: 'include',
-							body: JSON.stringify({
-								method: 'futureWeather',
-								params: {
-									userName: this.userName,
-									password: this.password,
-								},
-							})
-						}
-					)
-					.then(response => response.json())
-					.then(d => {
-						console.log(d)
-					})
-			 	}
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					console.log(d)
+				})
+		 	},
+		 	register(){
+		 		this.$store.commit('setRoute','register');
+		 	}
 		},
 		computed: {
 			
