@@ -52,7 +52,7 @@
 				})
 		 	},
 		 	register(){
-		 		this.$store.commit('setRoute','register');
+		 		this.$store.commit('setRoute','/Register');
 		 	}
 		},
 		computed: {

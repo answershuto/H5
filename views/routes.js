@@ -2,4 +2,5 @@
 
 export default {
   '/': 'Home',
+  '/Register': 'Register',
 }
