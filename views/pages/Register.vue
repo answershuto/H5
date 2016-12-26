@@ -47,6 +47,13 @@
 					return;
 				}
 
+				/*验证邮箱格式*/
+				var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				if (!filter.test(this.eMail)) {
+					this.msgAlert('邮箱格式有误，请确认');
+					return;
+				}
+
 				if (this.password !== this.SurePassword) {
 					this.msgAlert('密码不一致，请重新输入');
 					return;
