@@ -26,7 +26,7 @@
 
 			},
 			cancel(){
-
+				this.$store.commit('setRoute','/');
 			}
 		}
 	}
