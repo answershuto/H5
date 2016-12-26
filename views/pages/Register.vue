@@ -8,6 +8,9 @@
 			<mu-flat-button @click="register" label="确认注册" class="div-register-botton" primary/>
 			<mu-flat-button @click="cancel" label="取消" class="div-register-botton" secondary/>
 		</div>
+		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
+			{{message}}
+		</mu-popup>
  	</div>
 </template>
 
@@ -19,14 +22,69 @@
 				password: "",
 				SurePassword: "",
 				eMail: "",
+				topPopup: false,
+				message: "",
 			}
 		},
 		methods:{
+			msgAlert(msg){
+				this.message = msg;
+				this.topPopup = true;
+			},
 			register(){
+				if (this.userName === "") {
+					this.msgAlert('用户名不能为空');
+					return;
+				}
 
+				if (this.password === "" || this.SurePassword === "") {
+					this.msgAlert('密码不能为空');
+					return;
+				}
+
+				if (this.eMail === "") {
+					this.msgAlert('邮箱不能为空');
+					return;
+				}
+
+				if (this.password !== this.SurePassword) {
+					this.msgAlert('密码不一致，请重新输入');
+					return;
+				}
+
+				fetch('/H5/Register',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						redentials: 'include',
+						body: JSON.stringify({
+							method: 'futureWeather',
+							params: {
+								userName: this.userName,
+								password: this.password,
+							},
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					console.log(d)
+				})
 			},
 			cancel(){
 				this.$store.commit('setRoute','/');
+			},
+		},
+		watch: {
+			topPopup(val){
+				if (val) {
+					setTimeout(() => {
+						this.topPopup = false;
+					}, 2500);
+				}
 			}
 		}
 	}
@@ -45,5 +103,19 @@
 
 	.div-register-botton{
 		margin-left: 30px;
+	}
+
+</style>
+
+<style lang="css">
+	.popup-top {
+		width: 100%;
+		opacity: .8;
+		height: 48px;
+		line-height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 375px;
 	}
 </style>
