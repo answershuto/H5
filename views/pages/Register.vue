@@ -1,8 +1,8 @@
 <template>
  	<div class="container" :style="center">
  		<mu-text-field class="" label="用户名" v-model="userName" fullWidth labelFloat/><br/>
- 		<mu-text-field class="" label="密码" v-model="password" fullWidth labelFloat/><br/>
- 		<mu-text-field class="" label="确认密码" v-model="SurePassword" fullWidth labelFloat/><br/>
+ 		<mu-text-field class="" label="密码" v-model="password" type="password" fullWidth labelFloat/><br/>
+ 		<mu-text-field class="" label="确认密码" v-model="SurePassword" type="password" fullWidth labelFloat/><br/>
  		<mu-text-field class="" label="电子邮箱" v-model="eMail" fullWidth labelFloat/><br/>
  		<div class="div-register-sure">
 			<mu-flat-button @click="register" label="确认注册" class="div-register-botton" primary/>
