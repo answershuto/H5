@@ -1,16 +1,18 @@
 <template>
- 	<div class="container" :style="center">
- 		<mu-text-field class="" label="用户名" v-model="userName" fullWidth labelFloat/><br/>
- 		<mu-text-field class="" label="密码" v-model="password" type="password" fullWidth labelFloat/><br/>
- 		<mu-text-field class="" label="确认密码" v-model="SurePassword" type="password" fullWidth labelFloat/><br/>
- 		<mu-text-field class="" label="电子邮箱" v-model="eMail" fullWidth labelFloat/><br/>
- 		<div class="div-register-sure">
-			<mu-flat-button @click="register" label="确认注册" class="div-register-botton" primary/>
-			<mu-flat-button @click="cancel" label="取消" class="div-register-botton" secondary/>
-		</div>
-		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
-			{{message}}
-		</mu-popup>
+ 	<div class="container">
+ 		<div class="div-register">
+	 		<mu-text-field class="" label="用户名" v-model="userName" fullWidth labelFloat/><br/>
+	 		<mu-text-field class="" label="密码" v-model="password" type="password" fullWidth labelFloat/><br/>
+	 		<mu-text-field class="" label="确认密码" v-model="SurePassword" type="password" fullWidth labelFloat/><br/>
+	 		<mu-text-field class="" label="电子邮箱" v-model="eMail" fullWidth labelFloat/><br/>
+	 		<div class="div-register-sure">
+				<mu-flat-button @click="register" label="确认注册" class="div-register-botton" primary/>
+				<mu-flat-button @click="cancel" label="取消" class="div-register-botton" secondary/>
+			</div>
+			<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
+				{{message}}
+			</mu-popup>
+	 	</div>
  	</div>
 </template>
 
@@ -86,11 +88,7 @@
 			},
 		},
 		computed: {
-			center(){
-				return {
-					'margin-top': (document.body.clientHeight / 3) + 'px',
-				}
-			}
+			
 		},
 		watch: {
 			topPopup(val){
@@ -108,6 +106,14 @@
 	.container{
 		margin: 0px auto;
 		width: 500px;
+	}
+
+	.div-register{
+		position: absolute; 
+		width: 500px; 
+		top: 50%;
+		margin-top: -300px;
+		height: 600px;
 	}
 
 	.div-register-sure{
