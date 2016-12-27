@@ -1,7 +1,7 @@
 <template>
- 	<div>
-		<div class="container" >
-			<mu-paper class="login-background" :zDepth="5" v-bind:style="paper_div_style" >
+ 	<div class="container" >
+		<div class="div-login" >
+			<mu-paper class="login-background" :zDepth="5" >
 				<div class="div-h5-icon">
 					<img src="/images/H5.png" width="128" height="128" />
 				</div>
@@ -20,9 +20,6 @@
 	export default {
 		data () {
 			return {
-				paper_div_style:{
-					"margin-top": '300px'
-				},
 				userName: "",
 				passWord: "",
 			}
@@ -56,7 +53,7 @@
 		 	}
 		},
 		computed: {
-			
+
 		}
 	}
 </script>
@@ -76,9 +73,18 @@
 		margin-top: 20px;
 	}
 
+	.div-login{
+		position: absolute; 
+		width: 300px; 
+		top: 50%;
+		margin-top: -150px;
+		margin-left: -150px;
+		height: 300px;
+	}
+
 	.container{
+		width: 300px;
 		margin: 0px auto;
-		width: 500px;
 	}
 
 	.div-h5-icon{
