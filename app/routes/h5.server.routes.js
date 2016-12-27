@@ -9,5 +9,8 @@ module.exports = function(app){
 		});
 
 	app.route('/H5/Login')
-		.all(H5Controller.login);
+		.post(H5Controller.login);
+
+	app.route('/H5/Register')
+		.post(H5Controller.register);
 }
