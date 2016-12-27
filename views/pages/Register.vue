@@ -2,7 +2,7 @@
  	<div class="container">
  		<div class="div-register">
 	 		<mu-text-field class="" label="用户名" v-model="userName" fullWidth labelFloat/><br/>
-	 		<mu-text-field class="" label="密码" v-model="password" type="password" fullWidth labelFloat/><br/>
+	 		<mu-text-field class="" label="密码" v-model="passWord" type="password" fullWidth labelFloat/><br/>
 	 		<mu-text-field class="" label="确认密码" v-model="SurePassword" type="password" fullWidth labelFloat/><br/>
 	 		<mu-text-field class="" label="电子邮箱" v-model="eMail" fullWidth labelFloat/><br/>
 	 		<div class="div-register-sure">
@@ -21,7 +21,7 @@
 		data(){
 			return {
 				userName: "",
-				password: "",
+				passWord: "",
 				SurePassword: "",
 				eMail: "",
 				topPopup: false,
@@ -39,7 +39,7 @@
 					return;
 				}
 
-				if (this.password === "" || this.SurePassword === "") {
+				if (this.passWord === "" || this.SurePassword === "") {
 					this.msgAlert('密码不能为空');
 					return;
 				}
@@ -56,7 +56,7 @@
 					return;
 				}
 
-				if (this.password !== this.SurePassword) {
+				if (this.passWord !== this.SurePassword) {
 					this.msgAlert('密码不一致，请重新输入');
 					return;
 				}
@@ -73,7 +73,8 @@
 							method: 'futureWeather',
 							params: {
 								userName: this.userName,
-								password: this.password,
+								passWord: this.passWord,
+								eMail: this.eMail,
 							},
 						})
 					}
