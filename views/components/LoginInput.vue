@@ -35,10 +35,10 @@
 						},
 						redentials: 'include',
 						body: JSON.stringify({
-							method: 'futureWeather',
+							method: 'login',
 							params: {
 								userName: this.userName,
-								password: this.password,
+								passWord: this.passWord,
 							},
 						})
 					}
