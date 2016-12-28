@@ -20,7 +20,43 @@ module.exports = {
 	 * @author   Cao Yang
 	 */
 	login(req,res,next){
-		res.json({result: true});
+		let params = req.body.params || {};
+
+		if (!params.userName) {
+			res.json({result: false, content: '用户名为空'});
+			return;
+		}
+
+		if (!params.passWord) {
+			res.json({result: false, content: '密码为空'});
+			return;
+		}
+
+		Users.find({userName:params.userName}, null,{},function(err,result){
+			if (err) {
+				console.log('login find err!');
+				res.json({result: false, content: '登陆失败'});
+				return next(err);
+			}
+			else{
+				if (result.length && (result[0].passWord === params.passWord)) {
+					req.session.userName = {'userName': params.userName};
+					res.json({
+						result: true,
+						params: {
+							userInfo: result[0],
+						}
+					});
+				}
+				else if(result.length === 0){
+					res.json({result: false, content: '用户不存在'});
+				}
+				else{
+					res.json({result: false, content: '用户名或密码错误，请重试'});
+				}
+			}
+		})
+
 	},
 
 	/**
