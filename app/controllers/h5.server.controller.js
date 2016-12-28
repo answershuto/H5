@@ -1,5 +1,9 @@
 'use strict';
 
+let mongoose = require('mongoose');
+let Users = mongoose.model('Users');
+
+
 module.exports = {
 
 	/**
@@ -34,15 +38,47 @@ module.exports = {
 	 */
 	register(req,res,next){
 		if (req.body && req.body.params) {
-			let params = req.body.params || {};console.log(params)
+			let params = req.body.params || {};
 
-			!params.userName && res.json({result: false, content: '用户名为空'});
+			if (!params.userName) {
+				res.json({result: false, content: '用户名为空'});
+				return;
+			}
 
-			!params.passWord && res.json({result: false, content: '密码为空'});
+			if (!params.passWord) {
+				res.json({result: false, content: '密码为空'});
+				return;
+			}
+			
+			if (!params.eMail) {
+				res.json({result: false, content: '邮箱为空'});
+				return;
+			}
 
-			!params.eMail && res.json({result: false, content: '邮箱为空'});
+			let user = new Users({
+				userName: params.userName,
+				passWord: params.passWord,
+				eMail: params.eMail,
+				nikeName: params.userName,
+				userImage: "/image/defaultHeadPortrait.png",
+				Gender: 'Man',
+				age: '18',
+				personalizedSignature: '',
+				place: '',
+			});
 
-			res.json({result: true});
+			user.save(function(err){
+            	if (err) {
+            		console.log('Register err!' + err);
+            		res.json({result: false, content: '注册失败'});
+            		return next(err);
+            	}
+            	else{
+            		console.log('Register ' + params.userName + ' successed.');
+            		res.json({result: true});
+            	}
+            })
+			
 		}
 		else{
 			res.json({result: false, content: '数据格式有误'});

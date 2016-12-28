@@ -81,7 +81,15 @@
 				)
 				.then(response => response.json())
 				.then(d => {
-					console.log(d)
+					if (d.result) {
+						this.msgAlert('注册成功,页面将自动跳转');
+						setTimeout(() => {
+							this.$store.commit('setRoute','/');
+						}, 2000);
+					}
+					else{
+						this.msgAlert(d.content);
+					}
 				})
 			},
 			cancel(){
