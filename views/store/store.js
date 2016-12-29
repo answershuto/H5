@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 let state = {
 	Route:'/',
+	isLoading: false,
 }
 
 let actions = require('./actions/index.js');

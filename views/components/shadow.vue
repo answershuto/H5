@@ -1,10 +1,10 @@
 <template>
- 	<div>
+ 	<div v-show="isLoading">
 		<div class="mask opacity">
 			<div class="div-ProgressBar">
 				<div class="div-ProgressBar-conter">
 					<mu-circular-progress :size="180" color="red" strokeWidth="10"></mu-circular-progress>
-					<div class="div-loading">正在加载...</div>
+					<div class="div-loading">Loading...</div>
 				</div>
 			</div>
 		</div>
@@ -15,7 +15,12 @@
 
 	export default {
 		components: {
-		 	
+
+		},
+		computed: {
+			isLoading(){
+				return this.$store.state.isLoading;
+			}
 		}
 	}
 </script>
@@ -25,7 +30,7 @@
 		color: red;
 		margin-top: -100px;
 		margin-left: 50px;
-		font-size: 120%;
+		font-size: 130%;
 	}
 
 	.mask{

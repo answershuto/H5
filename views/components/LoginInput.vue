@@ -56,7 +56,12 @@
 				.then(d => {
 					if (d.result) {
 						/*登陆成功*/
-						this.$store.commit('setRoute','/Main');
+						this.$store.commit('Loading', true);
+						setTimeout(() => {
+							/*登陆加载效果，再次之前可以之后额外获取登陆前需要初始化的数据*/
+							this.$store.commit('Loading', false);
+							this.$store.commit('setRoute','/Main');
+						}, 1000)
 					}
 					else{
 						this.msgAlert(d.content);
