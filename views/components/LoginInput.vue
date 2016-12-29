@@ -12,6 +12,9 @@
 					<mu-flat-button @click="register" label="注册" class="demo-flat-button div-login-register-button" secondary/>
 				</div>
 			<mu-paper>
+			<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
+				{{message}}
+			</mu-popup>
 		</div>
  	</div>
 </template>
@@ -22,9 +25,15 @@
 			return {
 				userName: "",
 				passWord: "",
+				topPopup: false,
+				message: "",
 			}
 		},
 		methods: {
+			msgAlert(msg){
+				this.message = msg;
+				this.topPopup = true;
+			},
 		 	login(){
 		 		fetch('/H5/Login',
 					{
@@ -45,7 +54,13 @@
 				)
 				.then(response => response.json())
 				.then(d => {
-					console.log(d)
+					if (d.result) {
+						/*登陆成功*/
+						this.$store.commit('setRoute','/Main');
+					}
+					else{
+						this.msgAlert(d.content);
+					}
 				})
 		 	},
 		 	register(){
@@ -54,11 +69,23 @@
 		},
 		computed: {
 
+		},
+		watch: {
+			topPopup(val){
+				if (val) {
+					setTimeout(() => {
+						this.topPopup = false;
+					}, 2500);
+				}
+			}
 		}
 	}
 </script>
 
 <style scoped>
+	.mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000; } 
+	.opacity{ opacity:0.3; filter: alpha(opacity=30); background-color:#000; } 
+
 	.login-background {
 	  display: inline-block;
 	  background-color: #ffd54f;
