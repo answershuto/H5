@@ -8,8 +8,13 @@
 				<mu-text-field class="login-input" label="用户名" v-model="userName" labelFloat/><br/>
 				<mu-text-field class="login-input" label="密码" v-model="passWord" hintText="密码" type="password" labelFloat/><br/>
 				<div class="div-login-register">
-					<mu-flat-button @click="login" label="登陆" class="demo-flat-button div-login-register-button" primary/>
-					<mu-flat-button @click="register" label="注册" class="demo-flat-button div-login-register-button" secondary/>
+					<div class="checkbox-login-register">
+						<mu-checkbox :vuew="isRememberPassword" v-model="isRememberPassword" label="记住密码" /> <br/>
+					</div>
+					<div class="button-login-register">
+						<mu-flat-button @click="login" label="登陆" class="div-login-register-button" primary/>
+						<mu-flat-button @click="register" label="注册" class="div-login-register-button" secondary/>
+					</div>
 				</div>
 			<mu-paper>
 			<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
@@ -20,13 +25,16 @@
 </template>
 
 <script>
+	let Cookies = require('js-cookie');
+
 	export default {
 		data () {
 			return {
-				userName: "",
-				passWord: "",
+				userName: Cookies.get('H5-UserName') || "",
+				passWord: Cookies.get('H5-PassWord') || "",
 				topPopup: false,
 				message: "",
+				isRememberPassword: Cookies.get('H5-isRememberPassword') === 'true' ? true:false,
 			}
 		},
 		methods: {
@@ -62,6 +70,17 @@
 							this.$store.commit('Loading', false);
 							this.$store.commit('setRoute','/Main');
 						}, 1000)
+
+						Cookies.set('H5-isRememberPassword', this.isRememberPassword);
+						if (this.isRememberPassword) {
+							/*记住密码*/
+							Cookies.set('H5-UserName', this.userName);
+							Cookies.set('H5-PassWord', this.passWord);
+						}
+						else{
+							Cookies.set('H5-UserName', "");
+							Cookies.set('H5-PassWord', "");
+						}
 					}
 					else{
 						this.msgAlert(d.content);
@@ -88,13 +107,23 @@
 </script>
 
 <style scoped>
-	.mask{height:100%; width:100%; position:fixed; _position:absolute; top:0; z-index:1000; } 
-	.opacity{ opacity:0.3; filter: alpha(opacity=30); background-color:#000; } 
+
+	.checkbox-login-register{
+		padding-top: 5px;
+		margin-left: 100px;
+		width: 100px;
+		float: left;
+	}
+
+	.button-login-register{
+		float: left;
+		margin-left: 20px;
+	}
 
 	.login-background {
 	  display: inline-block;
 	  background-color: #ffd54f;
-	  height: 250px;
+	  height: 270px;
 	  width: 500px;
 	  margin: 20px;
 	  text-align: center;
@@ -130,6 +159,6 @@
 	}
 
 	.div-login-register-button{
-		margin-left: 20px;
+		margin-left: 0px;
 	}
 </style>

@@ -1,14 +1,14 @@
 <template>
  	<div class="container">
- 		
+ 		<Navigation></Navigation>
  	</div>
 </template>
 
 <script>
-	import Login from '../layouts/Login.vue'
+	import Navigation from '../components/Navigation.vue'
 	export default {
 		components: {
-		 	
+		 	Navigation
 		}
 	}
 </script>
