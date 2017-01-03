@@ -9,6 +9,20 @@ let webpackHotMiddleware = require('webpack-hot-middleware')
 let session = require('express-session');
 let cookieParser = require('cookie-parser');
 
+/*产生128位随机数*/
+function RandomSecret(){
+	function getNum(){
+		return Math.ceil(Math.random() * 10) - 1; /*产生0-9的随机数*/
+	}
+
+	let secret = "";
+	for(let i=0; i<128; i++){
+		secret += getNum();
+	}
+
+	return secret;
+}
+
 module.exports = function(){
 	console.log('init express..');
 	let app = express();
@@ -27,10 +41,11 @@ module.exports = function(){
 
 	app.use(session({
 		resave: false,
+		rolling: false,
 		saveUninitialized: true,
-		secret: 'recommand 128 bytes random string',
+		secret: RandomSecret(),
 		name: 'H5Session',
-		cookie: { maxAge: 60 * 1000 }
+		cookie: { maxAge: 60 * 1000}
 	}));
 
 	app.use(function(req,res,next){
