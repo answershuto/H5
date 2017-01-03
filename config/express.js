@@ -28,17 +28,21 @@ module.exports = function(){
 	app.use(session({
 		resave: false,
 		saveUninitialized: true,
-		secret: 'CloudNte',
-		name: 'H5session'
+		secret: 'recommand 128 bytes random string',
+		name: 'H5Session',
+		cookie: { maxAge: 60 * 1000 }
 	}));
 
 	app.use(function(req,res,next){
-		if (!req.session.userName) {
-			if (req.url === '/H5/Register' || req.url === '/H5/Login') {
+		if (!req.session.user) {
+			if (req.url === '/H5/Login' || req.url === '/H5/Register') {
 				next();/*请求为登陆或者注册则不需要校验session*/
-			};
+			}
+			else{
+				res.json({result: false, content: '用户权限异常'});
+			}
 		}
-		else if (req.session.userName) {
+		else if (req.session.user) {
 			next();
 		};
 	})
