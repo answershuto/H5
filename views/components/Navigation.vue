@@ -8,6 +8,9 @@
 				<mu-bottom-nav-item value="power" title="退出" icon="clear"/>
 			</mu-bottom-nav>
 		</mu-paper>
+		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
+			{{message}}
+		</mu-popup>
 	</div>
 </template>
 
@@ -19,10 +22,16 @@
 		},
 		data(){
 			return {
-				bottomNav: 'home'
+				bottomNav: 'home',
+				topPopup: false,
+				message: "",
 		    }
 		},
 		methods: {
+			msgAlert(msg){
+				this.message = msg;
+				this.topPopup = true;
+			},
 			handleChange (val) {
 				this.bottomNav = val
 
@@ -56,7 +65,7 @@
 								this.$store.commit('setRoute','/');
 							}
 							else{
-								d.content && alert(content);
+								d.content && this.msgAlert(d.content);
 							}
 						})
 
@@ -66,6 +75,15 @@
 						alert('无此标签')
 				}
 			},
+		},
+		watch: {
+			topPopup(val){
+				if (val) {
+					setTimeout(() => {
+						this.topPopup = false;
+					}, 2500);
+				}
+			}
 		},
 	}
 </script>
