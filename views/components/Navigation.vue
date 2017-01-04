@@ -1,14 +1,14 @@
 <template>
- 	<div class="">
+	<div class="">
 		<mu-paper>
 			<mu-bottom-nav :value="bottomNav" @change="handleChange">
-			<mu-bottom-nav-item value="home" title="主页" icon="home"/>
-			<mu-bottom-nav-item value="grade" title="我的作品" icon="grade"/>
-			<mu-bottom-nav-item value="build" title="设置" icon="build"/>
-			<mu-bottom-nav-item value="power" title="退出" icon="clear"/>
-		</mu-bottom-nav>
-</mu-paper>
- 	</div>
+				<mu-bottom-nav-item value="home" title="主页" icon="home"/>
+				<mu-bottom-nav-item value="grade" title="我的作品" icon="grade"/>
+				<mu-bottom-nav-item value="build" title="设置" icon="build"/>
+				<mu-bottom-nav-item value="power" title="退出" icon="clear"/>
+			</mu-bottom-nav>
+		</mu-paper>
+	</div>
 </template>
 
 <script>
@@ -46,14 +46,19 @@
 								credentials: 'same-origin',
 								body: JSON.stringify({
 									method: 'logout',
-									params: {
-										
-									},
+									params: null,
 								})
 							}
 						)
 						.then(response => response.json())
-						.then(d => {console.log(d)})
+						.then(d => {
+							if (d.result) {
+								this.$store.commit('setRoute','/');
+							}
+							else{
+								d.content && alert(content);
+							}
+						})
 
 						
 						break;

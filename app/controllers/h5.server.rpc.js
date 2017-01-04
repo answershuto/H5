@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	logout(){
-
+	logout(req,res,next){
+		delete req.session.user;
+		res.json({result: true});
 	},
 }
