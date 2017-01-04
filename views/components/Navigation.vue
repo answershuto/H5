@@ -35,7 +35,7 @@
 						break;
 					case 'power':
 						/*退出*/
-						console.log(Cookies.get('H5-isRememberPassword'))
+
 						fetch('/H5/rpc',
 							{
 								method:'POST',
@@ -43,7 +43,7 @@
 						 			'Accept': 'application/json', 
 						 			'Content-Type': 'application/json'
 								},
-								credentials: 'include',
+								credentials: 'same-origin',
 								body: JSON.stringify({
 									method: 'logout',
 									params: {
@@ -54,6 +54,8 @@
 						)
 						.then(response => response.json())
 						.then(d => {console.log(d)})
+
+						
 						break;
 					default:
 						alert('无此标签')

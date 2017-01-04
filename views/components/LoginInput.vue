@@ -50,7 +50,7 @@
 				 			'Accept': 'application/json', 
 				 			'Content-Type': 'application/json'
 						},
-						redentials: 'include',
+						credentials: 'same-origin',
 						body: JSON.stringify({
 							method: 'login',
 							params: {
