@@ -13,4 +13,7 @@ module.exports = function(app){
 
 	app.route('/H5/Register')
 		.post(H5Controller.register);
+
+	app.route('/H5/rpc')
+		.post(H5Controller.rpcMethon);
 }

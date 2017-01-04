@@ -2,7 +2,7 @@
 
 let mongoose = require('mongoose');
 let Users = mongoose.model('Users');
-
+let rpc = require('./h5.server.rpc');
 
 module.exports = {
 
@@ -40,7 +40,8 @@ module.exports = {
 			}
 			else{
 				if (result.length && (result[0].passWord === params.passWord)) {
-					req.session.userName = {'userName': params.userName};
+					req.session.user = {'userName': params.userName};
+					console.log('login req.session.user',req.session.user)
 					res.json({
 						result: true,
 						params: {
@@ -119,5 +120,29 @@ module.exports = {
 		else{
 			res.json({result: false, content: '数据格式有误'});
 		}
-	}
+	},
+
+	/**
+	 * RPC接口
+	 *
+	 * 对RPC接口做同一操作。
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-1
+	 * @author   Cao Yang
+	 */
+	rpcMethon(req,res,next){
+		let params = req.body.params || {};
+		let method = req.body.method;
+		if ((typeof rpc[method]) === 'function') {
+			rpc[method](req,res,next);
+		}
+		else{
+			res.json({result: false, content: '未找到RPC接口'});
+		}
+	},
 }
