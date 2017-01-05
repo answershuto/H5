@@ -3,7 +3,7 @@
 		<div class="mask opacity">
 			<div class="div-ProgressBar">
 				<div class="div-ProgressBar-conter">
-					<mu-circular-progress :size="180" color="red" strokeWidth=10></mu-circular-progress>
+					<mu-circular-progress :size="180" color="red" :strokeWidth="10"></mu-circular-progress>
 					<div class="div-loading">Loading...</div>
 				</div>
 			</div>
