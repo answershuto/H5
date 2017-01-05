@@ -10,6 +10,7 @@ let state = {
 	isLoading: false,
 	isAlert: false,
 	AlertMessage: "",
+	Page: "Home",
 }
 
 let actions = require('./actions/index.js');

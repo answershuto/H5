@@ -13,10 +13,20 @@ let mutations = {
 
 	/*是否弹出提示框*/
 	Alert(state, msg){
-		state.AlertMessage = msg.message;
+		state.AlertMessage = msg.message || "";
 		state.isAlert = msg.isAlert ? true : false;
 
-	}
+	},
+
+	/*用以导航栏切换Mian.vue页面*/
+	setPage(state, page){
+		if (['Home', 'Work', 'Setup'].indexOf(page) >= 0) {
+			state.Page = page;
+		}
+		else{
+			state.Page = 'Home';
+		}
+	},
 };
 
 module.exports = mutations;

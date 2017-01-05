@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	/*user this.$store.commit('Alert', {isAlert: true, message: 'test'});*/
+	/*use this.$store.commit('Alert', {isAlert: true, message: 'test'});*/
 	export default {
 		data () {
 			return {

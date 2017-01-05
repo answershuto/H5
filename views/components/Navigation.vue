@@ -2,10 +2,10 @@
 	<div class="">
 		<mu-paper>
 			<mu-bottom-nav :value="bottomNav" @change="handleChange">
-				<mu-bottom-nav-item value="home" title="主页" icon="home"/>
-				<mu-bottom-nav-item value="grade" title="我的作品" icon="grade"/>
-				<mu-bottom-nav-item value="build" title="设置" icon="build"/>
-				<mu-bottom-nav-item value="power" title="退出" icon="clear"/>
+				<mu-bottom-nav-item value="Home" title="主页" icon="home"/>
+				<mu-bottom-nav-item value="Work" title="我的作品" icon="grade"/>
+				<mu-bottom-nav-item value="Setup" title="设置" icon="build"/>
+				<mu-bottom-nav-item value="Power" title="退出" icon="clear"/>
 			</mu-bottom-nav>
 		</mu-paper>
 		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
@@ -36,13 +36,16 @@
 				this.bottomNav = val
 
 				switch(val){
-					case 'home':
+					case 'Home':
+						this.$store.commit('setPage','Home');
 						break;
-					case 'grade':
+					case 'Work':
+						this.$store.commit('setPage','Work');
 						break;
-					case 'build':
+					case 'Setup':
+						this.$store.commit('setPage','Setup');
 						break;
-					case 'power':
+					case 'Power':
 						/*退出*/
 
 						fetch('/H5/rpc',
@@ -65,7 +68,7 @@
 								this.$store.commit('setRoute','/');
 							}
 							else{
-								d.content && this.msgAlert(d.content);
+								d.content && this.$store.commit('Alert', {isAlert: true, message: d.content});
 							}
 						})
 
