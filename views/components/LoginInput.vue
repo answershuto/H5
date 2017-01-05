@@ -67,7 +67,7 @@
 						this.$store.commit('Loading', true);
 						setTimeout(() => {
 							/*登陆加载效果，再次之前可以之后额外获取登陆前需要初始化的数据*/
-							this.$store.commit('Loading', false);
+							this.$store.commit('Loading', false);                                                                              
 							this.$store.commit('setRoute','/Main');
 						}, 1000)
 
@@ -160,5 +160,18 @@
 
 	.div-login-register-button{
 		margin-left: 0px;
+	}
+</style>
+
+<style lang="css">
+	.popup-top {
+		width: 100%;
+		opacity: .8;
+		height: 48px;
+		line-height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 375px;
 	}
 </style>
