@@ -8,6 +8,8 @@ Vue.use(Vuex);
 let state = {
 	Route:'/',
 	isLoading: false,
+	isAlert: false,
+	AlertMessage: "",
 }
 
 let actions = require('./actions/index.js');
