@@ -15,7 +15,7 @@
 		},
 		methods: {
 			createWork(){
-				
+				this.$store.commit('setRoute','/Design');
 			},
 		},
 	}
