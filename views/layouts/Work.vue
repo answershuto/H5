@@ -4,18 +4,19 @@
  			您还没有作品，赶紧创建一个吧.
  			<mu-flat-button label="创建作品" class="create-button" @click="createWork" primary/>
  		</div>
+ 		<createWorkDialog></createWorkDialog>
  	</div>
 </template>
 
 <script>
-
+	import createWorkDialog from '../components/createWorkDialog.vue'
 	export default {
 		components: {
-			
+			createWorkDialog,
 		},
 		methods: {
 			createWork(){
-				this.$store.commit('setRoute','/Design');
+				this.$store.commit('createWorkDialog', true);
 			},
 		},
 	}

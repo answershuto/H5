@@ -11,6 +11,8 @@ let state = {
 	isAlert: false,
 	AlertMessage: "",
 	Page: "Home",
+	createWorkDialog: false,
+	workName: "",
 }
 
 let actions = require('./actions/index.js');

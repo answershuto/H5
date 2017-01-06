@@ -1,6 +1,6 @@
 <template>
  	<div>
- 		Design
+ 		Design {{workName}}
  	</div>
 </template>
 
@@ -9,6 +9,11 @@
 	export default {
 		components: {
 			
-		}
+		},
+		computed: {
+			workName(){
+				return this.$store.state.workName;
+			}
+		},
 	}
 </script>
