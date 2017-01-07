@@ -1,14 +1,14 @@
 <template>
  	<div>
- 		Design {{workName}}
+ 		<PageList></PageList>
  	</div>
 </template>
 
 <script>
-
+	import PageList from '../layouts/PageList.vue'
 	export default {
 		components: {
-			
+			PageList,
 		},
 		computed: {
 			workName(){
