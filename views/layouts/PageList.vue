@@ -1,11 +1,11 @@
 <template>
  	<div>
-		<mu-drawer :open="isOpen">
+		<mu-drawer :open="isOpen" class="drawer">
 			<mu-list>
 				<div>
-					<mu-chip class="pageicon" backgroundColor="#f8bbd0" color="#f3e5f5" @delete="handleClose" @click="handleClick" showDelete>
+					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose" @click="handleClick" showDelete>
 						<mu-avatar :size="32" src="/images/H5.png"/>
-						&nbsp&nbsp&nbsp第&nbsp1页&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp第&nbsp1页&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					</mu-chip>
 				</div>
 			</mu-list>
@@ -39,5 +39,9 @@
 <style scoped>
 	.pageicon{
 		margin-left: 35px;
+	}
+
+	.drawer{
+		background-color: #d7ccc8;
 	}
 </style>

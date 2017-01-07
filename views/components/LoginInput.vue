@@ -122,7 +122,7 @@
 
 	.login-background {
 	  display: inline-block;
-	  background-color: #ffd54f;
+	  background-color: #d7ccc8;
 	  height: 270px;
 	  width: 500px;
 	  margin: 20px;
