@@ -1,6 +1,10 @@
 <template>
  	<div>
 		<mu-drawer :open="isOpen" class="drawer">
+			<div class="title-pages">
+				<div class="pages-font">页面列表</div>
+				<mu-float-button icon="add" mini backgroundColor="#795548" class="add-btn" @click="handleClickAdd" />
+			</div>
 			<mu-list>
 				<div>
 					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose" @click="handleClick" showDelete>
@@ -30,7 +34,10 @@
 			},
 			handleClick(e){
 				alert('click')
-			}
+			},
+			handleClickAdd(){
+				alert('add')
+			},
 		},
 	}
 </script>
@@ -43,5 +50,27 @@
 
 	.drawer{
 		background-color: #d7ccc8;
+	}
+
+	.title-pages{
+		width: 100%;
+		height: 70px;
+	}
+
+	.add-btn{
+		float: right;
+		margin-right: 20px;
+		margin-top: 20px;
+	}
+
+	.title-pages div{
+		float: left;
+	}
+
+	.pages-font{
+		font-size: 170%;
+		margin-top: 20px;
+		margin-left: 70px;
+		color: #795548;
 	}
 </style>
