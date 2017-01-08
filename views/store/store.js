@@ -15,11 +15,14 @@ let Main = {
 	mutations,
 }
 
+/*modoles*/
 let Work = require('./modules/Work.js');
+let Design = require('./modules/Design.js');
 
 export default new Vuex.Store({
     modules: {
-    	Main: Main,
-    	Work: Work,
+    	Main,
+    	Work,
+    	Design,
     }
 })

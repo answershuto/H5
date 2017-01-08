@@ -27,16 +27,6 @@ let mutations = {
 			state.Page = 'Home';
 		}
 	},
-
-	/*创建新作品弹出框*/
-	createWorkDialog(state, l){
-		state.createWorkDialog = l ? true : false;
-	},
-
-	/*作品的名字*/
-	setWorkName(state, name){
-		state.workName = name || "";
-	},
 };
 
 module.exports = mutations;
