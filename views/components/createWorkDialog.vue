@@ -32,7 +32,7 @@
 		},
 		computed: {
 			dialog(){
-				return this.$store.state.createWorkDialog;
+				return this.$store.state.Work.createWorkDialog;
 			}
 		}
 	}

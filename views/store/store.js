@@ -5,22 +5,21 @@ import Vuex from 'Vuex'
 
 Vue.use(Vuex);
 
-let state = {
-	Route:'/',
-	isLoading: false,
-	isAlert: false,
-	AlertMessage: "",
-	Page: "Home",
-	createWorkDialog: false,
-	workName: "",
+let state = require('./state.js');
+let actions = require('./actions.js');
+let mutations = require('./mutations.js');
+
+let Main = {
+	state,
+	actions,
+	mutations,
 }
 
-let actions = require('./actions/index.js');
-let mutations = require('./mutations/index.js');
+let Work = require('./modules/Work.js');
 
 export default new Vuex.Store({
-    state,
-    mutations,
-    actions,
-    strict: true
+    modules: {
+    	Main: Main,
+    	Work: Work,
+    }
 })

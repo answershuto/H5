@@ -25,13 +25,13 @@
 		computed: {
 			/*用下面三个方法配合v-show显示每个界面*/
 			isHome(){
-				return (this.$store.state.Page === 'Home')
+				return (this.$store.state.Main.Page === 'Home')
 			},
 			isWork(){
-				return (this.$store.state.Page === 'Work')
+				return (this.$store.state.Main.Page === 'Work')
 			},
 			isSetup(){
-				return (this.$store.state.Page === 'Setup')
+				return (this.$store.state.Main.Page === 'Setup')
 			},
 		},
 	}

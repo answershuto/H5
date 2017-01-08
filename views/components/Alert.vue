@@ -22,10 +22,10 @@
 		},
 		computed: {
 			isAlert(){
-				return this.$store.state.isAlert;
+				return this.$store.state.Main.isAlert;
 			},
 			getMessage(){
-				return this.$store.state.AlertMessage;
+				return this.$store.state.Main.AlertMessage;
 			}
 		}
 	}
