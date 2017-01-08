@@ -20,6 +20,7 @@ let Work = require('./modules/Work.js');
 let Design = require('./modules/Design.js');
 
 export default new Vuex.Store({
+	strict: true,
     modules: {
     	Main,
     	Work,
