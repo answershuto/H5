@@ -9,7 +9,7 @@
 				<div v-for="num in pageNum" class="pages-div">
 					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose(num)" @click="handleClick" showDelete>
 						<mu-avatar :size="32" src="/images/H5.png"/>
-						&nbsp&nbsp&nbsp&nbsp&nbsp第&nbsp{{num}}页&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						<div class="pageNum">第&nbsp{{num}}页</div>
 					</mu-chip>
 				</div>
 			</mu-list>
@@ -81,5 +81,10 @@
 
 	.pages-div{
 		margin-top: 10px;
+	}
+
+	.pageNum{
+		margin-left: 30px;
+		margin-right: 30px;
 	}
 </style>
