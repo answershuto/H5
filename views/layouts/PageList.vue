@@ -2,10 +2,10 @@
  	<div>
 		<mu-drawer :open="isOpen" class="drawer">
 			<div class="editColumn">
-				<mu-icon-button tooltip="文字" tooltipPosition="top-center" touch icon="edit"/>
-				<mu-icon-button tooltip="背景" tooltipPosition="top-center" touch icon="image"/>
-				<mu-icon-button tooltip="图片" tooltipPosition="top-center" touch icon="camera"/>
-				<mu-icon-button tooltip="音乐" tooltipPosition="top-center" touch icon="audiotrack"/>
+				<mu-icon-button tooltip="文字" tooltipPosition="top-center" touch icon="edit" @click="handleClickEdit('word')" />
+				<mu-icon-button tooltip="背景" tooltipPosition="top-center" touch icon="image" @click="handleClickEdit('background')" />
+				<mu-icon-button tooltip="图片" tooltipPosition="top-center" touch icon="camera" @click="handleClickEdit('picture')" />
+				<mu-icon-button tooltip="音乐" tooltipPosition="top-center" touch icon="audiotrack" @click="handleClickEdit('music')" />
 			</div>
 			<div class="title-pages">
 				<div class="pages-font">页面列表</div>
@@ -44,7 +44,19 @@
 			handleClickAdd(){
 				this.$store.dispatch('addPageNum');
 			},
-		},//return this.$store.state.Main.isAlert;
+			handleClickEdit(type){
+				switch(type){
+					case 'word':
+						break;
+					case 'background':
+						break;
+					case 'picture':
+						break;
+					case 'music':
+						break;
+				}
+			},
+		},
 		computed: {
 			pageNum(){
 				return this.$store.state.Design.pageNum;
