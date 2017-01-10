@@ -1,6 +1,12 @@
 <template>
  	<div>
 		<mu-drawer :open="isOpen" class="drawer">
+			<div class="editColumn">
+				<mu-icon-button tooltip="文字" tooltipPosition="top-center" touch icon="edit"/>
+				<mu-icon-button tooltip="背景" tooltipPosition="top-center" touch icon="image"/>
+				<mu-icon-button tooltip="图片" tooltipPosition="top-center" touch icon="camera"/>
+				<mu-icon-button tooltip="音乐" tooltipPosition="top-center" touch icon="audiotrack"/>
+			</div>
 			<div class="title-pages">
 				<div class="pages-font">页面列表</div>
 				<mu-float-button icon="add" mini backgroundColor="#795548" class="add-btn" @click="handleClickAdd" />
@@ -86,5 +92,10 @@
 	.pageNum{
 		margin-left: 30px;
 		margin-right: 30px;
+	}
+
+	.editColumn{
+		margin: 55px auto 0px;
+		width: 205px;
 	}
 </style>
