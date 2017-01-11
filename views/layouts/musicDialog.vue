@@ -129,5 +129,6 @@
 
 	.music-right{
 		float: left;
+		width: 550px;
 	}
 </style>
