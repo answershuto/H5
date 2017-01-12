@@ -16,4 +16,7 @@ module.exports = function(app){
 
 	app.route('/H5/rpc')
 		.post(H5Controller.rpcMethon);
+
+	app.route('/H5/UploadMusic')
+		.post(H5Controller.UploadMusic);
 }

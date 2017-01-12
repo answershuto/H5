@@ -3,6 +3,7 @@
 let mongoose = require('mongoose');
 let Users = mongoose.model('Users');
 let rpc = require('./h5.server.rpc');
+let formidable = require('formidable');
 
 module.exports = {
 
@@ -145,4 +146,33 @@ module.exports = {
 			res.json({result: false, content: '未找到RPC接口'});
 		}
 	},
+
+	/**
+	 * 上传音乐
+	 *
+	 * 上传本地音乐文件接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-12
+	 * @author   Cao Yang
+	 */
+	 UploadMusic(req, res, next){
+	 	let form = new formidable.IncomingForm();
+		form.uploadDir = __dirname+'/../../userData/musics';
+		form.keepExtensions = true;
+		form.maxFieldsSize = 2*1024*1024;/*限制图片大小最大为2M*/
+
+		form.parse(req,(err,fields,files) => {
+			if (files.music.type.indexOf('audio') >= 0) {
+				res.json({result: true});
+			}
+			else{
+				res.json({result: false, content: '音频文件格式有误'});
+			}
+		})
+	 },
 }
