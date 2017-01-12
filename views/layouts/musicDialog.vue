@@ -8,7 +8,14 @@
 				<mu-list-item title="网络乐库" value="networkMusic" >
 					<mu-icon slot="left" value="audiotrack"/>
 				</mu-list-item>
+				<mu-list-item title="上传音乐" value="uploadMusic" >
+					<mu-icon slot="left" value="audiotrack"/>
+				</mu-list-item>
 			</mu-list>
+			<form name="musicForm" class="uploadMusic" action="/H5/UploadMusic" method="post" encType="multipart/form-data" target="musicIframe">
+				<input type="file" name="music" id="uploadMusic" @change="handleChangeUploadMusic" >
+				<iframe name="musicIframe"></iframe>
+			</form>
 		</div>
 		<div class="music-right">
 			<div v-show="isMyMusic">
@@ -98,13 +105,31 @@
 		},
 		methods:{
 			handleChange(val){
-				this.currentPage = val;
+				if (val === 'uploadMusic') {
+					(document.getElementById('uploadMusic')).click();
+				}
+				else{
+					this.currentPage = val;
+				}
 			},
 			handleClickMusic(url){
 				let audio = document.getElementById('myAudio');
 				audio.pause();
 				audio.src = '/music/'+url;
 				audio.play();
+			},
+			handleChangeUploadMusic(){
+				fetch('/H5/UploadMusic',
+					{
+						method:'POST',
+						credentials: 'same-origin',
+						body: new FormData(document.forms.namedItem("musicForm" )),
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					console.log(d)
+				})
 			},
 		},
 		computed:{
@@ -130,5 +155,9 @@
 	.music-right{
 		float: left;
 		width: 550px;
+	}
+
+	.uploadMusic{
+		display: none;
 	}
 </style>
