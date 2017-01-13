@@ -4,6 +4,21 @@ let mongoose = require('mongoose');
 let Users = mongoose.model('Users');
 let rpc = require('./h5.server.rpc');
 let formidable = require('formidable');
+let fs = require('fs');
+
+/*产生4位随机数带上时间*/
+function RandomKey(){
+	function getNum(){
+		return Math.ceil(Math.random() * 10) - 1; /*产生0-9的随机数*/
+	}
+
+	let Key = "";
+	for(let i=0; i<4; i++){
+		Key += getNum();
+	}
+
+	return (Key + Date.parse(new Date()));
+}
 
 module.exports = {
 
@@ -168,6 +183,9 @@ module.exports = {
 
 		form.parse(req,(err,fields,files) => {
 			if (files.music.type.indexOf('audio') >= 0) {
+				console.log(files.music.name)
+				let path = files.music.path;
+				fs.rename(path, path.slice(0, path.lastIndexOf('/'))+'/'+req.session.user.userName+'-'+RandomKey()+ path.slice(path.lastIndexOf('.'),path.length));
 				res.json({result: true});
 			}
 			else{
