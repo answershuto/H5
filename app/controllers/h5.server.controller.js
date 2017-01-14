@@ -1,10 +1,13 @@
 'use strict';
 
 let mongoose = require('mongoose');
-let Users = mongoose.model('Users');
 let rpc = require('./h5.server.rpc');
 let formidable = require('formidable');
 let fs = require('fs');
+
+/*mongoose*/
+let Users = mongoose.model('Users');
+let UserMusics = mongoose.model('UserMusics');
 
 /*产生4位随机数带上时间*/
 function RandomKey(){
@@ -183,10 +186,27 @@ module.exports = {
 
 		form.parse(req,(err,fields,files) => {
 			if (files.music.type.indexOf('audio') >= 0) {
-				console.log(files.music.name)
 				let path = files.music.path;
 				fs.rename(path, path.slice(0, path.lastIndexOf('/'))+'/'+req.session.user.userName+'-'+RandomKey()+ path.slice(path.lastIndexOf('.'),path.length));
-				res.json({result: true});
+				
+				/*save in mongoDB*/
+				let music = new UserMusics({
+					userName: req.session.user.userName,
+					path,
+					musicName: files.music.name,
+					type: files.music.type,
+					size: files.music.size,
+				});
+
+				music.save(err => {
+					if (err) {
+						res.json({result: false, content: '上传音乐失败'});
+						return next(err);
+					}
+					else{
+						res.json({result: true});
+					}
+				})
 			}
 			else{
 				res.json({result: false, content: '音频文件格式有误'});

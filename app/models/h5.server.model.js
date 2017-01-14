@@ -16,3 +16,15 @@ let SchemaUsers = new mongoose.Schema({
 })
 
 let Users = mongoose.model('Users', SchemaUsers);
+
+/*音乐表*/
+let SchemaMusics = new mongoose.Schema({
+	userName: String,					/*用户名*/
+	path: String,						/*路径*/
+	musicName: String,					/*音乐名称*/
+	type: String,						/*音乐类型*/
+	size: Number,						/*音乐大小*/
+	date: {type:Date,default:Date.now}, /*上传时间*/
+})
+
+let Musics = mongoose.model('UserMusics', SchemaMusics);
