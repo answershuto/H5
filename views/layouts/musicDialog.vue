@@ -129,6 +129,7 @@
 				.then(response => response.json())
 				.then(d => {
 					console.log(d)
+					this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传成功'});
 				})
 			},
 		},

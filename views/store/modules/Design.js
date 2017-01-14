@@ -4,6 +4,10 @@ module.exports = {
 	state: {
 		/*页面数目*/
 		pageNum: 1,
+		/*是否显示提示框*/
+		isAlert: false,
+		/*提示框信息*/
+		alertMessage: "",
 	},
 	mutations: {
 		/*页面数目加1*/
@@ -13,6 +17,11 @@ module.exports = {
 		/*页面数目减1*/
 		delPageNum(state){
 			state.pageNum--;
+		},
+		/*弹出提示*/
+		alertDesignMessage(state, {isAlert, message}){
+			state.isAlert = isAlert ? true : false;
+			state.alertMessage = message || "";
 		},
 	},
 	actions: {
