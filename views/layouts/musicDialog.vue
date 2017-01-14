@@ -13,7 +13,7 @@
 				</mu-list-item>
 			</mu-list>
 			<form name="musicForm" class="uploadMusic" action="/H5/UploadMusic" method="post" encType="multipart/form-data" target="musicIframe">
-				<input type="file" name="music" id="uploadMusic" @change="handleChangeUploadMusic" >
+				<input type="file" name="music" id="uploadMusic" @change="handleChangeUploadMusic" accept="audio/mpeg" >
 				<iframe name="musicIframe"></iframe>
 			</form>
 		</div>
