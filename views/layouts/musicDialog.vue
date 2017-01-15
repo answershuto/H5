@@ -13,13 +13,22 @@
 				</mu-list-item>
 			</mu-list>
 			<form name="musicForm" class="uploadMusic" action="/H5/UploadMusic" method="post" encType="multipart/form-data" target="musicIframe">
-				<input type="file" name="music" id="uploadMusic" @change="handleChangeUploadMusic" accept="audio/mpeg" >
+				<input type="file" name="music" id="uploadMusic" @change="handleClickMusic('userMusic')" accept="audio/mpeg" >
 				<iframe name="musicIframe"></iframe>
 			</form>
 		</div>
 		<div class="music-right">
 			<div v-show="isMyMusic">
-				
+				<div>
+					<audio id="myAudio" controls="controls" >
+						<source  type="audio/mp3" />
+					</audio>
+				</div>
+				<div>
+					<span v-for="item in userMusics">
+						<mu-flat-button :label="item.musicName" class="" icon="audiotrack" primary/>
+					</span>
+				</div>
 			</div>
 			<div v-show="isNetMusic">
 				<div>
@@ -29,7 +38,7 @@
 				</div>
 				<div>
 					<span v-for="item in musicItems">
-						<mu-flat-button :label="item.title" @click="handleClickMusic(item.url)" class="" icon="audiotrack" primary/>
+						<mu-flat-button :label="item.title" @click="handleClickMusic('netMusic', item.url)" class="" icon="audiotrack" primary/>
 					</span>
 				</div>
 			</div>
@@ -112,10 +121,15 @@
 					this.currentPage = val;
 				}
 			},
-			handleClickMusic(url){
+			handleClickMusic(type, url){
 				let audio = document.getElementById('myAudio');
 				audio.pause();
-				audio.src = '/music/'+url;
+				if (type === 'userMusic') {
+					audio.src = '/music/'+url;
+				}
+				else{
+					audio.src = '/music/'+url;
+				}
 				audio.play();
 			},
 			handleChangeUploadMusic(){
@@ -128,21 +142,23 @@
 				)
 				.then(response => response.json())
 				.then(d => {
-					console.log(d)
 					this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传成功'});
 				})
 			},
 		},
 		computed:{
 			isOpen(){
-				return true;
+				return this.$store.state.Design.musicDialog;
 			},
 			isMyMusic(){
 				return (this.currentPage === 'myMusic')
 			},
 			isNetMusic(){
 				return (this.currentPage === 'networkMusic')
-			}
+			},
+			userMusics(){
+				return this.$store.state.Design.userMusics;
+			},
 		}
 	}
 </script>

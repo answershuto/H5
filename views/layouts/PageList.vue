@@ -53,6 +53,7 @@
 					case 'picture':
 						break;
 					case 'music':
+						this.$store.dispatch('musicDialog', true);
 						break;
 				}
 			},

@@ -8,6 +8,10 @@ module.exports = {
 		isAlert: false,
 		/*提示框信息*/
 		alertMessage: "",
+		/*是否弹出音乐提示框*/
+		musicDialog: false,
+		/*用户上传音乐列表数据*/
+		userMusics: [],
 	},
 	mutations: {
 		/*页面数目加1*/
@@ -23,6 +27,14 @@ module.exports = {
 			state.isAlert = isAlert ? true : false;
 			state.alertMessage = message || "";
 		},
+		/*弹出音乐提示框*/
+		musicDialog(state, l){
+			state.musicDialog = l ? true : false;
+		},
+		/*刷新用户上传音乐列表*/
+		updateUserMusics(state, szMusics){
+			state.userMusics = szMusics;
+		},
 	},
 	actions: {
 		/*增加一个页面*/
@@ -33,6 +45,33 @@ module.exports = {
 		delPageNum(context, num){
 			context.commit('delPageNum');
 		},
+		/*弹出音乐提示框*/
+		musicDialog(context, l){
+			fetch('/H5/rpc',
+				{
+					method:'POST',
+					headers:{ 
+			 			'Accept': 'application/json', 
+			 			'Content-Type': 'application/json'
+					},
+					credentials: 'same-origin',
+					body: JSON.stringify({
+						method: 'getAllUserMusics',
+						params: null,
+					})
+				}
+			)
+			.then(response => response.json())
+			.then(d => {
+				if (d.result) {
+					context.commit('updateUserMusics', d.params);
+					context.commit('musicDialog', l ? true : false);
+				}
+				else{
+					this.$store.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
+				}
+			})
+		}
 	},
 	getters: {
 		
