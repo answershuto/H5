@@ -11,22 +11,20 @@
 				<mu-list-item title="上传音乐" value="uploadMusic" >
 					<mu-icon slot="left" value="audiotrack"/>
 				</mu-list-item>
+				<mu-list-item title="管理音乐" value="manageMusic" >
+					<mu-icon slot="left" value="audiotrack"/>
+				</mu-list-item>
 			</mu-list>
 			<form name="musicForm" class="uploadMusic" action="/H5/UploadMusic" method="post" encType="multipart/form-data" target="musicIframe">
-				<input type="file" name="music" id="uploadMusic" @change="handleClickMusic('userMusic')" accept="audio/mpeg" >
+				<input type="file" name="music" id="uploadMusic" @change="handleChangeUploadMusic()" accept="audio/mpeg" >
 				<iframe name="musicIframe"></iframe>
 			</form>
 		</div>
 		<div class="music-right">
 			<div v-show="isMyMusic">
 				<div>
-					<audio id="myAudio" controls="controls" >
-						<source  type="audio/mp3" />
-					</audio>
-				</div>
-				<div>
 					<span v-for="item in userMusics">
-						<mu-flat-button :label="item.musicName" class="" icon="audiotrack" primary/>
+						<mu-flat-button :label="item.musicName" @click="handleClickMusic('userMusic')" class="" icon="audiotrack" primary/>
 					</span>
 				</div>
 			</div>
@@ -42,12 +40,22 @@
 					</span>
 				</div>
 			</div>
+			<div v-show="isManageMusic">
+				<div>
+					<mu-flat-button @click="chooseAllMusics" primary label="全选"/>
+					<mu-flat-button @click="chooseNullMusics" primary label="清空"/>
+					<mu-flat-button @click="deleteMusics" primary label="删除"/>
+				</div>
+				<span v-for="item in userMusics">
+					<mu-checkbox :label="item.musicName" :nativeValue="item.id" v-model="manageMusicList" /> <br/>
+				</span>
+			</div>
 		</div>
 	</mu-dialog>
 </template>
 
 <script>
-
+	require("babel-polyfill");
 	export default {
 		components: {
 
@@ -109,7 +117,8 @@
 						title: 'End Credits',
 						url: 'Hans Zimmer - End Credits.mp3',
 					},
-				]
+				],
+				manageMusicList: [],
 			}
 		},
 		methods:{
@@ -132,8 +141,30 @@
 				}
 				audio.play();
 			},
+			refreshList(){
+				fetch('/H5/rpc',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						credentials: 'same-origin',
+						body: JSON.stringify({
+							method: 'getAllUserMusics',
+							params: null,
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					if (d.result) {
+						this.$store.commit('updateUserMusics', d.params);
+					}
+				})
+			},
 			handleChangeUploadMusic(){
-				fetch('/H5/UploadMusic',
+				let response = fetch('/H5/UploadMusic',
 					{
 						method:'POST',
 						credentials: 'same-origin',
@@ -142,8 +173,50 @@
 				)
 				.then(response => response.json())
 				.then(d => {
-					this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传成功'});
+					if (d.result) {
+						this.refreshList();
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传成功'});
+					}
+					else{
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传失败'});
+					}
 				})
+			},
+			deleteMusics(){
+				fetch('/H5/rpc',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						credentials: 'same-origin',
+						body: JSON.stringify({
+							method: 'delUserMusics',
+							params: {
+								id: this.manageMusicList,
+							},
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					if (d.result) {
+						this.refreshList();
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '删除成功'});
+					}
+					else{
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '删除失败'});
+					}
+				})
+			},
+			chooseAllMusics(){
+				this.$store.state.Design.userMusics.forEach((item, index) => {
+					this.manageMusicList.push(item.id);
+				})
+			},
+			chooseNullMusics(){
+				this.manageMusicList = [];
 			},
 		},
 		computed:{
@@ -155,6 +228,9 @@
 			},
 			isNetMusic(){
 				return (this.currentPage === 'networkMusic')
+			},
+			isManageMusic(){
+				return (this.currentPage === 'manageMusic')
 			},
 			userMusics(){
 				return this.$store.state.Design.userMusics;
@@ -177,4 +253,5 @@
 	.uploadMusic{
 		display: none;
 	}
+
 </style>

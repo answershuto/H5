@@ -187,12 +187,13 @@ module.exports = {
 		form.parse(req,(err,fields,files) => {
 			if (files.music.type.indexOf('audio') >= 0) {
 				let path = files.music.path;
-				fs.rename(path, path.slice(0, path.lastIndexOf('/'))+'/'+req.session.user.userName+'-'+RandomKey()+ path.slice(path.lastIndexOf('.'),path.length));
+				let newPath = path.slice(0, path.lastIndexOf('/'))+'/'+req.session.user.userName+'-'+RandomKey()+ path.slice(path.lastIndexOf('.'),path.length);
+				fs.rename(path, newPath);
 				
 				/*save in mongoDB*/
 				let music = new UserMusics({
 					userName: req.session.user.userName,
-					path,
+					path: newPath,
 					musicName: files.music.name,
 					type: files.music.type,
 					size: files.music.size,

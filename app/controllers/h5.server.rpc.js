@@ -2,6 +2,7 @@
 
 let mongoose = require('mongoose');
 let UserMusics = mongoose.model('UserMusics');
+let fs = require('fs');
 
 module.exports = {
 	/**
@@ -38,7 +39,9 @@ module.exports = {
 	getAllUserMusics(req, res, next){
 		UserMusics.find({userName: req.session.user.userName}, null,{}, (err, result) => {
 			if (err) {
-
+				console.log('getAllUserMusics err!' + err);
+        		res.json({result: false, content: '查询失败'});
+        		return next(err);
 			}
 			else{
 				let params = [];
@@ -52,4 +55,47 @@ module.exports = {
 			}
 		})
 	},
+
+	/**
+	 * 获取所有音乐
+	 *
+	 * 获取用户上传的所有音乐的列表
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-14
+	 * @author   Cao Yang
+	 */
+	 delUserMusics(req, res, next){
+	 	let szId = req.body.params.id || [];
+	 	(typeof szId === 'string') && (szId = [szId]);
+
+	 	szId.forEach(id => {
+	 		UserMusics.findById(id, (err, result) => {
+	 			if (result.userName === req.session.user.userName) {/*校验用户是否是自己*/
+	 				result.remove(err => {
+						if (err) {
+							console.log('delUserMusics err!' + err);
+			        		res.json({result: false, content: '删除失败'});
+			        		return next(err);
+						}
+						else{
+							fs.unlinkSync(result.path);
+						}
+	 				})
+	 			}
+	 		});
+	 	})
+
+	 	res.json({result: true});
+	 },
 }
+
+
+
+
+
+
