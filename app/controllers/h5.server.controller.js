@@ -230,17 +230,16 @@ module.exports = {
 	 */
 	 PlayMusic(req, res, next){
 	 	UserMusics.findById(req.query.id, (err, result) => {
-	 		res.writeHead(200, {'Content-Type': 'video/mp4'});  
-			let rs = fs.createReadStream(result.path);  
+	 		if (result.userName === req.session.user.userName) {
+	 			res.writeHead(200, {'Content-Type': 'video/mp4'});  
+				let rs = fs.createReadStream(result.path);  
 
-			rs.pipe(res);  
-	 		console.log(result.path)
-	 		rs.on('end',function(){  
-				res.end();  
-				console.log('end call');  
-			});  
+				rs.pipe(res);  
+		 		rs.on('end',function(){  
+					res.end();  
+				});  
+	 		}
 	 	});
-	 	
 	 },
 
 
