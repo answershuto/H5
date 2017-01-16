@@ -6,6 +6,11 @@
  				<div class="mobilePhone-home" :title="showTitle" @click="handleClickHome"></div>
  			</div>
  		</div>
+		<div>
+			<audio id="myAudio" controls="controls" style="display:none;" >
+				<source  type="audio/mp3" />
+			</audio>
+		</div> 
  	</div>
 </template>
 
@@ -13,7 +18,7 @@
 
 	export default {
 		components: {
-			
+			url: '',
 		},
 		data(){
 			return {
@@ -37,6 +42,9 @@
 			showTitle(){
 				return this.grid ? "隐藏网格" : "显示网格";
 			},
+		},
+		watch: {
+			
 		}
 	}
 </script>

@@ -214,4 +214,35 @@ module.exports = {
 			}
 		})
 	 },
+
+	 /**
+	 * 播放音乐
+	 *
+	 * 播放音乐接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-16
+	 * @author   Cao Yang
+	 */
+	 PlayMusic(req, res, next){
+	 	UserMusics.findById(req.query.id, (err, result) => {
+	 		res.writeHead(200, {'Content-Type': 'video/mp4'});  
+			let rs = fs.createReadStream(result.path);  
+
+			rs.pipe(res);  
+	 		console.log(result.path)
+	 		rs.on('end',function(){  
+				res.end();  
+				console.log('end call');  
+			});  
+	 	});
+	 	
+	 },
+
+
+
 }

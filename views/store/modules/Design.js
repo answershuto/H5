@@ -12,6 +12,8 @@ module.exports = {
 		musicDialog: false,
 		/*用户上传音乐列表数据*/
 		userMusics: [],
+		/*当前的音乐*/
+		currentMusic: '',
 	},
 	mutations: {
 		/*页面数目加1*/
@@ -34,6 +36,14 @@ module.exports = {
 		/*刷新用户上传音乐列表*/
 		updateUserMusics(state, szMusics){
 			state.userMusics = szMusics;
+		},
+		/*修改选择的背景音乐*/
+		updateMusic(state, music){
+			let audio = document.getElementById('myAudio');
+			audio.pause();
+			audio.src = '/H5/PlayMusic?id='+music;
+			audio.play();
+			state.currentMusic = music;
 		},
 	},
 	actions: {

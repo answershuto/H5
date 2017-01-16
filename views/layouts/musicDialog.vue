@@ -24,19 +24,14 @@
 			<div v-show="isMyMusic">
 				<div>
 					<span v-for="item in userMusics">
-						<mu-flat-button :label="item.musicName" @click="handleClickMusic('userMusic')" class="" icon="audiotrack" primary/>
+						<mu-flat-button :label="item.musicName" @click="handleClickMusic('userMusic', item)" class="" icon="audiotrack" primary/>
 					</span>
 				</div>
 			</div>
 			<div v-show="isNetMusic">
 				<div>
-					<audio id="myAudio" controls="controls" >
-						<source  type="audio/mp3" />
-					</audio>
-				</div>
-				<div>
 					<span v-for="item in musicItems">
-						<mu-flat-button :label="item.title" @click="handleClickMusic('netMusic', item.url)" class="" icon="audiotrack" primary/>
+						<mu-flat-button :label="item.title" @click="handleClickMusic('netMusic', item)" class="" icon="audiotrack" primary/>
 					</span>
 				</div>
 			</div>
@@ -51,6 +46,7 @@
 				</span>
 			</div>
 		</div>
+		<mu-flat-button slot="actions" @click="cancel" primary label="取消"/>
 	</mu-dialog>
 </template>
 
@@ -130,16 +126,17 @@
 					this.currentPage = val;
 				}
 			},
-			handleClickMusic(type, url){
-				let audio = document.getElementById('myAudio');
-				audio.pause();
+			handleClickMusic(type, info){
+				
 				if (type === 'userMusic') {
-					audio.src = '/music/'+url;
+					this.$store.commit('updateMusic', info.id);
 				}
 				else{
-					audio.src = '/music/'+url;
+					//info.url
 				}
-				audio.play();
+
+				this.$store.commit('musicDialog', false);
+
 			},
 			refreshList(){
 				fetch('/H5/rpc',
@@ -217,6 +214,9 @@
 			},
 			chooseNullMusics(){
 				this.manageMusicList = [];
+			},
+			cancel(){
+				this.$store.commit('musicDialog', false);
 			},
 		},
 		computed:{
