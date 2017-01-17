@@ -47,6 +47,7 @@
 			handleClickEdit(type){
 				switch(type){
 					case 'word':
+						this.$store.commit('addDesignText', '请输入文字');
 						break;
 					case 'background':
 						break;

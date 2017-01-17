@@ -2,6 +2,11 @@
  	<div class="container">
  		<div class="div-main">
  			<div class="div-mobile-phone">
+ 				<div id="myDesignRect" class="mobilePhone-design">
+ 					<div v-for="item in text" :id="item.id">
+ 						{{item.text}}
+ 					</div>
+ 				</div>
  				<div class="mobilePhone-background" :class="{'div-mobile-grid': grid}" ></div>
  				<div class="mobilePhone-home" :title="showTitle" @click="handleClickHome"></div>
  			</div>
@@ -42,6 +47,9 @@
 			showTitle(){
 				return this.grid ? "隐藏网格" : "显示网格";
 			},
+			text(){
+				return this.$store.state.Design.DesignInfos.text;
+			},
 		},
 		watch: {
 			
@@ -74,6 +82,14 @@
 		height: 571px;
 		margin-top: 122px;
 		margin-left: 49px;
+	}
+
+	.mobilePhone-design{
+		position: absolute;
+		width: 340px;
+		height: 571px;
+		top: 15%;
+		left: 11%;
 	}
 
 	.mobilePhone-home{

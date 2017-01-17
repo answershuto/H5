@@ -12,8 +12,21 @@ module.exports = {
 		musicDialog: false,
 		/*用户上传音乐列表数据*/
 		userMusics: [],
-		/*当前的音乐*/
-		currentMusic: '',
+		/*设计界面各个已添加数据*/
+		DesignInfos: {
+			/*id号*/
+			id: 1,
+			/*音乐*/
+			music: '',
+			/*
+				文本
+				例: {
+					id: design_1,
+					word: 'test',
+				}
+			*/
+			text: [],
+		},
 	},
 	mutations: {
 		/*页面数目加1*/
@@ -43,8 +56,15 @@ module.exports = {
 			audio.pause();
 			audio.src = '/H5/PlayMusic?id='+music;
 			audio.play();
-			state.currentMusic = music;
+			state.DesignInfos.music = music;
 		},
+		/*增加文本*/
+		addDesignText(state, text){
+			state.DesignInfos.text.push({
+				id: 'design_'+state.DesignInfos.id,
+				text,
+			})
+		}
 	},
 	actions: {
 		/*增加一个页面*/

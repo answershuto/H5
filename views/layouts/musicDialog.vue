@@ -127,7 +127,6 @@
 				}
 			},
 			handleClickMusic(type, info){
-				
 				if (type === 'userMusic') {
 					this.$store.commit('updateMusic', info.id);
 				}
