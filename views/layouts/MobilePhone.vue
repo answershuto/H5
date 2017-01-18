@@ -2,8 +2,9 @@
  	<div class="container">
  		<div class="div-main">
  			<div class="div-mobile-phone">
- 				<div id="myDesignRect" class="mobilePhone-design">
- 					<div v-for="item in text" :id="item.id">
+ 				<div id="myDesignRect" class="mobilePhone-design" @mousemove="handleMouseMove">
+ 					<div class="design-title">{{this.$store.state.Work.workName}}</div>
+ 					<div v-for="item in text" :id="item.id" class="design-text" :style="item.style" @mousedown="handleMouseDown" @mouseup="handleMouseUp">
  						{{item.text}}
  					</div>
  				</div>
@@ -23,12 +24,17 @@
 
 	export default {
 		components: {
-			url: '',
+			
 		},
 		data(){
 			return {
 				/*显示网格*/
 				grid: true,
+				moveInfo: {
+					isMove: false,
+					startX: 0,
+					startY: 0,
+				}
 			}
 		},
 		methods: {
@@ -41,6 +47,17 @@
 				else{/*隐藏网格*/
 
 				}
+			},
+			handleMouseDown(e){
+			
+			},
+			handleMouseUp(e){
+				
+			},
+			handleMouseMove(e){
+				
+				
+				
 			},
 		},
 		computed: {
@@ -90,6 +107,20 @@
 		height: 571px;
 		top: 15%;
 		left: 11%;
+	}
+
+	.design-text{
+		position: absolute;
+		cursor: pointer;
+	}
+
+	.design-title{
+		text-align: center;
+		height: 50px;
+		background-color: black;
+		color: white;
+		line-height: 50px;
+		font-size: 150%;
 	}
 
 	.mobilePhone-home{
