@@ -18,11 +18,17 @@ module.exports = {
 			id: 1,
 			/*音乐*/
 			music: '',
+			/*当前选中的元素*/
+			currentElement: '',
 			/*
 				文本
 				例: {
 					id: design_1,
 					word: 'test',
+					style:{
+						left: 20%,
+						top:10%,
+					}
 				}
 			*/
 			text: [],
@@ -63,8 +69,25 @@ module.exports = {
 			state.DesignInfos.text.push({
 				id: 'design_'+state.DesignInfos.id,
 				text,
+				style:{
+					left: '0%',
+					top: '20%',
+				}
 			})
-		}
+		},
+		/*根据id修改位置*/
+		modifyTextPositionById(state, info){
+			state.DesignInfos.text.forEach(item => {
+				if (item.id === info.id) {
+					item.style.left = info.left;
+					item.style.top = info.top;
+				}
+			})
+		},
+		/*修改当前选中的元素*/
+		modifyCurrentElement(state, ele){
+			state.DesignInfos.currentElement = ele || '';
+		},
 	},
 	actions: {
 		/*增加一个页面*/

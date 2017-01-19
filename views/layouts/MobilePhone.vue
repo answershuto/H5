@@ -2,9 +2,9 @@
  	<div class="container">
  		<div class="div-main">
  			<div class="div-mobile-phone">
- 				<div id="myDesignRect" class="mobilePhone-design" @mousemove="handleMouseMove">
+ 				<div id="myDesignRect" class="mobilePhone-design">
  					<div class="design-title">{{this.$store.state.Work.workName}}</div>
- 					<div v-for="item in text" :id="item.id" class="design-text" :style="item.style" @mousedown="handleMouseDown" @mouseup="handleMouseUp">
+ 					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click="handleClickEle">
  						{{item.text}}
  					</div>
  				</div>
@@ -30,11 +30,6 @@
 			return {
 				/*显示网格*/
 				grid: true,
-				moveInfo: {
-					isMove: false,
-					startX: 0,
-					startY: 0,
-				}
 			}
 		},
 		methods: {
@@ -48,16 +43,8 @@
 
 				}
 			},
-			handleMouseDown(e){
-			
-			},
-			handleMouseUp(e){
-				
-			},
-			handleMouseMove(e){
-				
-				
-				
+			handleClickEle(e){
+				this.$store.commit('modifyCurrentElement', e.target.id);
 			},
 		},
 		computed: {
@@ -67,6 +54,10 @@
 			text(){
 				return this.$store.state.Design.DesignInfos.text;
 			},
+			currentEle(){
+				console.log(this.$store.state.Design.DesignInfos.currentElement)
+				return this.$store.state.Design.DesignInfos.currentElement;
+			}
 		},
 		watch: {
 			
@@ -129,6 +120,10 @@
 		width: 50px;
 		height: 50px;
 		cursor: pointer;
+	}
+
+	.design-select{
+		border:1px solid black;
 	}
 
 	.div-mobile-grid{
