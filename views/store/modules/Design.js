@@ -74,6 +74,8 @@ module.exports = {
 					top: '20%',
 				}
 			})
+
+			state.DesignInfos.id++;
 		},
 		/*根据id修改位置*/
 		modifyTextPositionById(state, info){
