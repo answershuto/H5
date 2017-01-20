@@ -12,10 +12,10 @@
 				<mu-float-button icon="add" mini backgroundColor="#795548" class="add-btn" @click="handleClickAdd" />
 			</div>
 			<mu-list>
-				<div v-for="num in pageNum" class="pages-div">
-					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose(num)" @click="handleClick" showDelete>
+				<div v-for="(page, index) in pages" class="pages-div">
+					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose(page.id)" @click="handleClick(page.id)" showDelete>
 						<mu-avatar :size="32" src="/images/H5.png"/>
-						<div class="pageNum">第&nbsp{{num}}页</div>
+						<div class="pageNum">第&nbsp{{index}}页</div>
 					</mu-chip>
 				</div>
 			</mu-list>
@@ -35,10 +35,10 @@
 			}
 		},
 		methods: {
-			handleClose(num){
-				this.$store.dispatch('delPageNum', num);
+			handleClose(pageId){
+				this.$store.dispatch('delPageNum', pageId);
 			},
-			handleClick(){
+			handleClick(pageId){
 				alert('click')
 			},
 			handleClickAdd(){
@@ -60,8 +60,8 @@
 			},
 		},
 		computed: {
-			pageNum(){
-				return this.$store.state.Design.pageNum;
+			pages(){
+				return this.$store.state.Design.DesignInfos.pages;
 			},
 		}
 	}

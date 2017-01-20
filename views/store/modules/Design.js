@@ -2,8 +2,6 @@
 
 module.exports = {
 	state: {
-		/*页面数目*/
-		pageNum: 1,
 		/*是否显示提示框*/
 		isAlert: false,
 		/*提示框信息*/
@@ -16,32 +14,45 @@ module.exports = {
 		DesignInfos: {
 			/*id号*/
 			id: 1,
+			/*页面id*/
+			pageId: 1,
 			/*音乐*/
 			music: '',
 			/*当前选中的元素*/
 			currentElement: '',
-			/*
-				文本
-				例: {
-					id: design_1,
-					word: 'test',
-					style:{
-						left: 20%,
-						top:10%,
-					}
-				}
-			*/
-			text: [],
+			/*页面*/
+			pages: [
+				{
+					id: 'page_0',
+					/*
+						文本
+						例: {
+							id: design_1,
+							word: 'test',
+							style:{
+								left: 20%,
+								top:10%,
+							}
+						}
+					*/
+					text: [],
+				},
+			],
 		},
 	},
 	mutations: {
 		/*页面数目加1*/
 		addPageNum(state){
-			state.pageNum++;
+			state.DesignInfos.pages.push({
+				id: 'page_'+state.DesignInfos.pageId,
+				text: [],
+			})
+
+			state.DesignInfos.pageId++;
 		},
 		/*页面数目减1*/
-		delPageNum(state){
-			state.pageNum--;
+		delPageNum(state, pageId){
+			delete state.DesignInfos.pages[pageId];
 		},
 		/*弹出提示*/
 		alertDesignMessage(state, {isAlert, message}){
@@ -97,8 +108,8 @@ module.exports = {
 			context.commit('addPageNum');
 		},
 		/*删除一个页面*/
-		delPageNum(context, num){
-			context.commit('delPageNum');
+		delPageNum(context, pageId){
+			context.commit('delPageNum', pageId);
 		},
 		/*弹出音乐提示框*/
 		musicDialog(context, l){
