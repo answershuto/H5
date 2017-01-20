@@ -20,6 +20,8 @@ module.exports = {
 			music: '',
 			/*当前选中的元素*/
 			currentElement: '',
+			/*当前选中的页面*/
+			currentPage: 'page_0',
 			/*页面*/
 			pages: [
 				{
@@ -54,7 +56,6 @@ module.exports = {
 		delPageNum(state, pageId){
 			state.DesignInfos.pages.forEach((item, index) => {
 				if (item.id === pageId) {
-					console.log('delete',index)
 					state.DesignInfos.pages.splice(index, 1)
 				}
 			})
@@ -82,12 +83,19 @@ module.exports = {
 		},
 		/*增加文本*/
 		addDesignText(state, text){
-			state.DesignInfos.text.push({
-				id: 'design_'+state.DesignInfos.id,
-				text,
-				style:{
-					left: '0%',
-					top: '20%',
+			state.DesignInfos.pages.forEach((item, index) => {
+				console.log(item.id)
+				console.log(state.DesignInfos.currentPage)
+				if (item.id === state.DesignInfos.currentPage) {console.log(item.text)
+					item.text.push({
+						id: 'design_'+state.DesignInfos.id,
+						text: text || "",
+						style:{
+							left: '0%',
+							top: '20%',
+						}
+					})
+					console.log(item.text)
 				}
 			})
 

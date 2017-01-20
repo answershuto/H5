@@ -52,7 +52,13 @@
 				return this.grid ? "隐藏网格" : "显示网格";
 			},
 			text(){
-				return this.$store.state.Design.DesignInfos.text;
+				let text = [];
+				this.$store.state.Design.DesignInfos.pages.forEach(item => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						text = item.text || [];
+					}
+				})
+				return text;
 			},
 			currentEle(){
 				return this.$store.state.Design.DesignInfos.currentElement;
