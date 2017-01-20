@@ -52,7 +52,12 @@ module.exports = {
 		},
 		/*页面数目减1*/
 		delPageNum(state, pageId){
-			delete state.DesignInfos.pages[pageId];
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === pageId) {
+					console.log('delete',index)
+					state.DesignInfos.pages.splice(index, 1)
+				}
+			})
 		},
 		/*弹出提示*/
 		alertDesignMessage(state, {isAlert, message}){
