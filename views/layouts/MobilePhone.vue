@@ -55,7 +55,6 @@
 				return this.$store.state.Design.DesignInfos.text;
 			},
 			currentEle(){
-				console.log(this.$store.state.Design.DesignInfos.currentElement)
 				return this.$store.state.Design.DesignInfos.currentElement;
 			}
 		},

@@ -3,6 +3,7 @@
  		<PageList></PageList>
  		<MobilePhone></MobilePhone>
  		<musicDialog></musicDialog>
+ 		<modifyDesign></modifyDesign>
  		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
 			{{message}}
 		</mu-popup>
@@ -13,11 +14,13 @@
 	import PageList from '../layouts/PageList.vue'
 	import MobilePhone from '../layouts/MobilePhone.vue'
 	import musicDialog from '../layouts/musicDialog.vue'
+	import modifyDesign from '../layouts/modifyDesign.vue'
 	export default {
 		components: {
 			PageList,
 			MobilePhone,
 			musicDialog,
+			modifyDesign,
 		},
 		data() {
 			return {
