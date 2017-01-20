@@ -39,7 +39,7 @@
 				this.$store.dispatch('delPageNum', pageId);
 			},
 			handleClick(pageId){
-				alert('click')
+				this.$store.commit('changePage', pageId);
 			},
 			handleClickAdd(){
 				this.$store.dispatch('addPageNum');

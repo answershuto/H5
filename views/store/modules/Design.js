@@ -84,9 +84,7 @@ module.exports = {
 		/*增加文本*/
 		addDesignText(state, text){
 			state.DesignInfos.pages.forEach((item, index) => {
-				console.log(item.id)
-				console.log(state.DesignInfos.currentPage)
-				if (item.id === state.DesignInfos.currentPage) {console.log(item.text)
+				if (item.id === state.DesignInfos.currentPage) {
 					item.text.push({
 						id: 'design_'+state.DesignInfos.id,
 						text: text || "",
@@ -95,7 +93,6 @@ module.exports = {
 							top: '20%',
 						}
 					})
-					console.log(item.text)
 				}
 			})
 
@@ -113,6 +110,10 @@ module.exports = {
 		/*修改当前选中的元素*/
 		modifyCurrentElement(state, ele){
 			state.DesignInfos.currentElement = ele || '';
+		},
+		/*修改当前被选中的页面*/
+		changePage(state, page){
+			state.DesignInfos.currentPage = page || 'page_0';
 		},
 	},
 	actions: {
