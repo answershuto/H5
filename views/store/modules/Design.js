@@ -34,8 +34,9 @@ module.exports = {
 							id: design_1,
 							word: 'test',
 							style:{
-								left: 20%,
-								top:10%,
+								left: '20%',
+								top: '10%',
+								color: '#ff00ff',
 							}
 						}
 					*/
@@ -50,6 +51,7 @@ module.exports = {
 			state.DesignInfos.pages.push({
 				id: 'page_'+state.DesignInfos.pageId,
 				text: [],
+				color: 'black',
 			})
 
 			state.DesignInfos.pageId++;
@@ -108,7 +110,6 @@ module.exports = {
 						if (t.id === info.id) {
 							for(let s in info){
 								if (s === 'id') continue;
-								console.log(s)
 								t.style[s] = info[s];
 							}
 						}

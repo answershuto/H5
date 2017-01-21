@@ -14,6 +14,10 @@
 					<div>纵向位置</div>
 					<mu-slider v-model="modifyTop" class="slider"/>
 				</div>
+				<div>
+					<div>文字颜色</div>
+					<input type="color" name="" class="color" v-model="modifyColor" >
+				</div>
 			</div>
 			<div v-show="isCartoon">
 				isCartoon
@@ -33,6 +37,7 @@
 				activeTab: 'style',
 				modifyLeft: 0,
 				modifyTop: 0,
+				modifyColor: 'black',
 			}
 		},
 		beforeUpdate(){
@@ -42,6 +47,7 @@
 						if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 							this.modifyLeft = parseInt(t.style.left);
 							this.modifyTop = parseInt(t.style.top);
+							this.modifyColor = t.style.color;
 						}
 					})
 				}
@@ -92,6 +98,20 @@
 					}
 				})
 			},
+			modifyColor(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyTextStyleById', {
+									color: val,
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
 		},
 	}
 </script>
@@ -108,6 +128,11 @@
 
 	.slider{
 		width: 250px;
+		margin-left: 20px;
+	}
+
+	.color{
+		width: 200px;
 		margin-left: 20px;
 	}
 
