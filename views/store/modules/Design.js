@@ -101,13 +101,21 @@ module.exports = {
 			state.DesignInfos.id++;
 		},
 		/*根据id修改位置*/
-		modifyTextPositionById(state, info){
-			state.DesignInfos.text.forEach(item => {
-				if (item.id === info.id) {
-					item.style.left = info.left;
-					item.style.top = info.top;
+		modifyTextStyleById(state, info){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.text.forEach(t => {
+						if (t.id === info.id) {
+							for(let s in info){
+								if (s === 'id') continue;
+								console.log(s)
+								t.style[s] = info[s];
+							}
+						}
+					})
 				}
 			})
+			
 		},
 		/*修改当前选中的元素*/
 		modifyCurrentElement(state, ele){
