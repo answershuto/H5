@@ -1,5 +1,5 @@
 <template>
- 	<div>
+ 	<div ref="design">
 		<mu-drawer :open="isOpen" class="drawer">
 			<div class="editColumn">
 				<mu-icon-button tooltip="文字" tooltipPosition="top-center" touch icon="edit" @click="handleClickEdit('word')" />
@@ -33,6 +33,14 @@
 			return {
 				isOpen: true,
 			}
+		},
+		mounted(){
+			this.$refs.design.onclick = ()=>{
+				this.$store.dispatch('cancelCurrentEle');
+			}
+		},
+		beforeDestroy(){
+			this.$refs.design.onclick = null;
 		},
 		methods: {
 			handleClose(pageId){

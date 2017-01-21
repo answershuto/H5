@@ -1,8 +1,7 @@
 <template>
  	<div>
-		<mu-drawer right :open="open" @close="close()" class="drawer" >
+		<mu-drawer right :open="isOpen" @close="close()" class="drawer" >
 			
-		
 		</mu-drawer>
  	</div>
 </template>
@@ -15,11 +14,13 @@
 		},
 		data(){
 			return {
-				open: false,
+				
 			}
 		},
 		computed: {
-			
+			isOpen(){
+				return this.$store.state.Design.isModifyEle;
+			},
 		},
 		methods: {
 			close(){

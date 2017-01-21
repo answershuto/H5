@@ -1,10 +1,10 @@
 <template>
- 	<div class="container">
+ 	<div class="container" ref="design">
  		<div class="div-main">
  			<div class="div-mobile-phone">
  				<div id="myDesignRect" class="mobilePhone-design">
  					<div class="design-title">{{this.$store.state.Work.workName}}</div>
- 					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click="handleClickEle">
+ 					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
  						{{item.text}}
  					</div>
  				</div>
@@ -32,6 +32,14 @@
 				grid: true,
 			}
 		},
+		mounted(){
+			this.$refs.design.onclick = ()=>{
+				this.$store.dispatch('cancelCurrentEle');
+			}
+		},
+		beforeDestroy(){
+			this.$refs.design.onclick = null;
+		},
 		methods: {
 			handleClickHome(){
 				this.grid = !this.grid;
@@ -45,6 +53,7 @@
 			},
 			handleClickEle(e){
 				this.$store.commit('modifyCurrentElement', e.target.id);
+				this.$store.commit('isModifyEle', true);
 			},
 		},
 		computed: {

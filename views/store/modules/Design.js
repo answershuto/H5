@@ -10,6 +10,8 @@ module.exports = {
 		musicDialog: false,
 		/*用户上传音乐列表数据*/
 		userMusics: [],
+		/*右侧修改设计的弹出框*/
+		isModifyEle: false,
 		/*设计界面各个已添加数据*/
 		DesignInfos: {
 			/*id号*/
@@ -115,6 +117,10 @@ module.exports = {
 		changePage(state, page){
 			state.DesignInfos.currentPage = page || 'page_0';
 		},
+		/*是否修改界面元素，弹出右侧弹出框*/
+		isModifyEle(state, l){
+			state.isModifyEle = l ? true : false;
+		}
 	},
 	actions: {
 		/*增加一个页面*/
@@ -151,7 +157,12 @@ module.exports = {
 					this.$store.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
 				}
 			})
-		}
+		},
+		/*取消选中当前元素并让编辑框消失*/
+		cancelCurrentEle(context){
+			context.commit('isModifyEle', false);
+			context.commit('modifyCurrentElement', '');
+		},
 	},
 	getters: {
 		
