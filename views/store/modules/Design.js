@@ -37,6 +37,7 @@ module.exports = {
 								left: '20%',
 								top: '10%',
 								color: '#ff00ff',
+								font-size： '100',
 							}
 						}
 					*/
@@ -51,7 +52,6 @@ module.exports = {
 			state.DesignInfos.pages.push({
 				id: 'page_'+state.DesignInfos.pageId,
 				text: [],
-				color: 'black',
 			})
 
 			state.DesignInfos.pageId++;
@@ -95,6 +95,8 @@ module.exports = {
 						style:{
 							left: '0%',
 							top: '20%',
+							color: 'black',
+							'font-size': '100%',
 						}
 					})
 				}
@@ -111,6 +113,7 @@ module.exports = {
 							for(let s in info){
 								if (s === 'id') continue;
 								t.style[s] = info[s];
+								console.log(t.style)
 							}
 						}
 					})
