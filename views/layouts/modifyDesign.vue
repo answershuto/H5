@@ -19,6 +19,10 @@
 					<input type="color" name="" class="color" v-model="modifyColor" >
 				</div>
 				<div>
+					<div>背景颜色</div>
+					<input type="color" name="" class="color" v-model="modifyBackgroundColor" >
+				</div>
+				<div>
 					<div>字体大小</div>
 					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
 				</div>
@@ -43,6 +47,7 @@
 				modifyTop: 0,
 				modifyColor: 'black',
 				modifyFontSize: 0,
+				modifyBackgroundColor: '#FFFFFF',
 			}
 		},
 		beforeUpdate(){
@@ -54,6 +59,7 @@
 							this.modifyTop = parseInt(t.style.top);
 							this.modifyColor = t.style.color;
 							this.modifyFontSize = parseInt(t.style['font-size']);
+							this.modifyBackgroundColor = t.style['background-color'];
 						}
 					})
 				}
@@ -125,6 +131,20 @@
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit('modifyTextStyleById', {
 									'font-size': val + '%',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			modifyBackgroundColor(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyTextStyleById', {
+									'background-color': val,
 									id: t.id
 								});
 							}

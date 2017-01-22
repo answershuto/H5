@@ -37,6 +37,7 @@ module.exports = {
 								left: '20%',
 								top: '10%',
 								color: '#ff00ff',
+								background-color: '#ff00ff',
 								font-size： '100',
 							}
 						}
@@ -97,6 +98,7 @@ module.exports = {
 							top: '20%',
 							color: 'black',
 							'font-size': '100%',
+							'background-color': '#FFFFFF',
 						}
 					})
 				}
