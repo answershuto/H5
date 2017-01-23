@@ -26,6 +26,13 @@
 					<div>字体大小</div>
 					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
 				</div>
+				<div>
+					<div>文本内容</div>
+					<div>
+						<mu-auto-complete v-model="modifyText" >
+						<input type="text" name="" v-model="modifyText" >
+					</div>
+				</div>
 			</div>
 			<div v-show="isCartoon">
 				isCartoon
@@ -47,7 +54,8 @@
 				modifyTop: 0,
 				modifyColor: 'black',
 				modifyFontSize: 0,
-				modifyBackgroundColor: '#FFFFFF',
+				modifyBackgroundColor: 'transparent',
+				modifyText: '',
 			}
 		},
 		beforeUpdate(){
@@ -60,6 +68,7 @@
 							this.modifyColor = t.style.color;
 							this.modifyFontSize = parseInt(t.style['font-size']);
 							this.modifyBackgroundColor = t.style['background-color'];
+							this.modifyText = t.text;
 						}
 					})
 				}
@@ -145,6 +154,20 @@
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit('modifyTextStyleById', {
 									'background-color': val,
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			modifyText(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyTextContentById', {
+									text: val,
 									id: t.id
 								});
 							}

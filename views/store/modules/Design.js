@@ -37,7 +37,7 @@ module.exports = {
 								left: '20%',
 								top: '10%',
 								color: '#ff00ff',
-								background-color: '#ff00ff',
+								background-color: 'transparent',
 								font-size： '100',
 							}
 						}
@@ -98,7 +98,7 @@ module.exports = {
 							top: '20%',
 							color: 'black',
 							'font-size': '100%',
-							'background-color': '#FFFFFF',
+							'background-color': 'transparent',
 						}
 					})
 				}
@@ -115,13 +115,23 @@ module.exports = {
 							for(let s in info){
 								if (s === 'id') continue;
 								t.style[s] = info[s];
-								console.log(t.style)
 							}
 						}
 					})
 				}
 			})
 			
+		},
+		modifyTextContentById(state, info){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.text.forEach(t => {
+						if (t.id === info.id) {
+							t.text = info.text;
+						}
+					})
+				}
+			})
 		},
 		/*修改当前选中的元素*/
 		modifyCurrentElement(state, ele){
@@ -134,7 +144,7 @@ module.exports = {
 		/*是否修改界面元素，弹出右侧弹出框*/
 		isModifyEle(state, l){
 			state.isModifyEle = l ? true : false;
-		}
+		},
 	},
 	actions: {
 		/*增加一个页面*/
