@@ -6,6 +6,10 @@
 				<mu-tab value="cartoon" icon="star" title="动画"/>
 			</mu-tabs>
 			<div v-show="isStyle" class="showStyle">
+				<div class="showTextDiv">
+					<div class="showText">文本内容</div>
+					<mu-auto-complete v-model="modifyText" class="text" >
+				</div>
 				<div>
 					<div>横向位置</div>
 					<mu-slider v-model="modifyLeft" class="slider"/>
@@ -25,13 +29,6 @@
 				<div>
 					<div>字体大小</div>
 					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
-				</div>
-				<div>
-					<div>文本内容</div>
-					<div>
-						<mu-auto-complete v-model="modifyText" >
-						<input type="text" name="" v-model="modifyText" >
-					</div>
 				</div>
 			</div>
 			<div v-show="isCartoon">
@@ -194,6 +191,10 @@
 		margin-left: 20px;
 	}
 
+	.text{
+		margin-left: 20px;
+	}
+
 	.color{
 		width: 200px;
 		margin-left: 20px;
@@ -202,9 +203,18 @@
 	.showStyle > div{
 		margin-left: 30px;
 		margin-top: 20px;
+		height: 30px;
 	}
 
 	.showStyle > div > div{
 		float: left;
+	}
+
+	.showTextDiv{
+		height: 50px;
+	}
+
+	.showText{
+		margin-top: 13px;
 	}
 </style>
