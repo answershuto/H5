@@ -30,6 +30,10 @@
 					<div>字体大小</div>
 					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
 				</div>
+				<div>
+					<div>行高</div>
+					<mu-slider v-model="modifyLineHeight" class="slider" max='500' />
+				</div>
 			</div>
 			<div v-show="isCartoon">
 				isCartoon
@@ -51,6 +55,7 @@
 				modifyTop: 0,
 				modifyColor: 'black',
 				modifyFontSize: 0,
+				modifyLineHeight: 100,
 				modifyBackgroundColor: 'transparent',
 				modifyText: '',
 			}
@@ -66,6 +71,7 @@
 							this.modifyFontSize = parseInt(t.style['font-size']);
 							this.modifyBackgroundColor = t.style['background-color'];
 							this.modifyText = t.text;
+							this.modifyLineHeight = parseInt(t['line-height']);
 						}
 					})
 				}
@@ -172,6 +178,20 @@
 					}
 				})
 			},
+			modifyLineHeight(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyTextStyleById', {
+									'line-height': val + '%',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			}
 		},
 	}
 </script>

@@ -39,6 +39,7 @@ module.exports = {
 								color: '#ff00ff',
 								background-color: 'transparent',
 								font-size： '100',
+								line-height: '100%',
 							}
 						}
 					*/
@@ -99,6 +100,7 @@ module.exports = {
 							color: 'black',
 							'font-size': '100%',
 							'background-color': 'transparent',
+							'line-height': '100%',
 						}
 					})
 				}
