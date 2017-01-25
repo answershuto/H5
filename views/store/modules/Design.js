@@ -40,6 +40,7 @@ module.exports = {
 								background-color: 'transparent',
 								font-size： '100',
 								line-height: '100%',
+								padding: '0px',
 							}
 						}
 					*/
@@ -101,6 +102,7 @@ module.exports = {
 							'font-size': '100%',
 							'background-color': 'transparent',
 							'line-height': '100%',
+							padding: '0px',
 						}
 					})
 				}

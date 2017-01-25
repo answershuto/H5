@@ -34,6 +34,10 @@
 					<div>行高</div>
 					<mu-slider v-model="modifyLineHeight" class="slider" max='500' />
 				</div>
+				<div>
+					<div>内边距</div>
+					<mu-slider v-model="modifyPadding" class="slider" max='100' />
+				</div>
 			</div>
 			<div v-show="isCartoon">
 				isCartoon
@@ -58,6 +62,7 @@
 				modifyLineHeight: 100,
 				modifyBackgroundColor: 'transparent',
 				modifyText: '',
+				modifyPadding: 0,
 			}
 		},
 		beforeUpdate(){
@@ -72,6 +77,7 @@
 							this.modifyBackgroundColor = t.style['background-color'];
 							this.modifyText = t.text;
 							this.modifyLineHeight = parseInt(t['line-height']);
+							this.modifyPadding = parseInt(t['padding']);
 						}
 					})
 				}
@@ -191,7 +197,21 @@
 						})
 					}
 				})
-			}
+			},
+			modifyPadding(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyTextStyleById', {
+									'padding': val + 'px',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
 		},
 	}
 </script>
