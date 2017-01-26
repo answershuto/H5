@@ -76,8 +76,8 @@
 							this.modifyFontSize = parseInt(t.style['font-size']);
 							this.modifyBackgroundColor = t.style['background-color'];
 							this.modifyText = t.text;
-							this.modifyLineHeight = parseInt(t['line-height']);
-							this.modifyPadding = parseInt(t['padding']);
+							this.modifyLineHeight = parseInt(t.style['line-height']);
+							this.modifyPadding = parseInt(t.style['padding']);
 						}
 					})
 				}
