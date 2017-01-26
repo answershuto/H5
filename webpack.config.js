@@ -3,10 +3,10 @@ var path = require('path')
 var webpack = require('webpack') 
 
 module.exports = {
-  entry: './views/app.js',
+  entry: path.resolve(__dirname, './views/app.js'),
   output: {
     path: path.resolve(__dirname, './views/dist'),
-    publicPath: './views/dist/',
+    publicPath: 'http://localhost:2000/dist/',
     filename: 'build.js'
   },
   resolveLoader: {
