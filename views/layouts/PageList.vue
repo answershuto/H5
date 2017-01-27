@@ -3,8 +3,7 @@
 		<mu-drawer :open="isOpen" class="drawer">
 			<div class="editColumn">
 				<mu-icon-button tooltip="文字" tooltipPosition="top-center" touch icon="edit" @click="handleClickEdit('word')" />
-				<mu-icon-button tooltip="背景" tooltipPosition="top-center" touch icon="image" @click="handleClickEdit('background')" />
-				<mu-icon-button tooltip="图片" tooltipPosition="top-center" touch icon="camera" @click="handleClickEdit('picture')" />
+				<mu-icon-button tooltip="图片" tooltipPosition="top-center" touch icon="image" @click="handleClickEdit('picture')" />
 				<mu-icon-button tooltip="音乐" tooltipPosition="top-center" touch icon="audiotrack" @click="handleClickEdit('music')" />
 			</div>
 			<div class="title-pages">
@@ -56,8 +55,6 @@
 				switch(type){
 					case 'word':
 						this.$store.commit('addDesignText', '请输入文字');
-						break;
-					case 'background':
 						break;
 					case 'picture':
 						break;
