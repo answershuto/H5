@@ -7,35 +7,35 @@
 			</mu-tabs>
 			<div v-show="isStyle" class="showStyle">
 				<div class="showTextDiv">
-					<div class="showText">文本内容</div>
+					<div class="showText modifyPrompt">文本内容</div>
 					<mu-auto-complete v-model="modifyText" class="text" >
 				</div>
 				<div>
-					<div>横向位置</div>
+					<div class="modifyPrompt">横向位置</div>
 					<mu-slider v-model="modifyLeft" class="slider"/>
 				</div>
 				<div>
-					<div>纵向位置</div>
+					<div class="modifyPrompt">纵向位置</div>
 					<mu-slider v-model="modifyTop" class="slider"/>
 				</div>
 				<div>
-					<div>文字颜色</div>
+					<div class="modifyPrompt">文字颜色</div>
 					<input type="color" name="" class="color" v-model="modifyColor" >
 				</div>
 				<div>
-					<div>背景颜色</div>
+					<div class="modifyPrompt">背景颜色</div>
 					<input type="color" name="" class="color" v-model="modifyBackgroundColor" >
 				</div>
 				<div>
-					<div>字体大小</div>
+					<div class="modifyPrompt">字体大小</div>
 					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
 				</div>
 				<div>
-					<div>行高</div>
+					<div class="modifyPrompt">行高</div>
 					<mu-slider v-model="modifyLineHeight" class="slider" max='500' />
 				</div>
 				<div>
-					<div>内边距</div>
+					<div class="modifyPrompt">内边距</div>
 					<mu-slider v-model="modifyPadding" class="slider" max='100' />
 				</div>
 			</div>
@@ -256,5 +256,9 @@
 
 	.showText{
 		margin-top: 13px;
+	}
+
+	.modifyPrompt{
+		width: 70px;
 	}
 </style>
