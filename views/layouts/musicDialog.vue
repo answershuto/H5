@@ -160,7 +160,7 @@
 				})
 			},
 			handleChangeUploadMusic(){
-				let response = fetch('/H5/UploadMusic',
+				fetch('/H5/UploadMusic',
 					{
 						method:'POST',
 						credentials: 'same-origin',

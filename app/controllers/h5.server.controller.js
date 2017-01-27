@@ -242,6 +242,48 @@ module.exports = {
 	 	});
 	 },
 
+	 /**
+	 * 上传图片
+	 *
+	 * 上传本地图片文件接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-27
+	 * @author   Cao Yang
+	 */
+	 UploadImage(req, res, next){
+	 	let form = new formidable.IncomingForm();
+		form.uploadDir = __dirname+'/../../userData/images';
+		form.encoding = 'utf-8';
+		form.keepExtensions = true;
+		form.maxFieldsSize = 2*1024*1024;/*限制图片大小最大为2M*/
+
+		form.parse(req,(err,fields,files) => {
+			let fileType;
+			switch(files.image.type){
+				case 'image/jpeg':
+					fileType = 'jpeg';
+					break;
+				case 'image/png':
+					fileType = 'png';
+					break;
+				case 'image/jpg':
+					fileType = 'jpg';
+					break;
+			}
+
+			if (fileType === undefined) {/*上传的图片格式没有按照指定要求*/
+				res.send('uploadIcon img type err');
+				return;
+			};
+			
+		})
+
+	 },
 
 
 }

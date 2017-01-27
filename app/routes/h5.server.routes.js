@@ -20,6 +20,9 @@ module.exports = function(app){
 	app.route('/H5/UploadMusic')
 		.post(H5Controller.UploadMusic);
 
+	app.route('/H5/UploadImage')
+		.post(H5Controller.UploadImage);
+
 	app.route('/H5/PlayMusic')
 		.get(H5Controller.PlayMusic);
 }
