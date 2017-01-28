@@ -57,6 +57,7 @@
 						this.$store.commit('addDesignText', '请输入文字');
 						break;
 					case 'picture':
+						this.$store.dispatch('imageDialog', true);
 						break;
 					case 'music':
 						this.$store.dispatch('musicDialog', true);

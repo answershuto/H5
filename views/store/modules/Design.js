@@ -10,6 +10,10 @@ module.exports = {
 		musicDialog: false,
 		/*用户上传音乐列表数据*/
 		userMusics: [],
+		/*是否弹出图片提示框*/
+		imageDialog: false,
+		/*用户上传图片列表数据*/
+		userImages: [],
 		/*右侧修改设计的弹出框*/
 		isModifyEle: false,
 		/*设计界面各个已添加数据*/
@@ -76,9 +80,17 @@ module.exports = {
 		musicDialog(state, l){
 			state.musicDialog = l ? true : false;
 		},
+		/*弹出音乐提示框*/
+		imageDialog(state, l){
+			state.imageDialog = l ? true : false;
+		},
 		/*刷新用户上传音乐列表*/
 		updateUserMusics(state, szMusics){
 			state.userMusics = szMusics;
+		},
+		/*刷新用户上传图片列表*/
+		updateUserImages(state, szImages){
+			state.userImages = szImages;
 		},
 		/*修改选择的背景音乐*/
 		updateMusic(state, music){
@@ -180,6 +192,33 @@ module.exports = {
 				if (d.result) {
 					context.commit('updateUserMusics', d.params);
 					context.commit('musicDialog', l ? true : false);
+				}
+				else{
+					this.$store.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
+				}
+			})
+		},
+		/*弹出图片提示框*/
+		imageDialog(context, l){
+			fetch('/H5/rpc',
+				{
+					method:'POST',
+					headers:{ 
+			 			'Accept': 'application/json', 
+			 			'Content-Type': 'application/json'
+					},
+					credentials: 'same-origin',
+					body: JSON.stringify({
+						method: 'getAllUserImages',
+						params: null,
+					})
+				}
+			)
+			.then(response => response.json())
+			.then(d => {
+				if (d.result) {
+					context.commit('updateUserImages', d.params);
+					context.commit('imageDialog', l ? true : false);
 				}
 				else{
 					this.$store.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});

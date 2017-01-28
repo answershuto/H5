@@ -2,6 +2,7 @@
 
 let mongoose = require('mongoose');
 let UserMusics = mongoose.model('UserMusics');
+let UserImages = mongoose.model('UserImages');
 let fs = require('fs');
 
 module.exports = {
@@ -57,9 +58,9 @@ module.exports = {
 	},
 
 	/**
-	 * 获取所有音乐
+	 * 删除用户音乐
 	 *
-	 * 获取用户上传的所有音乐的列表
+	 * 删除用户音乐接口
 	 *
 	 * @param    req 
 	 * @param    res 
@@ -92,6 +93,38 @@ module.exports = {
 
 	 	res.json({result: true});
 	 },
+
+	 /**
+	 * 获取所有图片
+	 *
+	 * 获取用户上传的所有图片的列表
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-14
+	 * @author   Cao Yang
+	 */
+	getAllUserImages(req, res, next){
+		UserImages.find({userName: req.session.user.userName}, null,{}, (err, result) => {
+			if (err) {
+				console.log('getAllUserImages err!' + err);
+        		res.json({result: false, content: '查询失败'});
+        		return next(err);
+			}
+			else{
+				let params = [];
+				result.forEach((item, index) => {
+					params.push({
+						id: item._id,
+					})
+				})
+				res.json({result: true, params});
+			}
+		})
+	},
 }
 
 

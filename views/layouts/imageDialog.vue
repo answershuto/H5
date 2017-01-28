@@ -1,6 +1,6 @@
 <template>
 	<mu-dialog :open="isOpen" title="" >	
-		<div class="music-left">
+		<div class="image-left">
 			<mu-list @change="handleChange">
 				<mu-list-item title="我的图片" value="myImage" >
 					<mu-icon slot="left" value="audiotrack"/>
@@ -8,7 +8,7 @@
 				<mu-list-item title="上传图片" value="uploadImage" >
 					<mu-icon slot="left" value="audiotrack"/>
 				</mu-list-item>
-				<mu-list-item title="管理图片" value="manageImage" >
+				<mu-list-item title="管理图片" value="managerImage" >
 					<mu-icon slot="left" value="audiotrack"/>
 				</mu-list-item>
 			</mu-list>
@@ -17,6 +17,14 @@
 			<input type="file" accept="image/*" name="image" id="uploadImage" @change="handleChangeUploadImage()" ></input>
 			<iframe name="imageIframe"></iframe>
 		</form>
+		<div class="image-right">
+			<div v-show="isMyImage">
+				isMyImage
+			</div>
+			<div v-show="isManagerImage">
+				isManagerImage
+			</div>
+		</div>
 		<mu-flat-button slot="actions" @click="cancel" primary label="取消"/>
 	</mu-dialog>
 </template>
@@ -41,7 +49,7 @@
 				}
 			},
 			cancel(){
-
+				this.$store.commit('imageDialog', false);
 			},
 			refreshList(){
 
@@ -68,7 +76,16 @@
 		},
 		computed:{
 			isOpen(){
-				return true;
+				return this.$store.state.Design.imageDialog;
+			},
+			userImages(){
+				return this.$store.state.Design.userImages;
+			},
+			isMyImage(){
+				return (this.currentType === 'myImage');
+			},
+			isManagerImage(){
+				return (this.currentType === 'managerImage');
 			},
 		}
 	}
@@ -77,6 +94,16 @@
 <style scoped>
 	.uploadImage{
 		display: none;
+	}
+
+	.image-left{
+		float: left;
+		width: 160px;
+	}
+
+	.image-right{
+		float: left;
+		width: 550px;
 	}
 
 </style>
