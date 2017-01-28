@@ -28,3 +28,14 @@ let SchemaMusics = new mongoose.Schema({
 })
 
 let Musics = mongoose.model('UserMusics', SchemaMusics);
+
+/*音乐表*/
+let SchemaImages = new mongoose.Schema({
+	userName: String,					/*用户名*/
+	path: String,						/*路径*/
+	type: String,						/*图片类型*/
+	size: Number,						/*图片大小*/
+	date: {type:Date,default:Date.now}, /*上传时间*/
+})
+
+let Images = mongoose.model('UserImages', SchemaImages);

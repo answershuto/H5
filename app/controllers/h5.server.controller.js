@@ -8,6 +8,7 @@ let fs = require('fs');
 /*mongoose*/
 let Users = mongoose.model('Users');
 let UserMusics = mongoose.model('UserMusics');
+let UserImages = mongoose.model('UserImages');
 
 /*产生4位随机数带上时间*/
 function RandomKey(){
@@ -280,7 +281,28 @@ module.exports = {
 				res.send('uploadIcon img type err');
 				return;
 			};
+
+			let path = files.image.path;
+			let newPath = path.slice(0, path.lastIndexOf('/'))+'/'+req.session.user.userName+'-'+RandomKey()+ path.slice(path.lastIndexOf('.'),path.length);
+			fs.rename(path, newPath);
 			
+			/*save in mongoDB*/
+			let image = new UserImages({
+				userName: req.session.user.userName,
+				path: newPath,
+				type: files.image.type,
+				size: files.image.size,
+			});
+
+			image.save(err => {
+				if (err) {
+					res.json({result: false, content: '上传图片失败'});
+					return next(err);
+				}
+				else{
+					res.json({result: true});
+				}
+			})
 		})
 
 	 },
