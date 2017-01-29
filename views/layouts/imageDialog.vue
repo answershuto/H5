@@ -3,13 +3,13 @@
 		<div class="image-left">
 			<mu-list @change="handleChange">
 				<mu-list-item title="我的图片" value="myImage" >
-					<mu-icon slot="left" value="audiotrack"/>
+					<mu-icon slot="left" value="image"/>
 				</mu-list-item>
 				<mu-list-item title="上传图片" value="uploadImage" >
-					<mu-icon slot="left" value="audiotrack"/>
+					<mu-icon slot="left" value="image"/>
 				</mu-list-item>
 				<mu-list-item title="管理图片" value="managerImage" >
-					<mu-icon slot="left" value="audiotrack"/>
+					<mu-icon slot="left" value="image"/>
 				</mu-list-item>
 			</mu-list>
 		</div>
@@ -21,12 +21,20 @@
 			<div v-show="isMyImage">
 				<div>
 					<span class="image-span" v-for="item in userImages">
-						<img  :src="'/H5/image?id='+item.id" />
+						<img :src="'/H5/image?id='+item.id" />
 					</span>
 				</div>
 			</div>
 			<div v-show="isManagerImage">
-				isManagerImage
+				<div>
+					<mu-flat-button @click="chooseAllImages" primary label="全选"/>
+					<mu-flat-button @click="chooseNullImages" primary label="清空"/>
+					<mu-flat-button @click="deleteImages" primary label="删除"/>
+				</div>
+				<span class="image-span" v-for="item in userImages">
+					<mu-checkbox :nativeValue="item.id" v-model="managerImageList" /> 
+					<img :src="'/H5/image?id='+item.id" />
+				</span>
 			</div>
 		</div>
 		<mu-flat-button slot="actions" @click="cancel" primary label="取消"/>
@@ -41,6 +49,7 @@
 		data(){
 			return {
 				currentType: 'myImage',
+				managerImageList: [],
 			};
 		},
 		methods:{
@@ -56,7 +65,26 @@
 				this.$store.commit('imageDialog', false);
 			},
 			refreshList(){
-
+				fetch('/H5/rpc',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						credentials: 'same-origin',
+						body: JSON.stringify({
+							method: 'getAllUserImages',
+							params: null,
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					if (d.result) {
+						this.$store.commit('updateUserImages', d.params);
+					}
+				})
 			},
 			handleChangeUploadImage(){
 				fetch('/H5/UploadImage',
@@ -74,6 +102,42 @@
 					}
 					else{
 						this.$store.commit('alertDesignMessage', {isAlert: true, message: '上传失败'});
+					}
+				})
+			},
+			chooseAllImages(){
+				this.$store.state.Design.userImages.forEach((item, index) => {
+					this.managerImageList.push(item.id);
+				})
+			},
+			chooseNullImages(){
+				this.managerImageList = [];
+			},
+			deleteImages(){
+				fetch('/H5/rpc',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						credentials: 'same-origin',
+						body: JSON.stringify({
+							method: 'delUserImages',
+							params: {
+								id: this.managerImageList,
+							},
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					if (d.result) {
+						this.refreshList();
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '删除成功'});
+					}
+					else{
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '删除失败'});
 					}
 				})
 			},
