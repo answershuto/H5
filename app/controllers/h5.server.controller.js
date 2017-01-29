@@ -307,5 +307,33 @@ module.exports = {
 
 	 },
 
+	 /**
+	 * 显示图片
+	 *
+	 * 显示图片接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-29
+	 * @author   Cao Yang
+	 */
+	 showImage(req, res, next){
+	 	UserImages.findById(req.query.id, (err, result) => {
+	 		if (result.userName === req.session.user.userName) {
+	 			console.log(result)
+	 			
+	 			res.writeHead(200, {'Content-Type': result.type});  
+				let rs = fs.createReadStream(result.path);  
+
+				rs.pipe(res);  
+		 		rs.on('end',function(){  
+					res.end();  
+				});  
+	 		}
+	 	});
+	 },
 
 }

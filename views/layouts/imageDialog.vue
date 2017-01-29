@@ -19,7 +19,11 @@
 		</form>
 		<div class="image-right">
 			<div v-show="isMyImage">
-				isMyImage
+				<div>
+					<span class="image-span" v-for="item in userImages">
+						<img  :src="'/H5/image?id='+item.id" />
+					</span>
+				</div>
 			</div>
 			<div v-show="isManagerImage">
 				isManagerImage
@@ -104,6 +108,16 @@
 	.image-right{
 		float: left;
 		width: 550px;
+	}
+
+	.image-span{
+		margin-left: 20px;
+		cursor: pointer;
+	}
+
+	.image-span > img{
+		width: 50px;
+		height: 50px;
 	}
 
 </style>

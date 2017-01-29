@@ -25,4 +25,7 @@ module.exports = function(app){
 
 	app.route('/H5/PlayMusic')
 		.get(H5Controller.PlayMusic);
+
+	app.route('/H5/image')
+		.get(H5Controller.showImage);
 }
