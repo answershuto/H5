@@ -125,6 +125,43 @@ module.exports = {
 			}
 		})
 	},
+
+	/**
+	 * 删除用户图片
+	 *
+	 * 删除用户图片接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-29
+	 * @author   Cao Yang
+	 */
+	 delUserImages(req, res, next){
+	 	let szId = req.body.params.id || [];
+	 	(typeof szId === 'string') && (szId = [szId]);
+
+	 	szId.forEach(id => {
+	 		UserImages.findById(id, (err, result) => {
+	 			if (result.userName === req.session.user.userName) {/*校验用户是否是自己*/
+	 				result.remove(err => {
+						if (err) {
+							console.log('delUserImages err!' + err);
+			        		res.json({result: false, content: '删除失败'});
+			        		return next(err);
+						}
+						else{
+							fs.unlinkSync(result.path);
+						}
+	 				})
+	 			}
+	 		});
+	 	})
+
+	 	res.json({result: true});
+	 },
 }
 
 
