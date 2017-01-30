@@ -26,6 +26,8 @@ module.exports = {
 			music: '',
 			/*当前选中的元素*/
 			currentElement: '',
+			/*当前选中的元素类型 image text*/
+			currentElementType: 'text',
 			/*当前选中的页面*/
 			currentPage: 'page_0',
 			/*页面*/
@@ -164,6 +166,22 @@ module.exports = {
 		},
 		/*修改当前选中的元素*/
 		modifyCurrentElement(state, ele){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.image.forEach((item, index) => {
+						if (item.id === ele) {
+							state.DesignInfos.currentElementType = 'image';
+						}
+					})
+
+					item.text.forEach((item, index) => {
+						if (item.id === ele) {
+							state.DesignInfos.currentElementType = 'text';
+						}
+					})
+				}
+			})
+
 			state.DesignInfos.currentElement = ele || '';
 		},
 		/*修改当前被选中的页面*/
@@ -190,6 +208,9 @@ module.exports = {
 			})
 
 			state.DesignInfos.id++;
+		},
+		updateCurrentElementType(state, type){
+			state.currentElementType = (type === 'text') ? 'text':'image';
 		},
 	},
 	actions: {

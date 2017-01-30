@@ -6,37 +6,42 @@
 				<mu-tab value="cartoon" icon="star" title="动画"/>
 			</mu-tabs>
 			<div v-show="isStyle" class="showStyle">
-				<div class="showTextDiv">
-					<div class="showText modifyPrompt">文本内容</div>
-					<mu-auto-complete v-model="modifyText" class="text" >
+				<div v-show="isText">
+					<div class="showTextDiv">
+						<div class="showText modifyPrompt">文本内容</div>
+						<mu-auto-complete v-model="modifyText" class="text" >
+					</div>
+					<div>
+						<div class="modifyPrompt">横向位置</div>
+						<mu-slider v-model="modifyLeft" class="slider"/>
+					</div>
+					<div>
+						<div class="modifyPrompt">纵向位置</div>
+						<mu-slider v-model="modifyTop" class="slider"/>
+					</div>
+					<div>
+						<div class="modifyPrompt">文字颜色</div>
+						<input type="color" name="" class="color" v-model="modifyColor" >
+					</div>
+					<div>
+						<div class="modifyPrompt">背景颜色</div>
+						<input type="color" name="" class="color" v-model="modifyBackgroundColor" >
+					</div>
+					<div>
+						<div class="modifyPrompt">字体大小</div>
+						<mu-slider v-model="modifyFontSize" class="slider" max='300' />
+					</div>
+					<div>
+						<div class="modifyPrompt">行高</div>
+						<mu-slider v-model="modifyLineHeight" class="slider" max='500' />
+					</div>
+					<div>
+						<div class="modifyPrompt">内边距</div>
+						<mu-slider v-model="modifyPadding" class="slider" max='100' />
+					</div>
 				</div>
-				<div>
-					<div class="modifyPrompt">横向位置</div>
-					<mu-slider v-model="modifyLeft" class="slider"/>
-				</div>
-				<div>
-					<div class="modifyPrompt">纵向位置</div>
-					<mu-slider v-model="modifyTop" class="slider"/>
-				</div>
-				<div>
-					<div class="modifyPrompt">文字颜色</div>
-					<input type="color" name="" class="color" v-model="modifyColor" >
-				</div>
-				<div>
-					<div class="modifyPrompt">背景颜色</div>
-					<input type="color" name="" class="color" v-model="modifyBackgroundColor" >
-				</div>
-				<div>
-					<div class="modifyPrompt">字体大小</div>
-					<mu-slider v-model="modifyFontSize" class="slider" max='300' />
-				</div>
-				<div>
-					<div class="modifyPrompt">行高</div>
-					<mu-slider v-model="modifyLineHeight" class="slider" max='500' />
-				</div>
-				<div>
-					<div class="modifyPrompt">内边距</div>
-					<mu-slider v-model="modifyPadding" class="slider" max='100' />
+				<div v-show="isImage">
+					isImage
 				</div>
 			</div>
 			<div v-show="isCartoon">
@@ -89,6 +94,12 @@
 			},
 			isStyle(){
 				return this.activeTab === 'style';
+			},
+			isText(){
+				return (this.$store.state.Design.DesignInfos.currentElementType === 'text');
+			},
+			isImage(){
+				return (this.$store.state.Design.DesignInfos.currentElementType === 'image');
 			},
 			isCartoon(){
 				return this.activeTab === 'cartoon';
@@ -240,13 +251,13 @@
 		margin-left: 20px;
 	}
 
-	.showStyle > div{
+	.showStyle > div > div{
 		margin-left: 30px;
 		margin-top: 20px;
 		height: 30px;
 	}
 
-	.showStyle > div > div{
+	.showStyle > div > div > div{
 		float: left;
 	}
 
