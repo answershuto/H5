@@ -41,7 +41,12 @@
 					</div>
 				</div>
 				<div v-show="isImage">
-					isImage
+					<div>
+						<div class="modifyPrompt">图片宽度</div>
+						<mu-slider v-model="modifyImageWidth" class="slider" max='340'/>
+						<div class="modifyPrompt">图片高度</div>
+						<mu-slider v-model="modifyImageHeight" class="slider" max='340'/>
+					</div>
 				</div>
 			</div>
 			<div v-show="isCartoon">
@@ -68,23 +73,37 @@
 				modifyBackgroundColor: 'transparent',
 				modifyText: '',
 				modifyPadding: 0,
+				modifyImageWidth: 0,
+				modifyImageHeight: 0,
 			}
 		},
 		beforeUpdate(){
 			this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 				if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-					item.text.forEach(t => {
-						if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
-							this.modifyLeft = parseInt(t.style.left);
-							this.modifyTop = parseInt(t.style.top);
-							this.modifyColor = t.style.color;
-							this.modifyFontSize = parseInt(t.style['font-size']);
-							this.modifyBackgroundColor = t.style['background-color'];
-							this.modifyText = t.text;
-							this.modifyLineHeight = parseInt(t.style['line-height']);
-							this.modifyPadding = parseInt(t.style['padding']);
-						}
-					})
+					if (this.$store.state.Design.DesignInfos.currentElementType === 'text') {
+						/*选中元素为文本*/
+						item.text.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.modifyLeft = parseInt(t.style.left);
+								this.modifyTop = parseInt(t.style.top);
+								this.modifyColor = t.style.color;
+								this.modifyFontSize = parseInt(t.style['font-size']);
+								this.modifyBackgroundColor = t.style['background-color'];
+								this.modifyText = t.text;
+								this.modifyLineHeight = parseInt(t.style['line-height']);
+								this.modifyPadding = parseInt(t.style['padding']);
+							}
+						})
+					}
+					else if (this.$store.state.Design.DesignInfos.currentElementType === 'image') {
+						/*选中元素为图片*/
+						item.image.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.modifyImageWidth = parseInt(t.style.width);
+								this.modifyImageHeight = parseInt(t.style.height);
+							}
+						})
+					}
 				}
 			})
 		},
@@ -216,6 +235,34 @@
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit('modifyTextStyleById', {
 									'padding': val + 'px',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			modifyImageWidth(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.image.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyImageStyleById', {
+									'width': val + 'px',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			modifyImageHeight(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						item.image.forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit('modifyImageStyleById', {
+									'height': val + 'px',
 									id: t.id
 								});
 							}

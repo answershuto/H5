@@ -137,7 +137,7 @@ module.exports = {
 
 			state.DesignInfos.id++;
 		},
-		/*根据id修改位置*/
+		/*根据id修改style*/
 		modifyTextStyleById(state, info){
 			state.DesignInfos.pages.forEach((item, index) => {
 				if (item.id === state.DesignInfos.currentPage) {
@@ -209,8 +209,25 @@ module.exports = {
 
 			state.DesignInfos.id++;
 		},
+		/*更新当前选中元素的类型*/
 		updateCurrentElementType(state, type){
 			state.currentElementType = (type === 'text') ? 'text':'image';
+		},
+		/*根据id修改图片的style*/
+		modifyImageStyleById(state, info){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.image.forEach(t => {
+						if (t.id === info.id) {
+							for(let s in info){
+								if (s === 'id') continue;
+								t.style[s] = info[s];
+							}
+						}
+					})
+				}
+			})
+			
 		},
 	},
 	actions: {
