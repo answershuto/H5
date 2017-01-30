@@ -7,6 +7,8 @@
  					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
  						{{item.text}}
  					</div>
+ 					<img :src="'/H5/image?id='+item.imageID" v-for="item in image" :id="item.id" class="design-image" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
+ 					</img>
  				</div>
  				<div class="mobilePhone-background" :class="{'div-mobile-grid': grid}" ></div>
  				<div class="mobilePhone-home" :title="showTitle" @click="handleClickHome"></div>
@@ -69,6 +71,15 @@
 				})
 				return text;
 			},
+			image(){
+				let image = [];
+				this.$store.state.Design.DesignInfos.pages.forEach(item => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						image = item.image || [];
+					}
+				})
+				return image;
+			},
 			currentEle(){
 				return this.$store.state.Design.DesignInfos.currentElement;
 			}
@@ -114,7 +125,7 @@
 		left: 11%;
 	}
 
-	.design-text{
+	.design-text, .design-image{
 		position: absolute;
 		cursor: pointer;
 	}

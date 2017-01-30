@@ -322,7 +322,6 @@ module.exports = {
 	 */
 	 showImage(req, res, next){
 	 	UserImages.findById(req.query.id, (err, result) => {
-	 		console.log('result',result)
 	 		if (result && (result.userName === req.session.user.userName)) {
 	 			
 	 			res.writeHead(200, {'Content-Type': result.type});  

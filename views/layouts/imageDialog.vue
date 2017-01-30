@@ -21,7 +21,7 @@
 			<div v-show="isMyImage">
 				<div>
 					<span class="image-span" v-for="item in userImages">
-						<img :src="'/H5/image?id='+item.id" />
+						<img :src="'/H5/image?id='+item.id" @click="handleClickImage(item)" />
 					</span>
 				</div>
 			</div>
@@ -140,6 +140,10 @@
 						this.$store.commit('alertDesignMessage', {isAlert: true, message: '删除失败'});
 					}
 				})
+			},
+			handleClickImage(info){
+				this.$store.commit('addDesignImage', info.id);
+				this.$store.commit('imageDialog', false);
 			},
 		},
 		computed:{

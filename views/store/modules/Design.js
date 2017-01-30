@@ -49,6 +49,18 @@ module.exports = {
 						}
 					*/
 					text: [],
+					/*
+						图片
+						例：{
+							id: 'design_1',
+							imageID: '2313123213',
+							style: {
+								width: '50px',
+								height: '50px',
+							},
+						}
+					*/
+					image: [],
 				},
 			],
 		},
@@ -59,6 +71,7 @@ module.exports = {
 			state.DesignInfos.pages.push({
 				id: 'page_'+state.DesignInfos.pageId,
 				text: [],
+				image: [],
 			})
 
 			state.DesignInfos.pageId++;
@@ -160,6 +173,23 @@ module.exports = {
 		/*是否修改界面元素，弹出右侧弹出框*/
 		isModifyEle(state, l){
 			state.isModifyEle = l ? true : false;
+		},
+		/*增加一张图片*/
+		addDesignImage(state, id){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.image.push({
+						id: 'design_'+state.DesignInfos.id,
+						imageID: id,
+						style: {
+							width: '50px',
+							height: '50px',
+						},
+					})
+				}
+			})
+
+			state.DesignInfos.id++;
 		},
 	},
 	actions: {
