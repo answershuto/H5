@@ -59,6 +59,8 @@ module.exports = {
 							style: {
 								width: '50px',
 								height: '50px',
+								left: '20%',
+								top: '10%',
 							},
 						}
 					*/
@@ -202,6 +204,8 @@ module.exports = {
 						style: {
 							width: '50px',
 							height: '50px',
+							left: '0%',
+							top: '10%',
 						},
 					})
 				}

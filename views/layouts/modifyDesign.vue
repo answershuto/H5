@@ -42,8 +42,18 @@
 				</div>
 				<div v-show="isImage">
 					<div>
+						<div class="modifyPrompt">横向位置</div>
+						<mu-slider v-model="modifyLeft" class="slider"/>
+					</div>
+					<div>
+						<div class="modifyPrompt">纵向位置</div>
+						<mu-slider v-model="modifyTop" class="slider"/>
+					</div>
+					<div>
 						<div class="modifyPrompt">图片宽度</div>
 						<mu-slider v-model="modifyImageWidth" class="slider" max='340'/>
+					</div>
+					<div>
 						<div class="modifyPrompt">图片高度</div>
 						<mu-slider v-model="modifyImageHeight" class="slider" max='340'/>
 					</div>
@@ -99,6 +109,8 @@
 						/*选中元素为图片*/
 						item.image.forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.modifyLeft = parseInt(t.style.left);
+								this.modifyTop = parseInt(t.style.top);
 								this.modifyImageWidth = parseInt(t.style.width);
 								this.modifyImageHeight = parseInt(t.style.height);
 							}
@@ -133,9 +145,11 @@
 			modifyLeft(val){
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-						item.text.forEach(t => {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						item[type].forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
-								this.$store.commit('modifyTextStyleById', {
+								this.$store.commit(commitType, {
 									left: val + '%',
 									id: t.id
 								});
@@ -147,9 +161,11 @@
 			modifyTop(val){
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-						item.text.forEach(t => {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						item[type].forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
-								this.$store.commit('modifyTextStyleById', {
+								this.$store.commit(commitType, {
 									top: val + '%',
 									id: t.id
 								});
