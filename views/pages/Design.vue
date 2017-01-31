@@ -36,7 +36,33 @@
 		},
 		methods: {
 			handleClickSave(){
-
+				fetch('/H5/rpc',
+					{
+						method:'POST',
+						headers:{ 
+				 			'Accept': 'application/json', 
+				 			'Content-Type': 'application/json'
+						},
+						credentials: 'same-origin',
+						body: JSON.stringify({
+							method: 'saveDesign',
+							params: {
+								name: this.$store.state.Work.workName,
+								designInfos: this.$store.state.Design.DesignInfos,
+							},
+						})
+					}
+				)
+				.then(response => response.json())
+				.then(d => {
+					if (d.result) {
+						this.refreshList();
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '保存成功'});
+					}
+					else{
+						this.$store.commit('alertDesignMessage', {isAlert: true, message: '保存失败'});
+					}
+				})
 			},
 			handleClickExit(){
 				this.$store.commit('setRoute','/Main');

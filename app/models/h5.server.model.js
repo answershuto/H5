@@ -39,3 +39,12 @@ let SchemaImages = new mongoose.Schema({
 })
 
 let Images = mongoose.model('UserImages', SchemaImages);
+
+/*设计表*/
+let SchemaDesign = new mongoose.Schema({
+	userName: String,					/*用户名*/
+	workName: String,					/*设计名称*/
+	designInfos: Object,				/*设计信息*/
+})
+
+let Designs = mongoose.model('UserDesigns', SchemaDesign);

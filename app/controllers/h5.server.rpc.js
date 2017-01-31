@@ -3,6 +3,7 @@
 let mongoose = require('mongoose');
 let UserMusics = mongoose.model('UserMusics');
 let UserImages = mongoose.model('UserImages');
+let UserDesigns = mongoose.model('UserDesigns');
 let fs = require('fs');
 
 module.exports = {
@@ -161,6 +162,71 @@ module.exports = {
 	 	})
 
 	 	res.json({result: true});
+	 },
+
+	 
+	 /**
+	 * 保存用户设计界面
+	 *
+	 * 保存用户设计界面接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-1-29
+	 * @author   Cao Yang
+	 */
+	 saveDesign(req, res, next){
+	 	//console.log(req.body.params.name)
+	 	//console.log(req.body.params.designInfos)
+
+	 	UserDesigns.find({
+	 						userName: req.session.user.userName,
+	 						workName: req.body.params.name,
+	 					}, null,{}, (err, result) => {
+			if (err) {
+				console.log('saveDesign err!' + err);
+        		res.json({result: false, content: '保存失败'});
+        		return next(err);
+			}
+			else{
+				if (result.length) {
+					/*修改数据*/
+					result[0].designInfos = req.body.params.designInfos;
+					result[0].save(err => {
+						if (err) {
+		            		console.log('saveDesign modify err!' + err);
+		            		res.json({result: false, content: '保存失败'});
+		            		return next(err);
+		            	}
+		            	else{
+		            		res.json({result: true});
+		            	}
+					})
+				}
+				else{
+					/*第一次保存*/
+					let design = new UserDesigns({
+						userName: req.session.user.userName,
+						workName: req.body.params.name,
+						designInfos: req.body.params.designInfos,
+					});
+
+					design.save(function(err){
+		            	if (err) {
+		            		console.log('saveDesign err!' + err);
+		            		res.json({result: false, content: '保存失败'});
+		            		return next(err);
+		            	}
+		            	else{
+		            		res.json({result: true});
+		            	}
+		            })
+				}
+			}
+		})
 	 },
 }
 
