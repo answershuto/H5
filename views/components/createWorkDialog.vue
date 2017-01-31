@@ -26,6 +26,7 @@
 		    		this.$store.commit('Alert', {isAlert: true, message: "作品名称不能为空"});
 		    		return;
 		    	}
+		    	this.$store.commit('createWorkDialog', false);
 		    	this.$store.commit('setWorkName', this.name);
 		    	this.$store.commit('setRoute','/Design');
 		    },

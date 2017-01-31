@@ -233,6 +233,30 @@ module.exports = {
 			})
 			
 		},
+		/*设置设置界面数据，如果infos为空则清空所有原始数据*/
+		setDesign(state, infos){
+			if (infos) {
+				state.DesignInfos = infos;
+			}
+			else{
+				/*恢复默认*/
+				state.DesignInfos = {
+					id: 1,
+					pageId: 1,
+					music: '',
+					currentElement: '',
+					currentElementType: 'text',
+					currentPage: 'page_0',
+					pages: [
+						{
+							id: 'page_0',
+							text: [],
+							image: [],
+						},
+					],
+				}
+			}
+		},
 	},
 	actions: {
 		/*增加一个页面*/

@@ -8,6 +8,10 @@
  		<mu-popup position="top" :overlay="false" popupClass="popup-top" :open="topPopup">
 			{{message}}
 		</mu-popup>
+		<div class="system-btn">
+			<mu-raised-button label="生成并保存" @click="handleClickSave" primary/>
+			<mu-raised-button label="退出" @click="handleClickExit" secondary/>
+		</div>
  	</div>
 </template>
 
@@ -29,6 +33,15 @@
 			return {
 				
 			}
+		},
+		methods: {
+			handleClickSave(){
+
+			},
+			handleClickExit(){
+				this.$store.commit('setRoute','/Main');
+				this.$store.commit('setDesign');
+			},
 		},
 		computed: {
 			workName(){
@@ -63,5 +76,14 @@
 		align-items: center;
 		justify-content: center;
 		max-width: 375px;
+	}
+
+	.system-btn{
+		float: right;
+	}
+
+	.system-btn > button {
+		width: 105px;
+		margin: 10px 5px 10px;
 	}
 </style>
