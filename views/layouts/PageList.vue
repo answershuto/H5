@@ -116,6 +116,6 @@
 
 	.editColumn{
 		margin: 55px auto 0px;
-		width: 205px;
+		width: 158px;
 	}
 </style>
