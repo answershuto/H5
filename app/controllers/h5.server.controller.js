@@ -4,6 +4,7 @@ let mongoose = require('mongoose');
 let rpc = require('./h5.server.rpc');
 let formidable = require('formidable');
 let fs = require('fs');
+let cfg = require('../../config/config');
 
 /*mongoose*/
 let Users = mongoose.model('Users');
@@ -360,7 +361,7 @@ module.exports = {
 				console.log(result)
 				if (result.length) {
 					
-					res.render("show",{"designInfos":result[0].designInfos}); 
+					res.render("show",{cfg,"designInfos":result[0].designInfos}); 
 				}
 				else{
 					res.send('404 no found.');
