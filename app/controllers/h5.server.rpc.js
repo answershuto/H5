@@ -55,6 +55,8 @@ let createPage = function(userName, name,designInfos){
         if(err) throw err;
         console.log('createPage has finished,the path is '+path+'.');
     });
+
+    return true;
 };
 
 module.exports = {

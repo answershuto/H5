@@ -9,6 +9,7 @@ let fs = require('fs');
 let Users = mongoose.model('Users');
 let UserMusics = mongoose.model('UserMusics');
 let UserImages = mongoose.model('UserImages');
+let UserDesigns = mongoose.model('UserDesigns');
 
 /*产生4位随机数带上时间*/
 function RandomKey(){
@@ -321,7 +322,7 @@ module.exports = {
 	 * @author   Cao Yang
 	 */
 	 showImage(req, res, next){
-	 	UserImages.findById(req.query.id, (err, result) => {
+	 	UserDesigns.findById(req.query.id, (err, result) => {
 	 		if (result && (result.userName === req.session.user.userName)) {
 	 			
 	 			res.writeHead(200, {'Content-Type': result.type});  
@@ -333,6 +334,39 @@ module.exports = {
 				});  
 	 		}
 	 	});
+	 },
+
+	/**
+	 * 显示生成页面
+	 *
+	 * 显示生成页面接口
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-2-3
+	 * @author   Cao Yang
+	 */
+	 showPage(req, res, next){
+	 	UserDesigns.find({userName: req.query.userName, workName: req.query.workName,}, null,{}, (err, result) => {
+			if (err) {
+				console.log('showPage err!' + err);
+        		res.json({result: false, content: '获取页面失败'});
+        		return next(err);
+			}
+			else{
+				console.log(result)
+				if (result.length) {
+					
+					res.render("show",{"designInfos":result[0].designInfos}); 
+				}
+				else{
+					res.send('404 no found.');
+				}
+			}
+		})
 	 },
 
 }

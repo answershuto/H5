@@ -34,6 +34,7 @@
     "body-parser": "^1.15.1",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.26.1",
+    "ejs": "^2.5.5",
     "express": "^4.13.4",
     "express-session": "^1.14.2",
     "fetch": "^1.1.0",

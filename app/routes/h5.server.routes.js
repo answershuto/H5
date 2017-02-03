@@ -28,4 +28,7 @@ module.exports = function(app){
 
 	app.route('/H5/image')
 		.get(H5Controller.showImage);
+
+	app.route('/H5/Show')
+		.get(H5Controller.showPage);
 }

@@ -55,7 +55,8 @@ module.exports = function(){
 		if (!req.session.user) {
 			if (req.url === '/H5/Login' 
 				|| req.url === '/H5/Register' 
-				|| req.url.indexOf('/H5/PlayMusic') >= 0) {
+				|| req.url.indexOf('/H5/PlayMusic') >= 0
+				|| req.url.indexOf('/H5/Show') >= 0) {
 				next();/*请求为登陆或者注册则不需要校验session*/
 			}
 			else{
