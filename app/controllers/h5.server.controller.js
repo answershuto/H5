@@ -323,7 +323,7 @@ module.exports = {
 	 * @author   Cao Yang
 	 */
 	 showImage(req, res, next){
-	 	UserDesigns.findById(req.query.id, (err, result) => {
+	 	UserImages.findById(req.query.id, (err, result) => {
 	 		if (result && (result.userName === req.session.user.userName)) {
 	 			
 	 			res.writeHead(200, {'Content-Type': result.type});  
@@ -333,6 +333,9 @@ module.exports = {
 		 		rs.on('end',function(){  
 					res.end();  
 				});  
+	 		}
+	 		else{
+	 			next();
 	 		}
 	 	});
 	 },
