@@ -6,6 +6,24 @@ let UserImages = mongoose.model('UserImages');
 let UserDesigns = mongoose.model('UserDesigns');
 let fs = require('fs');
 
+let createPage = function(name,designInfos){
+	console.log(name)
+	console.log(designInfos)
+	let path = __dirname+'/../../userData/pages/'+name+'.html';
+	let body = 'test'
+	let content = '<!DOCTYPE html> ' +
+				'<html> ' +
+				'<head> <title> ' + 'title' + '</title> ' +
+				'</head>' +
+				'<body> ' + body +
+				'</body>' +
+				'</html>';
+	fs.writeFile( path, content,function(err){
+        if(err) throw err;
+        console.log('createPage has finished,the path is '+path+'.');
+    });
+};
+
 module.exports = {
 	/**
 	 * 用户登出
@@ -202,7 +220,12 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		res.json({result: true});
+		            		if (createPage(result[0].workName, result[0].designInfos)) {
+		            			res.json({result: true});
+		            		}
+		            		else{
+		            			res.json({result: false, content: '创建页面失败'});
+		            		}
 		            	}
 					})
 				}
@@ -221,7 +244,12 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		res.json({result: true});
+		            		if (createPage(req.body.params.name, req.body.params.designInfos)) {
+		            			res.json({result: true});
+		            		}
+		            		else{
+		            			res.json({result: false, content: '创建页面失败'});
+		            		}
 		            	}
 		            })
 				}
