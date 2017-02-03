@@ -38,7 +38,7 @@ module.exports = {
 						文本
 						例: {
 							id: design_1,
-							word: 'test',
+							text: 'test',
 							style:{
 								left: '20%',
 								top: '10%',
