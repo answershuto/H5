@@ -1,23 +1,41 @@
 'use strict';
 
 let mongoose = require('mongoose');
+let fs = require('fs');
+let cfg = require('../../config/config');
+
+/*mongoose*/
 let UserMusics = mongoose.model('UserMusics');
 let UserImages = mongoose.model('UserImages');
 let UserDesigns = mongoose.model('UserDesigns');
-let fs = require('fs');
 
-let createPage = function(name,designInfos){
+let createPage = function(userName, name,designInfos){
 	console.log(name)
 	console.log(designInfos)
-	let path = __dirname+'/../../userData/pages/'+name+'.html';
-	let body = 'test'
+	console.log('cfg',cfg)
+	/*文件存储路径*/
+	let path = __dirname+'/../../userData/pages/'+userName+'_'+name+'.html';
+	
+	/*html body*/
+	let body = '';
+
+	/*add music*/
+	designInfos.music && (body += '<audio src="http:\/\/' + 
+									cfg.ip + ':' + cfg.port +
+									'/H5/PlayMusic?id='
+									+designInfos.music +
+									'" controls="controls" autoplay="autoplay" style="display: none;" >');
+	
+
+	/*文件内容*/
 	let content = '<!DOCTYPE html> ' +
 				'<html> ' +
-				'<head> <title> ' + 'title' + '</title> ' +
+				'<head> <title> ' + name + '</title> ' +
 				'</head>' +
 				'<body> ' + body +
 				'</body>' +
 				'</html>';
+
 	fs.writeFile( path, content,function(err){
         if(err) throw err;
         console.log('createPage has finished,the path is '+path+'.');
@@ -220,7 +238,7 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		if (createPage(result[0].workName, result[0].designInfos)) {
+		            		if (createPage(req.session.user.userName, result[0].workName, result[0].designInfos)) {
 		            			res.json({result: true});
 		            		}
 		            		else{
@@ -244,7 +262,7 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		if (createPage(req.body.params.name, req.body.params.designInfos)) {
+		            		if (createPage(req.session.user.userName, req.body.params.name, req.body.params.designInfos)) {
 		            			res.json({result: true});
 		            		}
 		            		else{
