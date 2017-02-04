@@ -175,7 +175,7 @@
 
 	.image-right{
 		float: left;
-		width: 550px;
+		width: 530px;
 	}
 
 	.image-span{
