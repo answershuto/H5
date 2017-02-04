@@ -47,7 +47,7 @@ module.exports = function(){
 		saveUninitialized: true,
 		secret: RandomSecret(),
 		name: 'H5Session',
-		cookie: { maxAge: 60 * 1000}
+		cookie: { maxAge: 60 * 1000 * 60}
 	}));
 
 	app.use(function(req,res,next){
