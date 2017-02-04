@@ -25,6 +25,8 @@
 	<% } %>
 </div>
 
-<!--music-->
-<audio src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
+<% if(designInfos.music){%>
+	<!--music-->
+	<audio src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
+<% } %>
 
