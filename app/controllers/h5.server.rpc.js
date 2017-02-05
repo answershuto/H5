@@ -232,9 +232,6 @@ module.exports = {
 	 * @author   Cao Yang
 	 */
 	 saveDesign(req, res, next){
-	 	//console.log(req.body.params.name)
-	 	//console.log(req.body.params.designInfos)
-
 	 	UserDesigns.find({
 	 						userName: req.session.user.userName,
 	 						workName: req.body.params.name,
@@ -290,6 +287,32 @@ module.exports = {
 				}
 			}
 		})
+	 },
+
+	 /**
+	 * 获取所有用户设计界面
+	 *
+	 * 获取所有用户设计界面接口，用以再次编辑
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-2-5
+	 * @author   Cao Yang
+	 */
+	 getAllUserDesigns(req, res, next){
+	 	UserDesigns.find({userName: req.session.user.userName,}, null,{}, (err, result) => {
+	 		if (err) {
+        		console.log('getAllUserDesigns err!' + err);
+        		res.json({result: false, content: '获取失败'});
+        		return next(err);
+        	}
+        	else{
+        		res.json({result: true, params: result});
+        	}
+	 	});
 	 },
 }
 

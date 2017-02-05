@@ -65,6 +65,7 @@
 					if (d.result) {
 						/*登陆成功*/
 						this.$store.commit('Loading', true);
+						this.$store.dispatch('updateDesignWorks');
 						setTimeout(() => {
 							/*登陆加载效果，再次之前可以之后额外获取登陆前需要初始化的数据*/
 							this.$store.commit('Loading', false);                                                                              
