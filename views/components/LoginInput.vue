@@ -25,16 +25,15 @@
 </template>
 
 <script>
-	let Cookies = require('js-cookie');
-
+	let localStorage = window.localStorage || {}; 
 	export default {
 		data () {
 			return {
-				userName: Cookies.get('H5-UserName') || "",
-				passWord: Cookies.get('H5-PassWord') || "",
+				userName: localStorage['H5-UserName'] || "",
+				passWord: localStorage['H5-PassWord'] || "",
 				topPopup: false,
 				message: "",
-				isRememberPassword: Cookies.get('H5-isRememberPassword') === 'true' ? true:false,
+				isRememberPassword: localStorage['H5-isRememberPassword'] === 'true' ? true:false,
 			}
 		},
 		methods: {
@@ -72,15 +71,15 @@
 							this.$store.commit('setRoute','/Main');
 						}, 1000)
 
-						Cookies.set('H5-isRememberPassword', this.isRememberPassword);
+						localStorage['H5-isRememberPassword'] = this.isRememberPassword;
 						if (this.isRememberPassword) {
 							/*记住密码*/
-							Cookies.set('H5-UserName', this.userName);
-							Cookies.set('H5-PassWord', this.passWord);
+							localStorage['H5-UserName'] = this.userName;
+							localStorage['H5-PassWord'] = this.passWord;
 						}
 						else{
-							Cookies.set('H5-UserName', "");
-							Cookies.set('H5-PassWord', "");
+							localStorage['H5-UserName'] = '';
+							localStorage['H5-PassWord'] = '';
 						}
 					}
 					else{

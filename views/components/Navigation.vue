@@ -15,7 +15,6 @@
 </template>
 
 <script>
-	let Cookies = require('js-cookie');
 	export default {
 		components: {
 		 	
