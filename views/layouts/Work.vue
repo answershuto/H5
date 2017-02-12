@@ -6,7 +6,7 @@
  		</div>
  		<div v-show="hasWorks">
  			<div v-for="item in DesignWorks">
- 				<DesignWorkPage :WorkName="item.workName"></DesignWorkPage>
+ 				<DesignWorkPage :WorkName="item.workName" :date="item.date"></DesignWorkPage>
  			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>

@@ -45,6 +45,7 @@ let SchemaDesign = new mongoose.Schema({
 	userName: String,					/*用户名*/
 	workName: String,					/*设计名称*/
 	designInfos: Object,				/*设计信息*/
+	date: {type:Date,default:Date.now}, /*创建时间*/
 })
 
 let Designs = mongoose.model('UserDesigns', SchemaDesign);

@@ -1,6 +1,8 @@
 <template>
  	<div>
-		{{WorkName}}
+		<mu-card-media :title="WorkName" :subTitle="getYeat">
+			<img src="/images/H5.png" />
+		</mu-card-media>
  	</div>
 </template>
 
@@ -17,12 +19,19 @@
 				type: String,
 				required: true
 			},
+			/*时间*/
+			date:{
+				type: String,
+				required: true
+			},
 		},
 		methods: {
 			
 		},
 		computed: {
-			
+			getYeat(){
+				return this.date.slice(0, this.date.indexOf("T")); 
+			},
 		}
 	}
 </script>
