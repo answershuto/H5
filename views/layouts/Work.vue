@@ -6,7 +6,7 @@
  		</div>
  		<div v-show="hasWorks">
  			<div v-for="item in DesignWorks">
- 				<DesignWorkPage :WorkName="item.workName" :date="item.date"></DesignWorkPage>
+ 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)"></DesignWorkPage>
  			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>
@@ -24,6 +24,11 @@
 		methods: {
 			createWork(){
 				this.$store.commit('createWorkDialog', true);
+			},
+			clickDesignWorkPage(workName, designInfos){
+				this.$store.commit('setDesign', designInfos);
+				this.$store.commit('setWorkName', workName);
+		    	this.$store.commit('setRoute','/Design');
 			},
 		},
 		computed: {
