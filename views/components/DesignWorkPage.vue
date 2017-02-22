@@ -1,6 +1,6 @@
 <template>
- 	<div>
-		<mu-card-media :title="WorkName" :subTitle="getYeat">
+ 	<div class="container">
+		<mu-card-media :title="WorkName" :subTitle="getYear">
 			<img src="/images/H5.png" />
 		</mu-card-media>
  	</div>
@@ -29,7 +29,7 @@
 			
 		},
 		computed: {
-			getYeat(){
+			getYear(){
 				return this.date.slice(0, this.date.indexOf("T")); 
 			},
 		}
@@ -37,5 +37,7 @@
 </script>
 
 <style scoped>
-	
+	.container{
+		cursor: pointer;
+	}
 </style>
