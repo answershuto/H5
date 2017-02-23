@@ -1,12 +1,14 @@
 <template>
  	<div class="container">
- 		<div v-show="!hasWorks" class="prompt">
- 			您还没有作品，赶紧创建一个吧.
- 			<mu-flat-button label="创建作品" class="create-button" @click="createWork" primary/>
+ 		<div class="createWork">
+ 			<div v-show="!hasWorks" class="prompt">
+	 			您还没有作品，赶紧创建一个吧.
+	 			<mu-flat-button label="创建作品" class="create-button" @click="createWork" primary/>
+	 		</div>
  		</div>
- 		<div v-show="hasWorks">
+ 		<div v-show="hasWorks" class="works">
  			<div v-for="item in DesignWorks">
- 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)"></DesignWorkPage>
+ 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage"></DesignWorkPage>
  			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>
@@ -46,6 +48,15 @@
 
 <style scoped>
 	.container{
+		
+	}
+
+	.DesignWorkPage{
+		width: 300px;
+		margin: 30px 30px;
+	}
+
+	.createWork{
 		width: 300px;
 		margin: 0px auto;
 	}
@@ -61,5 +72,14 @@
 
 	.create-button{
 		margin-top: 30px;
+	}
+
+	.works{
+		display: flex;
+		display: -webkit-flex;
+		flex-flow: row;
+		flex-wrap: wrap;
+		width: 80%;
+		margin: 0px auto;
 	}
 </style>
