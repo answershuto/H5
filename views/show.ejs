@@ -1,27 +1,33 @@
 
-<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>
+<link rel="stylesheet" href="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.css">
 
 <!--page-->
 <div>
 	<% for(var i=0;i<designInfos.pages.length;i++){ %>
-		<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
-			<div style="
-				<%for(var s in designInfos.pages[i].text[j].style){%>
-					<%=s%>:<%=designInfos.pages[i].text[j].style[s]%>;
-				<% } %>
-			">
-				<%=designInfos.pages[i].text[j].text %>
-			</div>
-		<% } %>
+		<div class="container">
+			<!--text begin-->
+			<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
+				<div style="
+					<%for(var s in designInfos.pages[i].text[j].style){%>
+						<%=s%>:<%=designInfos.pages[i].text[j].style[s]%>;
+					<% } %>
+				">
+					<%=designInfos.pages[i].text[j].text %>
+				</div>
+			<% } %>
+			<!--text end-->
 
-		<% for(var j=0;j<designInfos.pages[i].image.length;j++){ %>
-			<image style="
-				<%for(var s in designInfos.pages[i].image[j].style){%>
-					<%=s%>:<%=designInfos.pages[i].image[j].style[s]%>;
-				<% } %>
-			" src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/image?id=<%=designInfos.pages[i].image[j].imageID %>">
-			<image>
-		<% } %>
+			<!--image begin-->
+			<% for(var j=0;j<designInfos.pages[i].image.length;j++){ %>
+				<image style="
+					<%for(var s in designInfos.pages[i].image[j].style){%>
+						<%=s%>:<%=designInfos.pages[i].image[j].style[s]%>;
+					<% } %>
+				" src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/image?id=<%=designInfos.pages[i].image[j].imageID %>">
+				<image>
+			<% } %>
+			<!--image end-->
+		</div>
 	<% } %>
 </div>
 
@@ -30,3 +36,5 @@
 	<audio src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
 <% } %>
 
+<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>
+<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/jquery-3.0.0.js"></script>
