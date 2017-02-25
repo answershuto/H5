@@ -126,7 +126,7 @@ module.exports = {
 						text: text || "",
 						style:{
 							left: '0%',
-							top: '20%',
+							top: '10%',
 							color: 'black',
 							'font-size': '100%',
 							'background-color': 'transparent',
