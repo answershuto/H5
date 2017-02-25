@@ -9,56 +9,6 @@ let UserMusics = mongoose.model('UserMusics');
 let UserImages = mongoose.model('UserImages');
 let UserDesigns = mongoose.model('UserDesigns');
 
-let createPage = function(userName, name,designInfos){
-	console.log(name)
-	console.log(designInfos)
-	/*文件存储路径*/
-	let path = __dirname+'/../../userData/pages/'+userName+'_'+name+'.html';
-	
-	/*html body*/
-	let body = '';
-
-	/*add music*/
-	designInfos.music && (body += '<audio src="http:\/\/' + 
-									cfg.ip + ':' + cfg.port +
-									'/H5/PlayMusic?id='
-									+designInfos.music +
-									'" controls="controls" autoplay="autoplay" style="display: none;" >');
-	
-	designInfos.pages.forEach((item, index) => {
-		/*add a page begin*/
-		body += '<div>';
-
-		item.text.forEach(t => {
-			/*add text*/
-			body += '<div style="';
-			for(let s in t.style){
-				body += (s+':'+t.style[s]+';');
-			}
-			body += '">' + t.text + '</div>';
-		})
-
-		/*add a page end*/
-		body += '</div>';	
-	})
-
-	/*文件内容*/
-	let content = '<!DOCTYPE html> ' +
-				'<html> ' +
-				'<head> <title> ' + name + '</title> ' +
-				'</head>' +
-				'<body> ' + body +
-				'</body>' +
-				'</html>';
-
-	fs.writeFile( path, content,function(err){
-        if(err) throw err;
-        console.log('createPage has finished,the path is '+path+'.');
-    });
-
-    return true;
-};
-
 module.exports = {
 	/**
 	 * 用户登出
@@ -252,12 +202,7 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		if (createPage(req.session.user.userName, result[0].workName, result[0].designInfos)) {
-		            			res.json({result: true});
-		            		}
-		            		else{
-		            			res.json({result: false, content: '创建页面失败'});
-		            		}
+		            		res.json({result: true});
 		            	}
 					})
 				}
@@ -276,12 +221,7 @@ module.exports = {
 		            		return next(err);
 		            	}
 		            	else{
-		            		if (createPage(req.session.user.userName, req.body.params.name, req.body.params.designInfos)) {
-		            			res.json({result: true});
-		            		}
-		            		else{
-		            			res.json({result: false, content: '创建页面失败'});
-		            		}
+		            		res.json({result: true});
 		            	}
 		            })
 				}
