@@ -3,11 +3,12 @@
 
 <!--page-->
 <div>
+	<div id="musicIcon" class="music-icon rotate"></div>
 	<% for(var i=0;i<designInfos.pages.length;i++){ %>
 		<div class="container">
 			<!--text begin-->
 			<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
-				<div style="
+				<div class="block" style="
 					<%for(var s in designInfos.pages[i].text[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].text[j].style[s]%>;
 					<% } %>
@@ -19,7 +20,7 @@
 
 			<!--image begin-->
 			<% for(var j=0;j<designInfos.pages[i].image.length;j++){ %>
-				<image style="
+				<image class="block" style="
 					<%for(var s in designInfos.pages[i].image[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].image[j].style[s]%>;
 					<% } %>
@@ -33,8 +34,8 @@
 
 <% if(designInfos.music){%>
 	<!--music-->
-	<audio src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
+	<audio id="musicAudio" src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
 <% } %>
 
-<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/jquery-3.0.0.js"></script>
+<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>

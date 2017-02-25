@@ -1,0 +1,52 @@
+.container{
+	height: 100%;
+	margin: 0;
+	position: relative;
+}
+
+.block{
+	position: absolute;
+}
+
+.music-icon{
+	position: fixed;
+	top: 5%;
+	right: 5%;
+	background-image: url('/images/music.png');
+	background-repeat: no-repeat;
+	width: 22px;
+	height: 22px;
+	cursor: pointer;
+	z-index: 1000;
+}
+
+.rotate{
+	animation: rotate 5s infinite linear;
+	-moz-animation: rotate 5s infinite linear;	/* Firefox */
+	-webkit-animation: rotate 5s infinite linear;	/* Safari 和 Chrome */
+	-o-animation: rotate 5s infinite linear;	/* Opera */
+}
+
+@keyframes rotate
+{
+	from {transform:rotate(10deg);}
+	to {transform:rotate(360deg);}
+}
+
+@-moz-keyframes rotate /* Firefox */
+{
+	from {transform:rotate(10deg);}
+	to {transform:rotate(360deg);}
+}
+
+@-webkit-keyframes rotate /* Safari 和 Chrome */
+{
+	0% {transform:rotate(0deg);}
+	100% {transform:rotate(360deg);}
+}
+
+@-o-keyframes rotate /* Opera */
+{
+	from {transform:rotate(10deg);}
+	to {transform:rotate(360deg);}
+}

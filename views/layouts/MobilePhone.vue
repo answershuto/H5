@@ -3,6 +3,7 @@
  		<div class="div-main">
  			<div class="div-mobile-phone">
  				<div id="myDesignRect" class="mobilePhone-design">
+ 					<div v-show="hasMusic" class="music-icon" :class="{'rotate': isPlay}" @click="handleMusicClick"></div>
  					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
  						{{item.text}}
  					</div>
@@ -31,6 +32,8 @@
 			return {
 				/*显示网格*/
 				grid: true,
+				/*是否播放音乐*/
+				isPlay: true,
 			}
 		},
 		mounted(){
@@ -55,6 +58,16 @@
 			handleClickEle(e){
 				this.$store.commit('modifyCurrentElement', e.target.id);
 				this.$store.commit('isModifyEle', true);
+			},
+			handleMusicClick(){
+				this.isPlay = !this.isPlay;
+				let audio = document.getElementById('myAudio');
+				if (this.isPlay) {
+					audio.play();
+				}
+				else{
+					audio.pause();
+				}
 			},
 		},
 		computed: {
@@ -81,7 +94,10 @@
 			},
 			currentEle(){
 				return this.$store.state.Design.DesignInfos.currentElement;
-			}
+			},
+			hasMusic(){
+				return (this.$store.state.Design.DesignInfos.music !== '')
+			},
 		},
 		watch: {
 			
@@ -152,5 +168,47 @@
 
 	.div-mobile-grid{
 		background-image: url("/images/grid.png");
+	}
+
+	.music-icon{
+		position: absolute;
+		top: 5%;
+		right: 5%;
+		background-image: url('/images/music.png');
+		background-repeat: no-repeat;
+		width: 22px;
+		height: 22px;
+		cursor: pointer;
+	}
+
+	.rotate{
+		animation: rotate 5s infinite linear;
+		-moz-animation: rotate 5s infinite linear;	/* Firefox */
+		-webkit-animation: rotate 5s infinite linear;	/* Safari 和 Chrome */
+		-o-animation: rotate 5s infinite linear;	/* Opera */
+	}
+
+	@keyframes rotate
+	{
+		from {transform:rotate(10deg);}
+		to {transform:rotate(360deg);}
+	}
+
+	@-moz-keyframes rotate /* Firefox */
+	{
+		from {transform:rotate(10deg);}
+		to {transform:rotate(360deg);}
+	}
+
+	@-webkit-keyframes rotate /* Safari 和 Chrome */
+	{
+		0% {transform:rotate(0deg);}
+		100% {transform:rotate(360deg);}
+	}
+
+	@-o-keyframes rotate /* Opera */
+	{
+		from {transform:rotate(10deg);}
+		to {transform:rotate(360deg);}
 	}
 </style>
