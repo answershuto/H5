@@ -104,13 +104,13 @@
 
 @keyframes rotate
 {
-	from {transform:rotate(10deg);}
+	from {transform:rotate(0deg);}
 	to {transform:rotate(360deg);}
 }
 
 @-moz-keyframes rotate /* Firefox */
 {
-	from {transform:rotate(10deg);}
+	from {transform:rotate(0deg);}
 	to {transform:rotate(360deg);}
 }
 
@@ -122,6 +122,82 @@
 
 @-o-keyframes rotate /* Opera */
 {
-	from {transform:rotate(10deg);}
+	from {transform:rotate(0deg);}
 	to {transform:rotate(360deg);}
 }
+
+.arrow{
+	z-index: 1000;
+	position: fixed;
+	left: 50%;
+	width: 30px;
+	margin-left: -15px;
+	animation: arrow 1s infinite linear;
+	-moz-animation: arrow 1s infinite linear;	/* Firefox */
+	-webkit-animation: arrow 1s infinite linear;	/* Safari 和 Chrome */
+	-o-animation: arrow 1s infinite linear;	/* Opera */
+}
+
+@keyframes arrow
+{
+	from {
+		bottom: 5%;
+	}
+	to {
+		bottom: 10%;
+	}
+}
+
+@-moz-keyframes arrow /* Firefox */
+{
+	from {
+		bottom: 5%;
+	}
+	to {
+		bottom: 10%;
+	}
+}
+
+@-webkit-keyframes arrow /* Safari 和 Chrome */
+{
+	from {
+		bottom: 5%;
+	}
+	to {
+		bottom: 10%;
+	}
+}
+
+@-o-keyframes arrow /* Opera */
+{
+	from {
+		bottom: 5%;
+	}
+	to {
+		bottom: 10%;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
