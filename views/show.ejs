@@ -1,11 +1,13 @@
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
 <link rel="stylesheet" href="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.css">
 
 <!--page-->
-<div>
+<div id="contain" class="container">
 	<div id="musicIcon" class="music-icon rotate"></div>
 	<% for(var i=0;i<designInfos.pages.length;i++){ %>
-		<div class="container">
+		<div class="pages page-hide">
 			<!--text begin-->
 			<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
 				<div class="block" style="
@@ -38,4 +40,5 @@
 <% } %>
 
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/jquery-3.0.0.js"></script>
+<script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/toucher.js"></script>
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>

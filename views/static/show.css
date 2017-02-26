@@ -1,7 +1,20 @@
-.container{
+.page-show{
 	height: 100%;
 	margin: 0;
 	position: relative;
+}
+
+.page-hide{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 100%;
+}
+
+.container{
+	overflow: hidden;
+	height: 100%;
+	margin: 0;
 }
 
 .block{
@@ -18,6 +31,68 @@
 	height: 22px;
 	cursor: pointer;
 	z-index: 1000;
+}
+
+.show{
+	animation: showPage 1s linear;
+	-moz-animation: showPage 1s linear;	/* Firefox */
+	-webkit-animation: showPage 1s linear;	/* Safari 和 Chrome */
+	-o-animation: showPage 1s linear;	/* Opera */
+}
+
+@keyframes showPage
+{
+	from {bottom: 100%;}
+	to {bottom: 0%;}
+}
+
+@-moz-keyframes showPage /* Firefox */
+{
+	from {bottom: 100%;}
+	to {bottom: 0%;}
+}
+
+@-webkit-keyframes showPage /* Safari 和 Chrome */
+{
+	from {bottom: 100%;}
+	to {bottom: 0%;}
+}
+
+@-o-keyframes showPage /* Opera */
+{
+	from {bottom: 100%;}
+	to {bottom: 0%;}
+}
+
+.hide{
+	animation: hidePage 1s linear;
+	-moz-animation: hidePage 1s linear;	/* Firefox */
+	-webkit-animation: hidePage 1s linear;	/* Safari 和 Chrome */
+	-o-animation: hidePage 1s linear;	/* Opera */
+}
+
+@keyframes hidePage
+{
+	from {bottom: 0%;}
+	to {bottom: 100%;}
+}
+
+@-moz-keyframes hidePage /* Firefox */
+{
+	from {bottom: 0%;}
+	to {bottom: 100%;}
+}
+
+@-webkit-keyframes hidePage /* Safari 和 Chrome */
+{
+	from {bottom: 0%;}
+	to {bottom: 100%;}
+}
+
+@-o-keyframes hidePage /* Opera */
+{
+	from {bottom: 0%;}
+	to {bottom: 100%;}
 }
 
 .rotate{
@@ -41,8 +116,8 @@
 
 @-webkit-keyframes rotate /* Safari 和 Chrome */
 {
-	0% {transform:rotate(0deg);}
-	100% {transform:rotate(360deg);}
+	from {transform:rotate(0deg);}
+	to {transform:rotate(360deg);}
 }
 
 @-o-keyframes rotate /* Opera */
