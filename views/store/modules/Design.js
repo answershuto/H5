@@ -65,6 +65,8 @@ module.exports = {
 						}
 					*/
 					image: [],
+					/*页面背景色*/
+					backgroundColor: 'white',
 				},
 			],
 		},
@@ -76,6 +78,7 @@ module.exports = {
 				id: 'page_'+state.DesignInfos.pageId,
 				text: [],
 				image: [],
+				backgroundColor: 'white',
 			})
 
 			state.DesignInfos.pageId++;
@@ -252,10 +255,18 @@ module.exports = {
 							id: 'page_0',
 							text: [],
 							image: [],
+							backgroundColor: 'white',
 						},
 					],
 				}
 			}
+		},
+		setPageBackgroundColor(state, color){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.backgroundColor = color; 
+				}
+			})
 		},
 	},
 	actions: {

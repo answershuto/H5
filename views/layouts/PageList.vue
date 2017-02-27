@@ -18,6 +18,15 @@
 					</mu-chip>
 				</div>
 			</mu-list>
+			<div class="page-set">
+				<div class="pages-font">页面设置</div>
+				<div class="page-set-item">
+					<div>
+						<div class="modifyPrompt">背景颜色</div>
+						<input type="color" name="" class="color" v-model="BackgroundColor" >
+					</div>
+				</div>
+			</div>
 		</mu-drawer>
  	</div>
 </template>
@@ -31,12 +40,19 @@
 		data () {
 			return {
 				isOpen: true,
+				BackgroundColor: '#FFFFFF',
 			}
 		},
 		mounted(){
 			this.$refs.design.onclick = ()=>{
 				this.$store.dispatch('cancelCurrentEle');
 			}
+
+			this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+					this.BackgroundColor = item.backgroundColor || '#FFFFFF';
+				}
+			})
 		},
 		beforeDestroy(){
 			this.$refs.design.onclick = null;
@@ -47,6 +63,13 @@
 			},
 			handleClick(pageId){
 				this.$store.commit('changePage', pageId);
+
+				/*修改背景色*/
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						this.BackgroundColor = item.backgroundColor || '#FFFFFF';
+					}
+				})
 			},
 			handleClickAdd(){
 				this.$store.dispatch('addPageNum');
@@ -69,7 +92,16 @@
 			pages(){
 				return this.$store.state.Design.DesignInfos.pages;
 			},
-		}
+		},
+		watch:{
+			BackgroundColor(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						this.$store.commit('setPageBackgroundColor', val);
+					}
+				})
+			},
+		},
 	}
 </script>
 
@@ -117,5 +149,28 @@
 	.editColumn{
 		margin: 55px auto 0px;
 		width: 158px;
+	}
+
+	.modifyPrompt{
+		width: 60px;
+		margin-left: 20px;
+		float: left;
+	}
+
+	.color{
+		width: 50px;
+		margin-left: 30px;
+		width: 120px;
+	}
+
+	.page-set{
+		height: 200px;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+	}
+
+	.page-set-item > div{
+		margin: 10px auto;
 	}
 </style>
