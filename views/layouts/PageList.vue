@@ -48,11 +48,7 @@
 				this.$store.dispatch('cancelCurrentEle');
 			}
 
-			this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
-				if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-					this.BackgroundColor = item.backgroundColor || '#FFFFFF';
-				}
-			})
+			this.BackgroundColor = this.$store.state.Design.DesignInfos.currentBackgroundColor || '#FFFFFF';
 		},
 		beforeDestroy(){
 			this.$refs.design.onclick = null;
@@ -65,11 +61,7 @@
 				this.$store.commit('changePage', pageId);
 
 				/*修改背景色*/
-				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
-					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-						this.BackgroundColor = item.backgroundColor || '#FFFFFF';
-					}
-				})
+				this.BackgroundColor = this.$store.state.Design.DesignInfos.currentBackgroundColor || '#FFFFFF';
 			},
 			handleClickAdd(){
 				this.$store.dispatch('addPageNum');

@@ -30,6 +30,8 @@ module.exports = {
 			currentElementType: 'text',
 			/*当前选中的页面*/
 			currentPage: 'page_0',
+			/*当倩选中的背景颜色*/
+			currentBackgroundColor: '#FFFFFF',
 			/*页面*/
 			pages: [
 				{
@@ -66,7 +68,7 @@ module.exports = {
 					*/
 					image: [],
 					/*页面背景色*/
-					backgroundColor: 'white',
+					backgroundColor: '#FFFFFF',
 				},
 			],
 		},
@@ -78,7 +80,7 @@ module.exports = {
 				id: 'page_'+state.DesignInfos.pageId,
 				text: [],
 				image: [],
-				backgroundColor: 'white',
+				backgroundColor: '#FFFFFF',
 			})
 
 			state.DesignInfos.pageId++;
@@ -192,6 +194,13 @@ module.exports = {
 		/*修改当前被选中的页面*/
 		changePage(state, page){
 			state.DesignInfos.currentPage = page || 'page_0';
+
+			/*切换页面的时候修改当前背景色*/
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					state.DesignInfos.currentBackgroundColor = item.backgroundColor || '#FFFFFF';
+				}
+			})
 		},
 		/*是否修改界面元素，弹出右侧弹出框*/
 		isModifyEle(state, l){
@@ -250,12 +259,13 @@ module.exports = {
 					currentElement: '',
 					currentElementType: 'text',
 					currentPage: 'page_0',
+					currentBackgroundColor: '#FFFFFF',
 					pages: [
 						{
 							id: 'page_0',
 							text: [],
 							image: [],
-							backgroundColor: 'white',
+							backgroundColor: '#FFFFFF',
 						},
 					],
 				}
@@ -267,6 +277,8 @@ module.exports = {
 					item.backgroundColor = color; 
 				}
 			})
+
+			state.DesignInfos.currentBackgroundColor = color;
 		},
 	},
 	actions: {
@@ -339,6 +351,6 @@ module.exports = {
 		},
 	},
 	getters: {
-		
+
 	}
 }

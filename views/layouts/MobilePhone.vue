@@ -2,7 +2,7 @@
  	<div class="container" ref="design">
  		<div class="div-main">
  			<div class="div-mobile-phone">
- 				<div id="myDesignRect" class="mobilePhone-design">
+ 				<div id="myDesignRect" class="mobilePhone-design" :style="backgroundColor">
  					<div v-show="hasMusic" class="music-icon" :class="{'rotate': isPlay}" @click="handleMusicClick"></div>
  					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
  						{{item.text}}
@@ -97,6 +97,9 @@
 			},
 			hasMusic(){
 				return (this.$store.state.Design.DesignInfos.music !== '')
+			},
+			backgroundColor(){
+				return {'background-color': this.$store.state.Design.DesignInfos.currentBackgroundColor || '#FFFFFF'};
 			},
 		},
 		watch: {
