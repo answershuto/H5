@@ -10,7 +10,7 @@
 		<img src="http://<%=cfg.ip%>:<%=cfg.port%>/static/arrow.png"></img>
 	</div>
 	<% for(var i=0;i<designInfos.pages.length;i++){ %>
-		<div class="pages page-hide" style="z-index: <%=designInfos.pages.length-i%>;">
+		<div class="pages page-hide" style="z-index: <%=designInfos.pages.length-i%>;background-color: <%=designInfos.pages[i].backgroundColor%>">
 			<!--text begin-->
 			<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
 				<div class="block" style="
