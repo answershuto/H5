@@ -340,7 +340,7 @@ module.exports = {
 					context.commit('imageDialog', l ? true : false);
 				}
 				else{
-					this.$store.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
+					context.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
 				}
 			})
 		},
@@ -348,6 +348,33 @@ module.exports = {
 		cancelCurrentEle(context){
 			context.commit('isModifyEle', false);
 			context.commit('modifyCurrentElement', '');
+		},
+		/*删除用户设计界面*/
+		delUserWork(context, workName){
+			fetch('/H5/rpc',
+				{
+					method:'POST',
+					headers:{ 
+			 			'Accept': 'application/json', 
+			 			'Content-Type': 'application/json'
+					},
+					credentials: 'same-origin',
+					body: JSON.stringify({
+						method: 'delDesign',
+						params: {workName},
+					})
+				}
+			)
+			.then(response => response.json())
+			.then(d => {
+				if (d.result) {
+					console.log(d)
+					context.dispatch('updateDesignWorks');
+				}
+				else{
+					context.commit('alertDesignMessage', {isAlert: true, message: '数据获取异常，请重试'});
+				}
+			})
 		},
 	},
 	getters: {

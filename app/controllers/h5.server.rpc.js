@@ -254,6 +254,38 @@ module.exports = {
         	}
 	 	});
 	 },
+
+	 /**
+	 * 删除用户设计界面
+	 *
+	 * 根据作品名称删除相应的用户设计界面
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-3-3
+	 * @author   Cao Yang
+	 */
+	 delDesign(req, res, next){console.log('delDesign')
+	 	let params = req.body.params;
+	 	let delObj = {
+	 		userName: req.session.user.userName,
+	 		workName: params.workName,
+	 	}
+	 	UserDesigns.remove(delObj, function(err){
+	 		if (err) {
+	 			console.log('err',err);
+            	return next(err);
+	 		}
+	 		else{
+	 			console.log('delete ' + JSON.stringify(delObj) + 'successed!');
+    			res.status(200);
+    			res.send({result:true,params:null});
+	 		}
+	 	})
+	 },
 }
 
 

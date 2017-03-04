@@ -1,5 +1,6 @@
 <template>
  	<div class="container">
+ 		<mu-icon class="icon-clear" value="clear" @click.stop="closeFunc" />
 		<mu-card-media :title="WorkName" :subTitle="getYear">
 			<img src="/images/H5.png" />
 		</mu-card-media>
@@ -24,6 +25,10 @@
 				type: String,
 				required: true
 			},
+			closeFunc: {
+				type: Function,
+				required: true
+			},
 		},
 		methods: {
 			
@@ -39,5 +44,13 @@
 <style scoped>
 	.container{
 		cursor: pointer;
+		position: relative;
+	}
+
+	.icon-clear{
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		z-index: 10;
 	}
 </style>

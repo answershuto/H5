@@ -8,7 +8,7 @@
  		</div>
  		<div v-show="hasWorks" class="works">
  			<div v-for="item in DesignWorks">
- 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage"></DesignWorkPage>
+ 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
  			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>
@@ -31,6 +31,12 @@
 				this.$store.commit('setDesign', designInfos);
 				this.$store.commit('setWorkName', workName);
 		    	this.$store.commit('setRoute','/Design');
+			},
+			handleClickClose(workName){
+				return function(){
+					console.log('pp')
+					this.$store.dispatch('delUserWork', workName);
+				}
 			},
 		},
 		computed: {
