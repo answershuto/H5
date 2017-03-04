@@ -12,6 +12,11 @@
  			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>
+		<mu-dialog :open="confirm" title="H5">
+			确认删除作品{{delWorkName}}吗？
+			<mu-flat-button slot="actions" @click="handleConfirmBtn(true)" primary label="确定"/>
+			<mu-flat-button slot="actions" primary @click="handleConfirmBtn(false)" label="取消"/>
+		</mu-dialog>
  	</div>
 </template>
 
@@ -23,6 +28,12 @@
 			createWorkDialog,
 			DesignWorkPage,
 		},
+		data(){
+			return {
+				confirm: false,
+				delWorkName: '',
+			};
+		},
 		methods: {
 			createWork(){
 				this.$store.commit('createWorkDialog', true);
@@ -33,10 +44,17 @@
 		    	this.$store.commit('setRoute','/Design');
 			},
 			handleClickClose(workName){
-				return function(){
-					console.log('pp')
-					this.$store.dispatch('delUserWork', workName);
+				return () => {
+					this.delWorkName = workName;
+					this.confirm = true;
 				}
+			},
+			handleConfirmBtn(l){
+				if (l) {
+					this.$store.dispatch('delUserWork', this.delWorkName);
+				}
+
+				this.confirm = false;
 			},
 		},
 		computed: {

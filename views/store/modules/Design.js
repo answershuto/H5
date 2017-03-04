@@ -368,7 +368,6 @@ module.exports = {
 			.then(response => response.json())
 			.then(d => {
 				if (d.result) {
-					console.log(d)
 					context.dispatch('updateDesignWorks');
 				}
 				else{
