@@ -8,8 +8,9 @@
  		</div>
  		<div v-show="hasWorks" class="works">
  			<div v-for="item in DesignWorks">
- 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
+				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
  			</div>
+ 			<DesignWorkPage @click.native="createWork" imageSrc="/images/add.png" WorkName="创建作品" class="DesignWorkPage" ></DesignWorkPage>
  		</div>
  		<createWorkDialog></createWorkDialog>
 		<mu-dialog :open="confirm" title="H5">

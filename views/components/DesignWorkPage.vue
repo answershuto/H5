@@ -1,8 +1,8 @@
 <template>
  	<div class="container">
- 		<mu-icon class="icon-clear" value="clear" @click.stop="closeFunc" />
+ 		<mu-icon v-show="hasCloseFunc" class="icon-clear" value="clear" @click.stop="closeFunc" />
 		<mu-card-media :title="WorkName" :subTitle="getYear">
-			<img src="/images/H5.png" />
+			<img class="image" :src="imageSrc" />
 		</mu-card-media>
  	</div>
 </template>
@@ -18,17 +18,19 @@
 			/*作品名称*/
 			WorkName:{
 				type: String,
-				required: true
 			},
 			/*时间*/
 			date:{
 				type: String,
-				required: true
+				default: "",
 			},
 			closeFunc: {
 				type: Function,
-				required: true
 			},
+			imageSrc: {
+				type: String,
+				default: '/images/H5.png',
+			}
 		},
 		methods: {
 			
@@ -36,6 +38,9 @@
 		computed: {
 			getYear(){
 				return this.date.slice(0, this.date.indexOf("T")); 
+			},
+			hasCloseFunc(){
+				return this.closeFunc;
 			},
 		}
 	}
@@ -53,4 +58,5 @@
 		top: 0px;
 		z-index: 10;
 	}
+
 </style>
