@@ -16,6 +16,8 @@
 	overflow: hidden;
 	height: 100%;
 	margin: 0;
+	position: fixed;
+	width: 100%;
 }
 
 .block{
