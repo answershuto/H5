@@ -10,7 +10,9 @@
  			<div v-for="item in DesignWorks">
 				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
  			</div>
- 			<DesignWorkPage @click.native="createWork" imageSrc="/images/add.png" WorkName="创建作品" class="DesignWorkPage" ></DesignWorkPage>
+ 			<div class="DesignWorkPage add">
+ 				<mu-icon class="iconAdd" @click.native="createWork" size="200" value="add"/>
+ 			</div>
  		</div>
  		<createWorkDialog></createWorkDialog>
 		<mu-dialog :open="confirm" title="H5">
@@ -76,9 +78,19 @@
 		
 	}
 
+	.add{
+		cursor: pointer;
+		text-align: center;
+	}
+
+	.iconAdd{
+		line-height: 230px;
+	}
+
 	.DesignWorkPage{
 		width: 300px;
 		margin: 30px 30px;
+		border: 3px solid #6D6B6A;
 	}
 
 	.createWork{
