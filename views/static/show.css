@@ -1,7 +1,8 @@
 .page-show{
 	height: 100%;
 	margin: 0;
-	position: relative;
+	position: absolute;
+	width: 100%;
 }
 
 .page-hide{

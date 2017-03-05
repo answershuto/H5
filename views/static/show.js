@@ -14,8 +14,13 @@
 			pageObj.addClass('hide');
 			pageObj.removeClass('show');
 		}
-		pageObj.addClass('page-hide');
-		pageObj.removeClass('page-show');
+
+		var time = (type === 'up') ? 0 : 1000;
+		setTimeout(function(){
+			pageObj.addClass('page-hide');
+			pageObj.removeClass('page-show');
+		}, time)
+		
 	}
 
 	var isPlay = true;
