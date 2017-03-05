@@ -65,6 +65,7 @@
 				})
 			},
 			handleClickExit(){
+				this.$store.dispatch('updateDesignWorks');
 				this.$store.commit('setRoute','/Main');
 				this.$store.commit('setDesign');
 			},
