@@ -1,5 +1,9 @@
 (function(){
 
+	function AnimationTime(){
+		return 1000;
+	}
+
 	function showPage(pageObj, type){
 		if (type === 'down') {
 			pageObj.addClass('show');
@@ -15,7 +19,7 @@
 			pageObj.removeClass('show');
 		}
 
-		var time = (type === 'up') ? 0 : 1000;
+		var time = (type === 'up') ? 0 : AnimationTime();
 		setTimeout(function(){
 			pageObj.addClass('page-hide');
 			pageObj.removeClass('page-show');
@@ -42,20 +46,29 @@
 		}
 	})
 
+	var isAnimation = false;/*动画标识位，在动画过程中不能继续出发上拉下滑功能*/
 	var myTouch = util.toucher(document.getElementById('contain'));
 	myTouch.on('swipeUp',function(e){
-	    if (elePage < (pages.length - 1)) {
+	    if ((elePage < (pages.length - 1)) && !isAnimation) {
+	    	isAnimation = true;
 			showPage($(pages[elePage + 1]), 'up');
 			hidePage($(pages[elePage]), 'up');
 			elePage++;
+			setTimeout(function(){
+				isAnimation = false;
+			}, AnimationTime());
 		}
 	})
 
 	myTouch.on('swipeDown',function(e){
-	    if (elePage > 0) {
+	    if ((elePage > 0) && !isAnimation) {
+	    	isAnimation = true;
 			showPage($(pages[elePage - 1]), 'down');
 			hidePage($(pages[elePage]), 'down');
 			elePage--;
+			setTimeout(function(){
+				isAnimation = false;
+			}, AnimationTime());
 		}
 	})
 
