@@ -1,5 +1,10 @@
 (function(){
 
+	/*防止微信或者其他移动端浏览器在下拉时触发原生操作，比如chrome里面的下拉刷新以及微信中的把整个显示区块下拉*/
+	document.querySelector('body').addEventListener('touchstart', function (ev) {
+	    event.preventDefault();
+	});
+
 	/*消息处理中心*/
 	function newsCenter(){
 		this.callbacks = {};
