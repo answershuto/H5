@@ -9,20 +9,15 @@
 	function newsCenter(){
 		this.callbacks = {};
 		this.news = [];
-		var isAnimation = false;/*动画标识位，在动画过程中不能继续出发上拉下滑功能*/
+		this.isAnimation = false;/*动画标识位，在动画过程中不能继续出发上拉下滑功能*/
+		var that = this;
 
-		setInterval(function(){
-			if (this.news.length && !isAnimation) {
-				var newObj = this.news.shift();
-				isAnimation = true;
-				this.callbacks[newObj.type].forEach(function(f){
-					typeof f === 'function' && f.call(newObj.that);
-					setTimeout(function(){
-						isAnimation = false;
-					}, AnimationTime())
-				})
-			}
-		}.bind(this), 100)
+		for(var i = 0; i < $('.pages').length; i++){
+		$('.pages')[i].addEventListener("webkitAnimationEnd", function(i){
+				that.isAnimation = false;
+				that.exec();
+			})
+		}
 	};
 
 	/*注册一个消息回调*/
@@ -46,6 +41,17 @@
 		if (this.callbacks[type] && this.news.length < 1) {
 			/*事件中心最多纪录两条信息，再多直接丢弃（这里包括一条已经在执行的，已经推出消息队列）*/
 			this.news.push({'type':type, 'that': that});
+			this.exec();
+		}
+	}
+
+	newsCenter.prototype.exec = function(){
+		if (this.news.length && !this.isAnimation) {
+			var newObj = this.news.shift();
+			this.isAnimation = true;
+			this.callbacks[newObj.type].forEach(function(f){
+				typeof f === 'function' && f.call(newObj.that);
+			})
 		}
 	}
 
