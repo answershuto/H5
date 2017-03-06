@@ -15,7 +15,7 @@
 .container{
 	overflow: hidden;
 	height: 100%;
-	margin: 0;
+	margin: -8px;
 	position: fixed;
 	width: 100%;
 }
