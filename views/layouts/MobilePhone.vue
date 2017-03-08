@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+	import '../static/animation.css'
 	export default {
 		components: {
 			

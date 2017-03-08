@@ -59,8 +59,17 @@
 					</div>
 				</div>
 			</div>
-			<div v-show="isCartoon">
-				isCartoon
+			<div v-show="isCartoon" class="showAnimation">
+				<div>
+					<div class="modifySelect">动画</div>
+					<mu-select-field v-model="animationName" :labelFocusClass="['label-foucs']" label="" labelClass="animation" >
+						<mu-menu-item v-for="item,index in animationList" :value="item.type" :title="item.name" />
+					</mu-select-field>
+				</div>
+				<div>
+					<div class="modifySelect">动画时间</div>
+					<mu-slider v-model="animationDuration" class="sliderAnimation" max='10' />
+				</div>
 			</div>
 		</mu-drawer>
  	</div>
@@ -85,6 +94,14 @@
 				modifyPadding: 0,
 				modifyImageWidth: 0,
 				modifyImageHeight: 0,
+				animationName: '',
+				animationDuration: 1,
+				animationList: [
+					{
+						name: '左侧淡入',
+						type: 'fadeInLeft',
+					},
+				],
 			}
 		},
 		beforeUpdate(){
@@ -102,6 +119,9 @@
 								this.modifyText = t.text;
 								this.modifyLineHeight = parseInt(t.style['line-height']);
 								this.modifyPadding = parseInt(t.style['padding']);
+								this.animationName = t.style['animation-name'];
+								this.animationDuration = parseInt(t.style['animation-duration']);
+								console.log(this.animationDuration)
 							}
 						})
 					}
@@ -113,6 +133,8 @@
 								this.modifyTop = parseInt(t.style.top);
 								this.modifyImageWidth = parseInt(t.style.width);
 								this.modifyImageHeight = parseInt(t.style.height);
+								this.animationName = t.style['animation-name'];
+								this.animationDuration = parseInt(t.style['animation-duration']);
 							}
 						})
 					}
@@ -158,6 +180,22 @@
 					}
 				})
 			},
+			animationName(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						item[type].forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit(commitType, {
+									'animation-name': val,
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
 			modifyTop(val){
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
@@ -167,6 +205,22 @@
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit(commitType, {
 									top: val + '%',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			animationDuration(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						item[type].forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit(commitType, {
+									'animation-duration': val,
 									id: t.id
 								});
 							}
@@ -305,6 +359,11 @@
 		margin-left: 20px;
 	}
 
+	.sliderAnimation{
+		width: 250px;
+		margin-top: 10px;
+	}
+
 	.text{
 		margin-left: 20px;
 	}
@@ -314,13 +373,13 @@
 		margin-left: 20px;
 	}
 
-	.showStyle > div > div{
+	.showStyle > div > div, .showAnimation > div {
 		margin-left: 30px;
 		margin-top: 20px;
-		height: 30px;
+		height: 50px;
 	}
 
-	.showStyle > div > div > div{
+	.showStyle > div > div > div, .showAnimation > div > div{
 		float: left;
 	}
 
@@ -332,7 +391,16 @@
 		margin-top: 13px;
 	}
 
+	.animation{
+		background-color: black;
+	}
+
 	.modifyPrompt{
 		width: 70px;
+	}
+
+	.modifySelect{
+		width: 70px;
+		line-height: 50px;
 	}
 </style>

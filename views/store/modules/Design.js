@@ -49,7 +49,9 @@ module.exports = {
 								font-size： '100',
 								line-height: '100%',
 								padding: '0px',
-							}
+								'animation-name': '',
+								'animation-duration': '1',
+							},
 						}
 					*/
 					text: [],
@@ -63,6 +65,8 @@ module.exports = {
 								height: '50px',
 								left: '20%',
 								top: '10%',
+								'animation-name': '',
+								'animation-duration': '1',
 							},
 						}
 					*/
@@ -137,6 +141,8 @@ module.exports = {
 							'background-color': 'transparent',
 							'line-height': '100%',
 							padding: '0px',
+							'animation-name': '',
+							'animation-duration': '1',
 						}
 					})
 				}
@@ -218,6 +224,8 @@ module.exports = {
 							height: '50px',
 							left: '0%',
 							top: '10%',
+							'animation-name': '',
+							'animation-duration': '1',
 						},
 					})
 				}
