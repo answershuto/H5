@@ -50,7 +50,8 @@ module.exports = {
 								line-height: '100%',
 								padding: '0px',
 								'animation-name': '',
-								'animation-duration': '1',
+								'animation-duration': '1s',
+								'animation-timing-function': 'ease',
 							},
 						}
 					*/
@@ -66,7 +67,8 @@ module.exports = {
 								left: '20%',
 								top: '10%',
 								'animation-name': '',
-								'animation-duration': '1',
+								'animation-duration': '1s',
+								'animation-timing-function': 'ease',
 							},
 						}
 					*/
@@ -142,7 +144,8 @@ module.exports = {
 							'line-height': '100%',
 							padding: '0px',
 							'animation-name': '',
-							'animation-duration': '1',
+							'animation-duration': '1s',
+							'animation-timing-function': 'ease',
 						}
 					})
 				}
@@ -225,7 +228,8 @@ module.exports = {
 							left: '0%',
 							top: '10%',
 							'animation-name': '',
-							'animation-duration': '1',
+							'animation-duration': '1s',
+							'animation-timing-function': 'ease',
 						},
 					})
 				}

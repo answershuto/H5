@@ -62,13 +62,19 @@
 			<div v-show="isCartoon" class="showAnimation">
 				<div>
 					<div class="modifySelect">动画</div>
-					<mu-select-field v-model="animationName" :labelFocusClass="['label-foucs']" label="" labelClass="animation" >
+					<mu-select-field v-model="animationName" label="" labelClass="animation" >
 						<mu-menu-item v-for="item,index in animationList" :value="item.type" :title="item.name" />
 					</mu-select-field>
 				</div>
 				<div>
 					<div class="modifySelect">动画时间</div>
 					<mu-slider v-model="animationDuration" class="sliderAnimation" max='10' />
+				</div>
+				<div>
+					<div class="modifySelect">动画曲线</div>
+					<mu-select-field v-model="animationTimingFunction" label="" labelClass="animation" >
+						<mu-menu-item v-for="item,index in animationTimingFunctionList" :value="item.type" :title="item.name" />
+					</mu-select-field>
 				</div>
 			</div>
 		</mu-drawer>
@@ -96,10 +102,33 @@
 				modifyImageHeight: 0,
 				animationName: '',
 				animationDuration: 1,
+				animationTimingFunction: 'ease',
 				animationList: [
 					{
 						name: '左侧淡入',
 						type: 'fadeInLeft',
+					},
+				],
+				animationTimingFunctionList: [
+					{
+						name: '默认',
+						type: 'ease',
+					},
+					{
+						name: '匀速',
+						type: 'linear',
+					},
+					{
+						name: '以低速开始',
+						type: 'ease-in',
+					},
+					{
+						name: '以低速结束',
+						type: 'ease-out',
+					},
+					{
+						name: '以低速开始和结束',
+						type: 'ease-in-out',
 					},
 				],
 			}
@@ -121,7 +150,7 @@
 								this.modifyPadding = parseInt(t.style['padding']);
 								this.animationName = t.style['animation-name'];
 								this.animationDuration = parseInt(t.style['animation-duration']);
-								console.log(this.animationDuration)
+								this.animationTimingFunction = t.style['animation-timing-function'];
 							}
 						})
 					}
@@ -135,6 +164,7 @@
 								this.modifyImageHeight = parseInt(t.style.height);
 								this.animationName = t.style['animation-name'];
 								this.animationDuration = parseInt(t.style['animation-duration']);
+								this.animationTimingFunction = t.style['animation-timing-function'];
 							}
 						})
 					}
@@ -220,7 +250,23 @@
 						item[type].forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit(commitType, {
-									'animation-duration': val,
+									'animation-duration': val + 's',
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
+			animationTimingFunction(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						item[type].forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit(commitType, {
+									'animation-timing-function': val,
 									id: t.id
 								});
 							}
