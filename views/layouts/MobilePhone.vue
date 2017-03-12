@@ -10,7 +10,7 @@
  					<img :src="'/H5/image?id='+item.imageID" v-for="item in image" :id="item.id" class="design-image" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
  					</img>
  				</div>
- 				<div class="mobilePhone-background" :class="{'div-mobile-grid': grid}" ></div>
+ 				<div class="mobilePhone-background" ></div>
  				<div class="mobilePhone-home" :title="showTitle" @click="handleClickHome"></div>
  			</div>
  		</div>
@@ -30,8 +30,6 @@
 		},
 		data(){
 			return {
-				/*显示网格*/
-				grid: true,
 				/*是否播放音乐*/
 				isPlay: true,
 			}
@@ -46,14 +44,7 @@
 		},
 		methods: {
 			handleClickHome(){
-				this.grid = !this.grid;
-
-				if (this.grid) {/*显示网格*/
-
-				}
-				else{/*隐藏网格*/
-
-				}
+				
 			},
 			handleClickEle(e){
 				this.$store.commit('modifyCurrentElement', e.target.id);
