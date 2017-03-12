@@ -148,9 +148,9 @@
 								this.modifyText = t.text;
 								this.modifyLineHeight = parseInt(t.style['line-height']);
 								this.modifyPadding = parseInt(t.style['padding']);
-								this.animationName = t.style['animation-name'];
-								this.animationDuration = parseInt(t.style['animation-duration']);
-								this.animationTimingFunction = t.style['animation-timing-function'];
+								this.animationName = t.animationStyle['animation-name'];
+								this.animationDuration = parseInt(t.animationStyle['animation-duration']);
+								this.animationTimingFunction = t.animationStyle['animation-timing-function'];
 							}
 						})
 					}
@@ -162,9 +162,9 @@
 								this.modifyTop = parseInt(t.style.top);
 								this.modifyImageWidth = parseInt(t.style.width);
 								this.modifyImageHeight = parseInt(t.style.height);
-								this.animationName = t.style['animation-name'];
-								this.animationDuration = parseInt(t.style['animation-duration']);
-								this.animationTimingFunction = t.style['animation-timing-function'];
+								this.animationName = t.animationStyle['animation-name'];
+								this.animationDuration = parseInt(t.animationStyle['animation-duration']);
+								this.animationTimingFunction = t.animationStyle['animation-timing-function'];
 							}
 						})
 					}
@@ -210,22 +210,6 @@
 					}
 				})
 			},
-			animationName(val){
-				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
-					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
-						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
-						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
-						item[type].forEach(t => {
-							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
-								this.$store.commit(commitType, {
-									'animation-name': val,
-									id: t.id
-								});
-							}
-						})
-					}
-				})
-			},
 			modifyTop(val){
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
@@ -242,11 +226,27 @@
 					}
 				})
 			},
+			animationName(val){
+				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
+						let commitType = (type === 'text')?'modifyTextAnimationStyleById':'modifyImageAnimationStyleById';
+						item[type].forEach(t => {
+							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
+								this.$store.commit(commitType, {
+									'animation-name': val,
+									id: t.id
+								});
+							}
+						})
+					}
+				})
+			},
 			animationDuration(val){
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
 						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
-						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						let commitType = (type === 'text')?'modifyTextAnimationStyleById':'modifyImageAnimationStyleById';
 						item[type].forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit(commitType, {
@@ -262,7 +262,7 @@
 				this.$store.state.Design.DesignInfos.pages.forEach((item, index) => {
 					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
 						let type = (this.$store.state.Design.DesignInfos.currentElementType === 'text')?'text':'image';
-						let commitType = (type === 'text')?'modifyTextStyleById':'modifyImageStyleById';
+						let commitType = (type === 'text')?'modifyTextAnimationStyleById':'modifyImageAnimationStyleById';
 						item[type].forEach(t => {
 							if (t.id === this.$store.state.Design.DesignInfos.currentElement) {
 								this.$store.commit(commitType, {

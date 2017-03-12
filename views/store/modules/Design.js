@@ -49,6 +49,8 @@ module.exports = {
 								font-size： '100',
 								line-height: '100%',
 								padding: '0px',
+							},
+							animationStyle:{
 								'animation-name': '',
 								'animation-duration': '1s',
 								'animation-timing-function': 'ease',
@@ -66,6 +68,8 @@ module.exports = {
 								height: '50px',
 								left: '20%',
 								top: '10%',
+							},
+							animationStyle:{
 								'animation-name': '',
 								'animation-duration': '1s',
 								'animation-timing-function': 'ease',
@@ -143,10 +147,12 @@ module.exports = {
 							'background-color': 'transparent',
 							'line-height': '100%',
 							padding: '0px',
+						},
+						animationStyle: {
 							'animation-name': '',
 							'animation-duration': '1s',
 							'animation-timing-function': 'ease',
-						}
+						},
 					})
 				}
 			})
@@ -168,6 +174,22 @@ module.exports = {
 				}
 			})
 			
+		},
+		/*根据id修改animationStyle*/
+		modifyTextAnimationStyleById(state, info){console.log('modifyTextAnimationStyleById')
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.text.forEach(t => {
+						if (t.id === info.id) {
+							for(let s in info){
+								if (s === 'id') continue;
+								t.animationStyle[s] = info[s];
+							}
+							console.log(t.animationStyle)
+						}
+					})
+				}
+			})
 		},
 		modifyTextContentById(state, info){
 			state.DesignInfos.pages.forEach((item, index) => {
@@ -227,6 +249,8 @@ module.exports = {
 							height: '50px',
 							left: '0%',
 							top: '10%',
+						},
+						animationStyle: {
 							'animation-name': '',
 							'animation-duration': '1s',
 							'animation-timing-function': 'ease',
@@ -250,6 +274,22 @@ module.exports = {
 							for(let s in info){
 								if (s === 'id') continue;
 								t.style[s] = info[s];
+							}
+						}
+					})
+				}
+			})
+			
+		},
+		/*根据id修改图片的style*/
+		modifyImageAnimationStyleById(state, info){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					item.image.forEach(t => {
+						if (t.id === info.id) {
+							for(let s in info){
+								if (s === 'id') continue;
+								t.animationStyle[s] = info[s];
 							}
 						}
 					})
