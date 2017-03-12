@@ -4,14 +4,14 @@
  			<div class="div-mobile-phone">
  				<div id="myDesignRect" class="mobilePhone-design" :style="backgroundColor">
  					<div v-show="hasMusic" class="music-icon" :class="{'rotate': isPlay}" @click="handleMusicClick"></div>
- 					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
+ 					<div v-for="item in text" :id="item.id" class="design-text" :class="[(currentEle==item.id) ? 'design-select':'']" :style="showAnimation ? Object.assign(item.animationStyle, item.style): item.style" @click.stop="handleClickEle">
  						{{item.text}}
  					</div>
- 					<img :src="'/H5/image?id='+item.imageID" v-for="item in image" :id="item.id" class="design-image" :class="[(currentEle==item.id) ? 'design-select':'']" :style="item.style" @click.stop="handleClickEle">
+ 					<img :src="'/H5/image?id='+item.imageID" v-for="item in image" :id="item.id" class="design-image" :class="[(currentEle==item.id) ? 'design-select':'']" :style="showAnimation ? Object.assign(item.animationStyle, item.style): item.style" @click.stop="handleClickEle">
  					</img>
  				</div>
  				<div class="mobilePhone-background" ></div>
- 				<div class="mobilePhone-home" :title="showTitle" @click="handleClickHome"></div>
+ 				<div class="mobilePhone-home" @click="handleClickHome"></div>
  			</div>
  		</div>
 		<div>
@@ -30,6 +30,8 @@
 		},
 		data(){
 			return {
+				/*是否显示动画效果*/
+				showAnimation: false,
 				/*是否播放音乐*/
 				isPlay: true,
 			}
@@ -44,7 +46,45 @@
 		},
 		methods: {
 			handleClickHome(){
+				if (this.showAnimation) {
+					/*动画正在执行中，停止动画并关闭定时器*/
+					this.showAnimation = false;
+					clearTimeout(this.animationTimer)
+					return;
+				}
+
+				/*获取最大动画时间*/
+				let maxTime = 1;
+
+				let text = [];
+				this.$store.state.Design.DesignInfos.pages.forEach(item => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						text = item.text || [];
+					}
+				})
 				
+				text.forEach(item => {
+					let durationTime = parseInt(item.animationStyle['animation-duration']);
+					maxTime = (durationTime > maxTime) ? durationTime : maxTime;
+				})
+
+				let image = [];
+				this.$store.state.Design.DesignInfos.pages.forEach(item => {
+					if (item.id === this.$store.state.Design.DesignInfos.currentPage) {
+						image = item.image || [];
+					}
+				})
+
+				image.forEach(item => {
+					let durationTime = parseInt(item.animationStyle['animation-duration']);
+					maxTime = (durationTime > maxTime) ? durationTime : maxTime;
+				})
+
+				/*浏览动画并开启定时器，执行完所有动画以后将该标志位改为false*/
+				this.showAnimation = true;
+				this.animationTimer = setTimeout(() => {
+					this.showAnimation = false;
+				}, maxTime * 1000)
 			},
 			handleClickEle(e){
 				this.$store.commit('modifyCurrentElement', e.target.id);
@@ -62,9 +102,6 @@
 			},
 		},
 		computed: {
-			showTitle(){
-				return this.grid ? "隐藏网格" : "显示网格";
-			},
 			text(){
 				let text = [];
 				this.$store.state.Design.DesignInfos.pages.forEach(item => {
