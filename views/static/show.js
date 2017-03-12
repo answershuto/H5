@@ -16,6 +16,7 @@
 		$('.pages')[i].addEventListener("webkitAnimationEnd", function(i){
 				that.isAnimation = false;
 				that.exec();
+				that.animation();
 			})
 		}
 	};
@@ -55,10 +56,30 @@
 		}
 	}
 
+	/*执行动画*/
+	newsCenter.prototype.animation = function(){
+		window.infoData.designInfos.pages[elePage].text.forEach(function(item, index){
+			for(var s in item.animationStyle){
+				$('#' + item.id).css(s, item.animationStyle[s]);
+			}	
+		})
+
+		window.infoData.designInfos.pages[elePage].image.forEach(function(item, index){
+			for(var s in item.animationStyle){
+				$('#' + item.id).css(s, item.animationStyle[s]);
+			}	
+		})
+	}
+
+	var isPlay = true;
+	var elePage = 0;
+	var pages = $('.pages');
+
 	/*新建事件处理中心并注册回调函数*/
 	var newsCenterObj = new newsCenter();
 	newsCenterObj.attach('swipeUp',up);
 	newsCenterObj.attach('swipeDown',down);
+	newsCenterObj.animation();
 
 	/*动画执行时间*/
 	function AnimationTime(){
@@ -86,11 +107,21 @@
 			pageObj.removeClass('page-show');
 		}, time)
 		
+		/*清楚隐藏页面的css动画，保证下次出现的时候会添加动画并执行*/
+		var p = (type === 'up') ? (elePage - 1) : (elePage + 1);
+		window.infoData.designInfos.pages[p].text.forEach(function(item, index){
+			for(var s in item.animationStyle){
+				$('#' + item.id).css(s, '');
+			}	
+		})	
+
+		window.infoData.designInfos.pages[p].image.forEach(function(item, index){
+			for(var s in item.animationStyle){
+				$('#' + item.id).css(s, '');
+			}	
+		})	
 	}
 
-	var isPlay = true;
-	var elePage = 0;
-	var pages = $('.pages');
 
 	pages.length && showPage($(pages[0]));
 
@@ -118,17 +149,17 @@
 
 	function up(){
 		if ((elePage < (pages.length - 1))) {
-			showPage($(pages[elePage + 1]), 'up');
-			hidePage($(pages[elePage]), 'up');
 			elePage++;
+			showPage($(pages[elePage]), 'up');
+			hidePage($(pages[elePage - 1]), 'up');
 		}
 	}
 
 	function down(){
 		 if ((elePage > 0)) {
-			showPage($(pages[elePage - 1]), 'down');
-			hidePage($(pages[elePage]), 'down');
-			elePage--;
+		 	elePage--;
+			showPage($(pages[elePage]), 'down');
+			hidePage($(pages[elePage + 1]), 'down');
 		}
 	}
 

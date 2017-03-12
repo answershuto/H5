@@ -1,6 +1,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+<link rel="stylesheet" href="http://<%=cfg.ip%>:<%=cfg.port%>/static/animation.css">
 <link rel="stylesheet" href="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.css">
 
 <!--page-->
@@ -15,7 +16,7 @@
 		<div class="pages page-hide" style="z-index: <%=designInfos.pages.length-i%>;background-color: <%=designInfos.pages[i].backgroundColor%>">
 			<!--text begin-->
 			<% for(var j=0;j<designInfos.pages[i].text.length;j++){ %>
-				<div class="block" style="
+				<div class="block" id="<%=designInfos.pages[i].text[j].id%>" style="
 					<%for(var s in designInfos.pages[i].text[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].text[j].style[s]%>;
 					<% } %>
@@ -27,7 +28,7 @@
 
 			<!--image begin-->
 			<% for(var j=0;j<designInfos.pages[i].image.length;j++){ %>
-				<image class="block" style="
+				<image class="block" id="<%=designInfos.pages[i].image[j].id%>" style="
 					<%for(var s in designInfos.pages[i].image[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].image[j].style[s]%>;
 					<% } %>
@@ -44,6 +45,10 @@
 	<audio id="musicAudio" src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/PlayMusic?id=<%=designInfos.music%>" controls="controls" autoplay="autoplay" style="display:none;" >
 <% } %>
 
+<script type="text/javascript">
+	window.infoData = {};
+	window.infoData.designInfos = <%- JSON.stringify(designInfos) %>
+</script>
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/jquery-3.0.0.js"></script>
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/toucher.js"></script>
 <script src="http://<%=cfg.ip%>:<%=cfg.port%>/static/show.js"></script>
