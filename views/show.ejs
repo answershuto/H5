@@ -20,6 +20,7 @@
 					<%for(var s in designInfos.pages[i].text[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].text[j].style[s]%>;
 					<% } %>
+					display:none;
 				">
 					<%=designInfos.pages[i].text[j].text %>
 				</div>
@@ -32,8 +33,9 @@
 					<%for(var s in designInfos.pages[i].image[j].style){%>
 						<%=s%>:<%=designInfos.pages[i].image[j].style[s]%>;
 					<% } %>
+					display:none;
 				" src="http://<%=cfg.ip%>:<%=cfg.port%>/H5/image?id=<%=designInfos.pages[i].image[j].imageID %>">
-				<image>
+				</image>
 			<% } %>
 			<!--image end-->
 		</div>

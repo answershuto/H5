@@ -13,7 +13,10 @@
 		var that = this;
 
 		for(var i = 0; i < $('.pages').length; i++){
-		$('.pages')[i].addEventListener("webkitAnimationEnd", function(i){
+		$('.pages')[i].addEventListener("webkitAnimationEnd", function(e){
+				/*当是design元素动画冒泡事件直接返回*/
+				if (e.target.id.indexOf('design_') >= 0) return;
+
 				that.isAnimation = false;
 				that.exec();
 				that.animation();
@@ -43,7 +46,6 @@
 			/*事件中心最多纪录两条信息，再多直接丢弃（这里包括一条已经在执行的，已经推出消息队列）*/
 			this.news.push({'type':type, 'that': that});
 			this.exec();
-			this.animation();
 		}
 	}
 
@@ -58,17 +60,19 @@
 	}
 
 	/*执行动画*/
-	newsCenter.prototype.animation = function(){
+	newsCenter.prototype.animation = function(isDelay){
 		window.infoData.designInfos.pages[elePage].text.forEach(function(item, index){
+			$('#' + item.id).css('display', 'block');
 			for(var s in item.animationStyle){
 				$('#' + item.id).css(s, item.animationStyle[s]);
-			}	
+			}
 		})
 
 		window.infoData.designInfos.pages[elePage].image.forEach(function(item, index){
+			$('#' + item.id).css('display', 'block');
 			for(var s in item.animationStyle){
 				$('#' + item.id).css(s, item.animationStyle[s]);
-			}	
+			}		
 		})
 	}
 
@@ -111,12 +115,14 @@
 		/*清楚隐藏页面的css动画，保证下次出现的时候会添加动画并执行*/
 		var p = (type === 'up') ? (elePage - 1) : (elePage + 1);
 		window.infoData.designInfos.pages[p].text.forEach(function(item, index){
+			$('#' + item.id).css('display', 'none');
 			for(var s in item.animationStyle){
 				$('#' + item.id).css(s, '');
 			}	
 		})	
 
 		window.infoData.designInfos.pages[p].image.forEach(function(item, index){
+			$('#' + item.id).css('display', 'none');
 			for(var s in item.animationStyle){
 				$('#' + item.id).css(s, '');
 			}	
