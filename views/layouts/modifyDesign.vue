@@ -108,6 +108,18 @@
 						name: '左侧淡入',
 						type: 'fadeInLeft',
 					},
+					{
+						name: '右侧淡入',
+						type: 'fadeInRight',
+					},
+					{
+						name: '上侧淡入',
+						type: 'fadeInUp',
+					},
+					{
+						name: '下侧淡入',
+						type: 'fadeInDown',
+					},
 				],
 				animationTimingFunctionList: [
 					{
