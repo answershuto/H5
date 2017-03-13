@@ -105,6 +105,10 @@
 				animationTimingFunction: 'ease',
 				animationList: [
 					{
+						name: '默认',
+						type: 'default',
+					},
+					{
 						name: '左侧淡入',
 						type: 'fadeInLeft',
 					},

@@ -51,7 +51,7 @@ module.exports = {
 								padding: '0px',
 							},
 							animationStyle:{
-								'animation-name': '',
+								'animation-name': 'default',
 								'animation-duration': '1s',
 								'animation-timing-function': 'ease',
 							},
@@ -70,7 +70,7 @@ module.exports = {
 								top: '10%',
 							},
 							animationStyle:{
-								'animation-name': '',
+								'animation-name': 'default',
 								'animation-duration': '1s',
 								'animation-timing-function': 'ease',
 							},
@@ -149,7 +149,7 @@ module.exports = {
 							padding: '0px',
 						},
 						animationStyle: {
-							'animation-name': '',
+							'animation-name': 'default',
 							'animation-duration': '1s',
 							'animation-timing-function': 'ease',
 						},
@@ -251,7 +251,7 @@ module.exports = {
 							top: '10%',
 						},
 						animationStyle: {
-							'animation-name': '',
+							'animation-name': 'default',
 							'animation-duration': '1s',
 							'animation-timing-function': 'ease',
 						},
