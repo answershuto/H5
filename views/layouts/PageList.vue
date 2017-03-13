@@ -12,7 +12,7 @@
 			</div>
 			<mu-list>
 				<div v-for="(page, index) in pages" class="pages-div">
-					<mu-chip class="pageicon" backgroundColor="#a1887f" color="#f3e5f5" @delete="handleClose(page.id)" @click="handleClick(page.id)" showDelete>
+					<mu-chip class="pageicon" :backgroundColor="isCurrentPage(index)" color="#f3e5f5" @delete="handleClose(page.id)" @click="handleClick(page.id)" showDelete>
 						<mu-avatar :size="32" src="/images/H5.png"/>
 						<div class="pageNum">第&nbsp{{index+1}}页</div>
 					</mu-chip>
@@ -78,6 +78,9 @@
 						this.$store.dispatch('musicDialog', true);
 						break;
 				}
+			},
+			isCurrentPage(page){
+				return (this.$store.state.Design.DesignInfos.currentPage === ('page_'+page)) ? '#795548' : '#a1887f';
 			},
 		},
 		computed: {
