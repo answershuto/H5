@@ -42,8 +42,10 @@
 
 	/*触发事件*/
 	newsCenter.prototype.fire = function(type, that){
-		if (this.callbacks[type] && this.news.length < 1) {
+		if (this.callbacks[type] && this.news.length < 1 ) {
 			/*事件中心最多纪录两条信息，再多直接丢弃（这里包括一条已经在执行的，已经推出消息队列）*/
+			if (((type === 'swipeUp') && (elePage == (window.infoData.designInfos.pages.length-1))) 
+				|| ((type === 'swipeDown') && (elePage == 0))) return;
 			this.news.push({'type':type, 'that': that});
 			this.exec();
 		}
