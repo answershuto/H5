@@ -124,6 +124,34 @@
 						name: '下侧淡入',
 						type: 'fadeInDown',
 					},
+					{
+						name: '闪烁',
+						type: 'Flashing',
+					},
+					{
+						name: '旋转出现（360度）',
+						type: 'RotationAppears',
+					},
+					{
+						name: '旋转出现（180度）',
+						type: 'RotationAppears2',
+					},
+					{
+						name: '右侧驶入',
+						type: 'rightEntry',
+					},
+					{
+						name: '左侧驶入',
+						type: 'leftEntry',
+					},
+					{
+						name: '上侧驶入',
+						type: 'upEntry',
+					},
+					{
+						name: '下侧驶入',
+						type: 'downEntry',
+					},
 				],
 				animationTimingFunctionList: [
 					{
