@@ -152,6 +152,22 @@
 						name: '下侧驶入',
 						type: 'downEntry',
 					},
+					{
+						name: '左侧驶入（刹车特效）',
+						type: 'leftEntryBrake',
+					},
+					{
+						name: '右侧驶入（刹车特效）',
+						type: 'rightEntryBrake',
+					},
+					{
+						name: '上侧驶入（刹车特效）',
+						type: 'upEntryBrake',
+					},
+					{
+						name: '下侧驶入（刹车特效）',
+						type: 'downEntryBrake',
+					},
 				],
 				animationTimingFunctionList: [
 					{
