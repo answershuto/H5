@@ -9,7 +9,8 @@
 			{{message}}
 		</mu-popup>
 		<div class="system-btn">
-			<mu-raised-button label="生成并保存" @click="handleClickSave" primary/>
+			<mu-raised-button label="预览" @click="handleClickPreview" backgroundColor="#A1887F" />
+			<mu-raised-button label="保存" @click="handleClickSave" primary/>
 			<mu-raised-button label="退出" @click="handleClickExit" secondary/>
 		</div>
  	</div>
@@ -21,6 +22,9 @@
 	import musicDialog from '../layouts/musicDialog.vue'
 	import imageDialog from '../layouts/imageDialog.vue'
 	import modifyDesign from '../layouts/modifyDesign.vue'
+
+	let localStorage = window.localStorage || {}; 
+
 	export default {
 		components: {
 			PageList,
@@ -68,6 +72,9 @@
 				this.$store.dispatch('updateDesignWorks');
 				this.$store.commit('setRoute','/Main');
 				this.$store.commit('setDesign');
+			},
+			handleClickPreview(){
+				window.open('/H5/Show?userName='+localStorage['H5-UserName']+'&workName='+this.$store.state.Work.workName, '_blank');
 			},
 		},
 		computed: {

@@ -72,13 +72,12 @@
 						}, 1000)
 
 						localStorage['H5-isRememberPassword'] = this.isRememberPassword;
+						localStorage['H5-UserName'] = this.userName;
 						if (this.isRememberPassword) {
 							/*记住密码*/
-							localStorage['H5-UserName'] = this.userName;
 							localStorage['H5-PassWord'] = this.passWord;
 						}
 						else{
-							localStorage['H5-UserName'] = '';
 							localStorage['H5-PassWord'] = '';
 						}
 					}
