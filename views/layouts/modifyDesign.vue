@@ -76,6 +76,9 @@
 						<mu-menu-item v-for="item,index in animationTimingFunctionList" :value="item.type" :title="item.name" />
 					</mu-select-field>
 				</div>
+				<div class="Annotations">
+					*点击Home键预览动画效果
+				</div>
 			</div>
 		</mu-drawer>
  	</div>
@@ -451,6 +454,11 @@
 </script>
 
 <style scoped>
+	.Annotations{
+		color: red;
+		font-size: 80%;
+	}
+
 	.drawer{
 		background-color: #d7ccc8;
 		width: 400px;
