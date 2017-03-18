@@ -60,7 +60,6 @@
 				.then(response => response.json())
 				.then(d => {
 					if (d.result) {
-						this.refreshList();
 						this.$store.commit('alertDesignMessage', {isAlert: true, message: '保存成功'});
 					}
 					else{
