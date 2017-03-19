@@ -31,7 +31,7 @@
 						<img class="QRimage-img" :src="url">
 					</div>
 					<div class="QRimage-prompt">扫一扫查看作品</div>
-					<div class="QRimage-prompt">提示：查看前请保存</div>
+					<div class="QRimage-prompt">提示：查看前请先保存</div>
 				</div>
 			</div>
 		</mu-drawer>
@@ -128,7 +128,7 @@
 
 	.QRimage-prompt{
 		color: #795548;
-		width: 130px;
+		width: 150px;
 		margin: 0px auto;
 		text-align: center;
 	}
