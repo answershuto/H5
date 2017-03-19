@@ -31,4 +31,7 @@ module.exports = function(app){
 
 	app.route('/H5/Show')
 		.get(H5Controller.showPage);
+
+	app.route('/H5/QRcode')
+		.get(H5Controller.QRcode);
 }

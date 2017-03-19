@@ -5,6 +5,7 @@ let rpc = require('./h5.server.rpc');
 let formidable = require('formidable');
 let fs = require('fs');
 let cfg = require('../../config/config');
+let qr = require('qr-image')
 
 /*mongoose*/
 let Users = mongoose.model('Users');
@@ -372,5 +373,32 @@ module.exports = {
 			}
 		})
 	 },
+
+	 /**
+	 * 二维码接口
+	 *
+	 * 根据URL生成对应的二维码图片
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-3-19
+	 * @author   Cao Yang
+	 */
+	 QRcode(req, res, next){
+	 		let userName = req.query.userName || '';
+	 		let workName = req.query.workName || '';
+	 		let url = cfg.ip + ':' + cfg.port + '/H5/Show?userName=' + userName + '&workName=' + workName;
+		    try {
+		        var img = qr.image(url,{size :10});
+		        res.writeHead(200, {'Content-Type': 'image/png'});
+		        img.pipe(res);
+		    } catch (e) {
+		        res.writeHead(414, {'Content-Type': 'text/html'});
+		        res.end('<h1>414 Request-URI Too Large</h1>');
+		    }
+	 }
 
 }

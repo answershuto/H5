@@ -26,6 +26,13 @@
 						<input type="color" name="" class="color" v-model="BackgroundColor" >
 					</div>
 				</div>
+				<div class="QRimage">
+					<div class="QRimage-div">
+						<img class="QRimage-img" :src="url">
+					</div>
+					<div class="QRimage-prompt">扫一扫查看作品</div>
+					<div class="QRimage-prompt">提示：查看前请保存</div>
+				</div>
 			</div>
 		</mu-drawer>
  	</div>
@@ -87,6 +94,9 @@
 			pages(){
 				return this.$store.state.Design.DesignInfos.pages;
 			},
+			url(){
+				return '/H5/QRcode?userName='+localStorage['H5-UserName']+'&workName='+this.$store.state.Work.workName;
+			},
 		},
 		watch:{
 			BackgroundColor(val){
@@ -102,6 +112,27 @@
 
 
 <style scoped>
+	.QRimage{
+		margin-top: 30px;
+	}
+
+	.QRimage-img{
+		width: 200px;
+		height: 200px;
+	}
+
+	.QRimage-div{
+		width: 200px;
+		margin: 0px auto;
+	}
+
+	.QRimage-prompt{
+		color: #795548;
+		width: 130px;
+		margin: 0px auto;
+		text-align: center;
+	}
+
 	.pageicon{
 		margin-left: 35px;
 	}
@@ -159,7 +190,7 @@
 	}
 
 	.page-set{
-		height: 200px;
+		height: 400px;
 		width: 100%;
 		position: absolute;
 		bottom: 0;
