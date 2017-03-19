@@ -8,7 +8,7 @@
  		</div>
  		<div v-show="hasWorks" class="works">
  			<div v-for="item in DesignWorks">
-				<DesignWorkPage :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
+				<DesignWorkPage :imageSrc="'/H5/QRcode?userName='+userName()+'&workName='+item.workName" :WorkName="item.workName" :date="item.date" @click.native="clickDesignWorkPage(item.workName, item.designInfos)" class="DesignWorkPage" :closeFunc="handleClickClose(item.workName)"></DesignWorkPage>
  			</div>
  			<div class="DesignWorkPage add">
  				<mu-icon class="iconAdd" @click.native="createWork" size="200" value="add"/>
@@ -26,6 +26,9 @@
 <script>
 	import createWorkDialog from '../components/createWorkDialog.vue'
 	import DesignWorkPage from '../components/DesignWorkPage.vue'
+
+	let localStorage = window.localStorage || {}; 
+
 	export default {
 		components: {
 			createWorkDialog,
@@ -59,6 +62,9 @@
 
 				this.confirm = false;
 			},
+			userName(){
+				return localStorage['H5-UserName'] || '';
+			},
 		},
 		computed: {
 			/*是否有作品*/
@@ -84,7 +90,7 @@
 	}
 
 	.iconAdd{
-		line-height: 230px;
+		line-height: 350px;
 	}
 
 	.DesignWorkPage{
