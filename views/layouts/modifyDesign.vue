@@ -39,6 +39,9 @@
 						<div class="modifyPrompt">内边距</div>
 						<mu-slider v-model="modifyPadding" class="slider" max='100' />
 					</div>
+					<div>
+						<mu-raised-button label="删除" class="delete-element" @click="handleClickDelEle" secondary/>
+					</div>
 				</div>
 				<div v-show="isImage">
 					<div>
@@ -56,6 +59,9 @@
 					<div>
 						<div class="modifyPrompt">图片高度</div>
 						<mu-slider v-model="modifyImageHeight" class="slider" max='340'/>
+					</div>
+					<div>
+						<mu-raised-button label="删除" class="delete-element" @click="handleClickDelEle" secondary/>
 					</div>
 				</div>
 			</div>
@@ -254,6 +260,9 @@
 		methods: {
 			handleTabChange (val) {
 				this.activeTab = val
+			},
+			handleClickDelEle(){
+				this.$store.commit('delDesignText', this.$store.state.Design.DesignInfos.currentElement);
 			},
 		},
 		watch: {
@@ -516,5 +525,10 @@
 	.modifySelect{
 		width: 70px;
 		line-height: 50px;
+	}
+
+	.delete-element{
+		width: 350px;
+		margin: 0px auto;
 	}
 </style>

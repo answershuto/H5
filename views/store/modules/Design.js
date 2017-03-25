@@ -159,6 +159,21 @@ module.exports = {
 
 			state.DesignInfos.id++;
 		},
+		/*删除文本*/
+		delDesignText(state, id){console.log(id)
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					let isMove = false;
+					item.text.forEach((t, i) => {
+						if (isMove) return;
+						if (t.id === id) {
+							isMove = true;
+							item.text = item.text.slice(0,i).concat(item.text.slice(i+1, item.text.length));
+						}
+					})
+				}
+			})
+		},
 		/*根据id修改style*/
 		modifyTextStyleById(state, info){
 			state.DesignInfos.pages.forEach((item, index) => {
