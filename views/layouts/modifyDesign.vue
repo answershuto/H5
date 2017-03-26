@@ -262,7 +262,12 @@
 				this.activeTab = val
 			},
 			handleClickDelEle(){
-				this.$store.commit('delDesignText', this.$store.state.Design.DesignInfos.currentElement);
+				if (this.$store.state.Design.DesignInfos.currentElementType === 'text') {
+					this.$store.commit('delDesignText', this.$store.state.Design.DesignInfos.currentElement);
+				}
+				else{
+					this.$store.commit('delDesignImage', this.$store.state.Design.DesignInfos.currentElement);
+				}
 			},
 		},
 		watch: {

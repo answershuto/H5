@@ -160,7 +160,7 @@ module.exports = {
 			state.DesignInfos.id++;
 		},
 		/*删除文本*/
-		delDesignText(state, id){console.log(id)
+		delDesignText(state, id){
 			state.DesignInfos.pages.forEach((item, index) => {
 				if (item.id === state.DesignInfos.currentPage) {
 					let isMove = false;
@@ -275,6 +275,21 @@ module.exports = {
 			})
 
 			state.DesignInfos.id++;
+		},
+		/*删除一张图片*/
+		delDesignImage(state, id){
+			state.DesignInfos.pages.forEach((item, index) => {
+				if (item.id === state.DesignInfos.currentPage) {
+					let isMove = false;
+					item.image.forEach((t, i) => {
+						if (isMove) return;
+						if (t.id === id) {
+							isMove = true;
+							item.image = item.image.slice(0,i).concat(item.image.slice(i+1, item.image.length));
+						}
+					})
+				}
+			})
 		},
 		/*更新当前选中元素的类型*/
 		updateCurrentElementType(state, type){
