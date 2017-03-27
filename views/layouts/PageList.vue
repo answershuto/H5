@@ -12,7 +12,7 @@
 			</div>
 			<mu-list>
 				<div v-for="(page, index) in pages" class="pages-div">
-					<mu-chip class="pageicon" :backgroundColor="isCurrentPage(index)" color="#f3e5f5" @delete="handleClose(page.id)" @click="handleClick(page.id)" showDelete>
+					<mu-chip class="pageicon" :backgroundColor="isCurrentPage(index)" color="#f3e5f5" @delete="handleClose(page.id, index)" @click="handleClick(page.id)" showDelete>
 						<mu-avatar :size="32" src="/images/H5.png"/>
 						<div class="pageNum">第&nbsp{{index+1}}页</div>
 					</mu-chip>
@@ -35,6 +35,11 @@
 				</div>
 			</div>
 		</mu-drawer>
+		<mu-dialog :open="confirm" title="H5">
+			确认删除第{{delIndex+1}}页吗？？
+			<mu-flat-button slot="actions" @click="handleConfirmBtn(true)" primary label="确定"/>
+			<mu-flat-button slot="actions" primary @click="handleConfirmBtn(false)" label="取消"/>
+		</mu-dialog>
  	</div>
 </template>
 
@@ -48,6 +53,9 @@
 			return {
 				isOpen: true,
 				BackgroundColor: '#FFFFFF',
+				confirm: false,
+				delPageId: 0,
+				delIndex: 0,
 			}
 		},
 		mounted(){
@@ -61,8 +69,10 @@
 			this.$refs.design.onclick = null;
 		},
 		methods: {
-			handleClose(pageId){
-				this.$store.dispatch('delPageNum', pageId);
+			handleClose(pageId, index){
+				this.delPageId = pageId || 0;
+				this.confirm = true;
+				this.delIndex = index || 0;
 			},
 			handleClick(pageId){
 				this.$store.commit('changePage', pageId);
@@ -88,6 +98,12 @@
 			},
 			isCurrentPage(page){
 				return (this.$store.state.Design.DesignInfos.currentPage === ('page_'+page)) ? '#795548' : '#a1887f';
+			},
+			handleConfirmBtn(b){
+				this.confirm = false;
+				if (b) {
+					this.$store.dispatch('delPageNum', this.delPageId);
+				}
 			},
 		},
 		computed: {
