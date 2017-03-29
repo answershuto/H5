@@ -18,6 +18,7 @@ let Main = {
 /*modoles*/
 let Work = require('./modules/Work.js');
 let Design = require('./modules/Design.js');
+let User = require('./modules/User.js');
 
 export default new Vuex.Store({
 	strict: true,
@@ -25,5 +26,6 @@ export default new Vuex.Store({
     	Main,
     	Work,
     	Design,
+    	User,
     }
 })
