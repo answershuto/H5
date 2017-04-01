@@ -6,7 +6,7 @@
 		  </mu-dialog>
  	</div>
 </template>
-
+ 
 <script>
 	/*use this.$store.commit('Alert', {isAlert: true, message: 'test'});*/
 	export default {
