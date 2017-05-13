@@ -16,6 +16,10 @@ module.exports = {
     loaders: [
       { test: /\.css$/, loader: "style-loader!css-loader" },
       {
+        test: /\.less/,
+        loaders: ['style', 'css', 'autoprefixer', 'less'],
+      },
+      {
         test: /\.vue$/,
         loader: 'vue'
       },
