@@ -5,6 +5,7 @@ let fs = require('fs');
 let cfg = require('../../config/config');
 
 /*mongoose*/
+let Users = mongoose.model('Users');
 let UserMusics = mongoose.model('UserMusics');
 let UserImages = mongoose.model('UserImages');
 let UserDesigns = mongoose.model('UserDesigns');
@@ -268,7 +269,7 @@ module.exports = {
 	 * @date     2017-3-3
 	 * @author   Cao Yang
 	 */
-	 delDesign(req, res, next){console.log('delDesign')
+	 delDesign(req, res, next){
 	 	let params = req.body.params;
 	 	let delObj = {
 	 		userName: req.session.user.userName,
@@ -286,6 +287,50 @@ module.exports = {
 	 		}
 	 	})
 	 },
+
+	 /**
+	 * 修改用户信息
+	 *
+	 * 修改用户的相关信息
+	 *
+	 * @param    req 
+	 * @param    res 
+	 * @param    next 
+	 * @returns  void
+	 *
+	 * @date     2017-5-14
+	 * @author   Cao Yang
+	 */
+	 saveUserInfo (req, res, next) {
+	 	let params = req.body.params;
+	 	Users.find({userName: req.session.user.userName,}, null,{}, (err, result) => {
+	 		if (err) {
+        		console.log('saveUserInfo err!' + err);
+        		res.json({result: false, content: '获取失败'});
+        		return next(err);
+        	}
+        	else{
+        		/*只修改部分可修改字段，不直接覆盖*/
+        		result[0].Gender = (params.Gender === 'Man') ? 'Man' : 'Woman';
+        		result[0].age = params.age;
+        		result[0].eMail = params.eMail;
+        		result[0].nikeName = params.nikeName;
+        		result[0].personalizedSignature = params.personalizedSignature;
+        		result[0].place = params.place;
+
+        		result[0].save(err => {
+					if (err) {
+	            		console.log('saveUserInfo err!' + err);
+	            		res.json({result: false, content: '保存失败'});
+	            		return next(err);
+	            	}
+	            	else{
+	            		res.json({result: true});
+	            	}
+	            });
+        	}
+	 	});
+	 }
 }
 
 
