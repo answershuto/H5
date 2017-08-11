@@ -2,6 +2,6 @@
 
 module.exports = {
 	ip: 'localhost',
-	port: 2000,
+	port: 3000,
 	mongodb: 'mongodb://localhost/H5'
 }
