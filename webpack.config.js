@@ -6,7 +6,7 @@ module.exports = {
   entry: path.resolve(__dirname, './views/app.js'),
   output: {
     path: path.resolve(__dirname, './views/dist'),
-    publicPath: 'http://localhost:2000/dist/',
+    publicPath: 'http://localhost:3000/dist/',
     filename: 'build.js'
   },
   resolveLoader: {
