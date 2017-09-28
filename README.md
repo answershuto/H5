@@ -83,6 +83,16 @@ UI:  Muse-UI (https://museui.github.io/#/index)
 
 ## 效果图
 
+![img](./images/login.gif)
+
+![img](./images/newWork.gif)
+
+![img](./images/design.gif)
+
+![img](./images/design2.gif)
+
+![img](./images/output.gif)
+
 ![img](./images/login.png)   
 
 ![img](./images/work.png)   
